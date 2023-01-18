@@ -35,10 +35,6 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
-router.post('/test', (req, res) => {
-    res.json({ requestBody: req.body });
-});
-
 // // GET /api/require-auth
 // const { requireAuth } = require('../../utils/auth.js');
 // router.get(
