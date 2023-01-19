@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import { useEffect, useRef } from "react";
 import "./Navigation.css"
+// import OpenModalButton from "../OpenModalButton";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -29,9 +33,12 @@ function ProfileButton({ user }) {
         setShowMenu(true);
     };
 
+    const closeMenu = () => setShowMenu(false);
+
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
+        closeMenu();
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : "hidden");
@@ -44,15 +51,35 @@ function ProfileButton({ user }) {
             </button>
             {showMenu &&
                 <ul className={ulClassName} ref={ulRef}>
-                    <li>{user.username}</li>
-                    <li>{user.firstName} {user.lastName}</li>
-                    <li>{user.email}</li>
-                    <li>
-                        <button onClick={logout}>Log Out</button>
-                    </li>
+                    {user ? (
+                        <div>
+                            <li>{user.username}</li>
+                            <li>{user.firstName} {user.lastName}</li>
+                            <li>{user.email}</li>
+                            <li>
+                                <button onClick={logout}>Log Out</button>
+                            </li>
+                        </div>
+                    ) : (
+                        <div>
+                            <li>
+                                <OpenModalMenuItem
+                                    itemText="Log In"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<LoginFormModal />}
+                                />
+                            </li>
+                            <li>
+                                <OpenModalMenuItem
+                                    itemText="Sign Up"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<SignupFormModal />}
+                                />
+                            </li>
+                        </div>
+                    )}
                 </ul>
             }
-
         </div>
     );
 }
