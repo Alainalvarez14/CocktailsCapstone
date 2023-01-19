@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
           {/* <Route path="/signup">
             <SignupFormPage />
           </Route> */}
+          <Route path="/new">
+            <CreateCocktailForm />
+          </Route>
         </Switch>
       )}
     </>
