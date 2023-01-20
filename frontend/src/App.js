@@ -6,6 +6,8 @@ import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailForm";
+import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
+import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ function App() {
           </Route> */}
           <Route path="/">
             <CreateCocktailForm />
+            <SingleCocktail />
+            <MyCreatedCocktailList />
           </Route>
         </Switch>
       )}
