@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-export const createCocktail = (cocktail) => {
+const createCocktail = (cocktail) => {
     return ({
         type: 'CREATE_COCKTAIL',
         payload: cocktail
@@ -8,16 +8,19 @@ export const createCocktail = (cocktail) => {
 };
 
 export const createCocktailThunk = (cocktail) => async dispatch => {
-    const response = await csrfFetch(/*`/api/spots/${booking.spotId}/bookings`*/'', {
+    // console.log('within thunk!')
+    const response = await csrfFetch('/api/cocktails', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(cocktail)
     });
+    console.log(response)
 
     if (response.ok) {
         const cocktail = await response.json();
+        console.log(cocktail);
         dispatch(createCocktail(cocktail));
     }
 };
@@ -25,6 +28,7 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
 const defaultState = {};
 export const cocktailsReducer = (state = defaultState, action) => {
     let newState;
+
     switch (action.type) {
 
         case 'CREATE_COCKTAIL': {

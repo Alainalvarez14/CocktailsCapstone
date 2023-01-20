@@ -17,8 +17,8 @@ const CreateCocktailForm = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-        let spotObj = { id, address, city, state, country, lat, lng, name, description, price };
-        //dispatch here (remember to fetch to correct url in thunk!)
+        let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
+        dispatch(createCocktailThunk(cocktailObj));
         setShowCreateForm(false);
     }
 

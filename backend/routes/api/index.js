@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const cocktailsRouter = require('./cocktails.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 router.post('/test', function (req, res) {
@@ -34,6 +35,8 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
+
+router.use('/cocktails', cocktailsRouter);
 
 // // GET /api/require-auth
 // const { requireAuth } = require('../../utils/auth.js');
