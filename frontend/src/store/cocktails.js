@@ -5,6 +5,11 @@ const getAllCocktailsByUser = list => ({
     payload: list
 });
 
+const getAllCocktails = list => ({
+    type: 'GET_ALL_COCKTAILS',
+    payload: list
+});
+
 const createCocktail = (cocktail) => {
     return ({
         type: 'CREATE_COCKTAIL',
@@ -21,6 +26,17 @@ export const getAllCocktailsByUserThunk = () => async dispatch => {
     }
 }
 
+export const getAllCocktailsThunk = () => async dispatch => {
+    console.log("within thunk")
+    const response = await fetch('/api/cocktails')
+    console.log("yo")
+
+    if (response.ok) {
+        const allCocktails = await response.json();
+        dispatch(getAllCocktails(allCocktails.Cocktails));
+    }
+}
+
 export const createCocktailThunk = (cocktail) => async dispatch => {
     // console.log('within thunk!')
     const response = await csrfFetch('/api/cocktails', {
@@ -30,11 +46,11 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
         },
         body: JSON.stringify(cocktail)
     });
-    console.log(response)
+    // console.log(response)
 
     if (response.ok) {
         const cocktail = await response.json();
-        console.log(cocktail);
+        // console.log(cocktail);
         dispatch(createCocktail(cocktail));
     }
 };
@@ -51,6 +67,14 @@ export const cocktailsReducer = (state = defaultState, action) => {
             action.payload.forEach(cocktail => newState[cocktail.id] = cocktail);
             return newState;
         }
+
+        case 'GET_ALL_COCKTAILS': {
+            newState = { ...state };
+            // normalize data
+            action.payload.forEach(cocktail => newState[cocktail.id] = cocktail);
+            return newState;
+        }
+
         case 'CREATE_COCKTAIL': {
             newState = { ...state };
             newState[action.payload.id] = action.payload;
