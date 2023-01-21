@@ -64,4 +64,45 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({ Cocktails: myCocktails });
 });
 
+//delete a cocktail
+router.delete('/:cocktailId', requireAuth, async (req, res) => {
+
+    const cocktail = await Cocktail.findOne({
+        where: {
+            id: req.params.cocktailId
+        }
+    });
+    const userId = req.user.id;
+
+    if (!cocktail) {
+        const myError = {
+            message: "Cocktail couldn't be found",
+            statusCode: 404,
+        };
+        return res.status(404).json(myError);
+    }
+
+    if (userId === cocktail.creatorId) {
+
+        await cocktail.destroy({
+            where: {
+                id: req.params.cocktailId
+            }
+        });
+
+        return res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        });
+
+    }
+
+    if (userId !== spot.ownerId) {
+        const myError = {
+            message: "must be the owner of the spot in order to delete the spot."
+        }
+        return res.status(403).json(myError);
+    }
+});
+
 module.exports = router;

@@ -17,6 +17,11 @@ const createCocktail = (cocktail) => {
     })
 };
 
+const deleteCocktail = cocktail => ({
+    type: 'DELETE_COCKTAIL',
+    payload: cocktail
+});
+
 export const getAllCocktailsByUserThunk = () => async dispatch => {
     const response = await fetch('/api/cocktails/current')
 
@@ -55,6 +60,17 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
     }
 };
 
+export const deleteCocktailThunk = (cocktail) => async dispatch => {
+    console.log("within thunk here");
+    console.log(typeof (cocktail.id));
+    const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteCocktail(cocktail));
+    }
+}
+
 const defaultState = {};
 export const cocktailsReducer = (state = defaultState, action) => {
     let newState;
@@ -80,11 +96,13 @@ export const cocktailsReducer = (state = defaultState, action) => {
             newState[action.payload.id] = action.payload;
             return newState;
         }
-        // case 'DELETE_BOOKING': {
-        //     newState = { ...state };
-        //     delete newState[action.payload.id];
-        //     return newState;
-        // }
+
+        case 'DELETE_COCKTAIL': {
+            newState = { ...state };
+            delete newState[action.payload.id];
+            return newState;
+        }
+
         default: {
             return state;
         }
