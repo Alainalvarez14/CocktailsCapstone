@@ -25,7 +25,7 @@ const SingleCocktail = () => {
                                     border: '1px solid red',
                                     marginTop: '5px'
                                 }}>
-                                    <div>{drink.image}</div>
+                                    {/* <div>{drink.image}</div> */}
                                     <img src={`${drink.image}`} className="drinkImage"></img>
                                     <div>{drink.name}</div>
                                 </div>

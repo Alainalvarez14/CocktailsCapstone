@@ -31,4 +31,15 @@ router.post('/', requireAuth, async (req, res, next) => {
     }
 });
 
+//get all cocktails created by the current user
+router.get('/current', requireAuth, async (req, res) => {
+    const myCocktails = await Cocktail.findAll({
+        where: {
+            creatorId: req.user.id
+        },
+    });
+
+    return res.json({ Cocktails: myCocktails });
+});
+
 module.exports = router;
