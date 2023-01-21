@@ -1,16 +1,29 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import './SingleCocktail.css';
+import { useHistory } from 'react-router-dom';
+import SpecificCocktail from "../SpecificCocktail/SpecificCocktail";
 
 const SingleCocktail = () => {
 
     const cocktail = useSelector(state => state.cocktails);
-    const [specificDrinkDetails, setSpecificDrinkDetails] = useState(false);
-    const specificCocktail = useSelector(state => Object.values(state.cocktails)[0]);
+    // const [specificDrinkDetails, setSpecificDrinkDetails] = useState(false);
+    // const specificCocktail = useSelector(state => Object.values(state.cocktails)[0]);
+    const history = useHistory();
 
-    const handleShowSpecificDrinkDetails = (e, cocktailId) => {
+
+    const handleShowSpecificDrinkDetails = (e, cocktail) => {
         e.preventDefault();
-        setSpecificDrinkDetails(true);
+        // const clickedCocktail = useSelector(state => Object.values(state.cocktails).filter(cocktail => cocktail.id === cocktailId));
+        // const clickedCocktail = Object.values(cocktail).filter(cocktail => cocktail.id === cocktailId);
+
+        // setSpecificDrinkDetails(!specificDrinkDetails);
+        // if (clickedCocktail) {
+        // console.log(clickedCocktail);
+        console.log(cocktail);
+        // <SpecificCocktail cocktailId={cocktail.id} cocktailName={cocktail.name} />
+        history.push(`/drink/${cocktail.id}`);
+        // }
         // dispatch(getSpecificDrinkDetails(cocktailId));
     }
 
@@ -21,11 +34,10 @@ const SingleCocktail = () => {
                     <div>
                         {Object.values(cocktail).map(drink => {
                             return (
-                                <div onClick={(e) => handleShowSpecificDrinkDetails(e, drink.id)} style={{
+                                <div onClick={(e) => handleShowSpecificDrinkDetails(e, drink)} style={{
                                     border: '1px solid red',
                                     marginTop: '5px'
                                 }}>
-                                    <div>{drink.image}</div>
                                     <img src={`${drink.image}`} className="drinkImage"></img>
                                     <div>{drink.name}</div>
                                 </div>
@@ -34,7 +46,7 @@ const SingleCocktail = () => {
                     </div>
                 </div>
             )}
-            {specificDrinkDetails && (
+            {/* {specificDrinkDetails && (
                 <div style={{
                     border: '1px solid blue',
                     marginTop: '5px'
@@ -43,18 +55,12 @@ const SingleCocktail = () => {
                     <div>Glass type: {specificCocktail.glassType}</div>
 
                     <h4>Ingredients</h4>
-                    {/* {ingredientArr.length && measurementArr.length && (
-                        ingredientArr.map((ingredient, i) => {
-                            return (
-                                <li>{ingredient} - {measurementArr[i]}</li>
-                            )
-                        })
-                    )} */}
+
 
                     <div>Instructions: {specificCocktail.instructions}</div>
 
                 </div>
-            )}
+            )} */}
         </div>
     )
 }
