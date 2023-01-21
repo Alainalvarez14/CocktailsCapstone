@@ -13,7 +13,9 @@ const MyCreatedCocktailList = () => {
     const handleOpenCreatedCocktailList = (e) => {
         e.preventDefault();
         setShowCreatedCocktailList(!showCreatedCocktailList);
-        dispatch(getAllCocktailsByUserThunk());
+        if (showCreatedCocktailList) {
+            dispatch(getAllCocktailsByUserThunk());
+        }
     }
 
     return (
