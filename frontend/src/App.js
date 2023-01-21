@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailForm";
 import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
+import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           {/* <Route path="/signup">
             <SignupFormPage />
           </Route> */}
+          <Route path="/drink/:drinkId">
+            <SpecificCocktail />
+          </Route>
           <Route path="/">
             <CreateCocktailForm />
             <SingleCocktail />
