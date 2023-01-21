@@ -14,19 +14,20 @@ const SpecificCocktail = () => {
     }, [dispatch]);
 
     const allCocktails = useSelector(state => state.cocktails);
-    const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId));
-
+    const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
+    console.log(specificCocktail)
     return (
         <div style={{
             border: '1px solid blue',
-            marginTop: '5px'
+            marginTop: '5px',
+            width: '400px',
+            height: '600px'
         }}>
             <div>
-                <div>Drink type: {specificCocktail.map(el => {
-                    return (
-                        <div>{el.isAlcoholic}</div>
-                    )
-                })}</div>
+                <div>{specificCocktail.image}</div>
+                <div>{specificCocktail.name}</div>
+                <div>Drink type: {specificCocktail.isAlcoholic.toString()}</div>
+
                 <div>Glass type: {specificCocktail.glassType}</div>
 
                 <h4>Ingredients</h4>
@@ -35,16 +36,13 @@ const SpecificCocktail = () => {
                 <div>Instructions: {specificCocktail.instructions}</div>
 
             </div>
-            {specificCocktail.map(el => {
-                if (el.creatorId === user.id) {
-                    return (
-                        <div>
-                            <button>EDIT</button>
-                            <button>DELETE</button>
-                        </div>
-                    )
-                }
-            })}
+            {specificCocktail.creatorId === user.id && (
+                <div>
+                    <button>EDIT</button>
+                    <button>DELETE</button>
+                </div>
+            )
+            }
         </div>
     )
 }
