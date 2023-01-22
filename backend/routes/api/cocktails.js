@@ -51,6 +51,43 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({ Cocktails: myCocktails });
 });
 
+//edit a cocktail
+router.put('/:cocktailId', requireAuth, async (req, res, next) => {
+
+    const cocktail = await Cocktail.findOne({
+        where: {
+            id: req.params.cocktailId
+        }
+    });
+    const userId = req.user.id;
+    const { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements } = req.body;
+
+    if (!cocktail) {
+        const myError = {
+            message: "Cocktail couldn't be found",
+            statusCode: 404,
+        };
+        return res.status(404).json(myError);
+    }
+
+    if (userId !== cocktail.creatorId) {
+        const myError = {
+            message: "must be the creator of the cocktail in order to edit the cocktail."
+        }
+        return res.status(403).json(myError);
+    }
+
+    if (userId === cocktail.creatorId) {
+
+        await cocktail.update({
+            name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements
+        });
+
+        return res.json(cocktail);
+    }
+
+});
+
 //delete a cocktail
 router.delete('/:cocktailId', requireAuth, async (req, res) => {
 
