@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getAllCocktailsThunk } from "../../store/cocktails";
 import { deleteCocktailThunk } from "../../store/cocktails";
+import { useHistory } from "react-router";
 
 const SpecificCocktail = () => {
 
     const user = useSelector(state => state.session.user);
     const { drinkId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
@@ -18,10 +20,11 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     console.log(specificCocktail)
 
-    // const handleDelete = (e, cocktail) => {
-    //     e.preventDefault;
-    //     dispatch(deleteCocktailThunk(cocktail));
-    // }
+    const handleDelete = (e, cocktail) => {
+        e.preventDefault;
+        dispatch(deleteCocktailThunk(cocktail));
+        history.push("/");
+    }
 
     return (
         <div style={{
@@ -48,8 +51,8 @@ const SpecificCocktail = () => {
             {user && specificCocktail && specificCocktail.creatorId === user.id && (
                 <div>
                     <button>EDIT</button>
-                    {/* <button onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button> */}
-                    <button onClick={() => dispatch(deleteCocktailThunk(specificCocktail))}>DELETE</button>
+                    <button onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
+                    {/* <button onClick={() => dispatch(deleteCocktailThunk(specificCocktail))}>DELETE</button> */}
                 </div>
             )}
         </div>

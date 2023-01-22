@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createCocktailThunk } from '../../store/cocktails';
+import { getAllCocktailsByUserThunk } from '../../store/cocktails';
 
 const CreateCocktailForm = () => {
 
@@ -19,6 +20,7 @@ const CreateCocktailForm = () => {
         e.preventDefault();
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(createCocktailThunk(cocktailObj));
+        // dispatch(getAllCocktailsByUserThunk());
         setShowCreateForm(false);
     }
 
