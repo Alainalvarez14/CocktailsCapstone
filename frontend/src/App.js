@@ -33,8 +33,8 @@ function App() {
           </Route>
           <Route path="/">
             <CreateCocktailForm />
-            <SingleCocktail />
             <MyCreatedCocktailList />
+            <SingleCocktail />
           </Route>
         </Switch>
       )}

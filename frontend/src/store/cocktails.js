@@ -1,5 +1,10 @@
 import { csrfFetch } from "./csrf";
 
+const getAllCocktailsByUser = list => ({
+    type: 'GET_ALL_COCKTAILS_BY_USER',
+    payload: list
+});
+
 const getAllCocktails = list => ({
     type: 'GET_ALL_COCKTAILS',
     payload: list
@@ -11,6 +16,20 @@ const createCocktail = (cocktail) => {
         payload: cocktail
     })
 };
+
+const deleteCocktail = cocktail => ({
+    type: 'DELETE_COCKTAIL',
+    payload: cocktail
+});
+
+export const getAllCocktailsByUserThunk = () => async dispatch => {
+    const response = await fetch('/api/cocktails/current')
+
+    if (response.ok) {
+        const list = await response.json();
+        dispatch(getAllCocktailsByUser(list.Cocktails));
+    }
+}
 
 export const getAllCocktailsThunk = () => async dispatch => {
     console.log("within thunk")
@@ -41,11 +60,29 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
     }
 };
 
+export const deleteCocktailThunk = (cocktail) => async dispatch => {
+    console.log("within thunk here");
+    console.log(typeof (cocktail.id));
+    const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteCocktail(cocktail));
+    }
+}
+
 const defaultState = {};
 export const cocktailsReducer = (state = defaultState, action) => {
     let newState;
 
     switch (action.type) {
+
+        case 'GET_ALL_COCKTAILS_BY_USER': {
+            newState = { ...state };
+            // normalize data
+            action.payload.forEach(cocktail => newState[cocktail.id] = cocktail);
+            return newState;
+        }
 
         case 'GET_ALL_COCKTAILS': {
             newState = { ...state };
@@ -59,11 +96,13 @@ export const cocktailsReducer = (state = defaultState, action) => {
             newState[action.payload.id] = action.payload;
             return newState;
         }
-        // case 'DELETE_BOOKING': {
-        //     newState = { ...state };
-        //     delete newState[action.payload.id];
-        //     return newState;
-        // }
+
+        case 'DELETE_COCKTAIL': {
+            newState = { ...state };
+            delete newState[action.payload.id];
+            return newState;
+        }
+
         default: {
             return state;
         }
