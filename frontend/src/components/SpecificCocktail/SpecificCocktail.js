@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getAllCocktailsThunk } from "../../store/cocktails";
 import { deleteCocktailThunk } from "../../store/cocktails";
-import { useHistory } from "react-router";
 import { editCocktailThunk } from "../../store/cocktails";
+import { useHistory } from "react-router";
 
 const SpecificCocktail = () => {
 
@@ -50,7 +50,6 @@ const SpecificCocktail = () => {
         setShowEditForm(false);
     }
 
-    
     return (
         <div style={{
             border: '1px solid blue',
