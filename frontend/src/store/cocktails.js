@@ -60,6 +60,26 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
     }
 };
 
+export const editCocktailThunk = (cocktail) => async dispatch => {
+    console.log(cocktail)
+    console.log('within edit cocktail thunk')
+    console.log(cocktail.id)
+    const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cocktail)
+    });
+
+    console.log(response)
+
+    if (response.ok) {
+        const cocktail = await response.json();
+        dispatch(createCocktail(cocktail));
+    }
+}
+
 export const deleteCocktailThunk = (cocktail) => async dispatch => {
     console.log("within thunk here");
     console.log(typeof (cocktail.id));
