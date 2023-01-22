@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCocktailsByUserThunk } from "../../store/cocktails";
+import { useHistory } from "react-router";
 
 const MyCreatedCocktailList = () => {
 
@@ -9,12 +10,14 @@ const MyCreatedCocktailList = () => {
     const cocktails = useSelector(state => state.cocktails);
     const ownedCocktails = Object.values(cocktails).filter(cocktail => cocktail.creatorId === user.id);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleOpenCreatedCocktailList = (e) => {
         e.preventDefault();
         setShowCreatedCocktailList(true);
         if (showCreatedCocktailList) {
             dispatch(getAllCocktailsByUserThunk());
+            history.push("/myBar");
         }
     }
 
