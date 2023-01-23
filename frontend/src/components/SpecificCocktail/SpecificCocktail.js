@@ -13,6 +13,7 @@ const SpecificCocktail = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showReviewForm, setShowReviewForm] = useState(false);
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [isAlcoholic, setIsAlcoholic] = useState('');
@@ -50,6 +51,8 @@ const SpecificCocktail = () => {
         setShowEditForm(false);
     }
 
+
+
     return (
         <div style={{
             border: '1px solid blue',
@@ -69,6 +72,8 @@ const SpecificCocktail = () => {
 
 
                     <div>Instructions: {specificCocktail.instructions}</div>
+
+                    <button onClick={() => setShowReviewForm(!showReviewForm)}>Leave a Review!</button>
 
                 </div>
             )}
@@ -107,6 +112,9 @@ const SpecificCocktail = () => {
                     </div>
                     <button type='submit'>Submit</button>
                 </form>
+            )}
+            {user && specificCocktail && showReviewForm && (
+                <div>hi</div>
             )}
         </div>
     )
