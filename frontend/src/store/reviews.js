@@ -1,5 +1,10 @@
 import { csrfFetch } from "./csrf";
 
+const getAllReviewsForSpecificCocktail = list => ({
+    type: 'GET_ALL_REVIEWS_FOR_SPECIFIC_COCKTAIL',
+    payload: list
+});
+
 const createReview = (review) => {
     return ({
         type: 'CREATE_REVIEW',
@@ -7,9 +12,17 @@ const createReview = (review) => {
     })
 };
 
-export const createReviewThunk = (review) => async dispatch => {
+export const getAllReviewsForSpecificCocktailThunk = (cocktail) => async dispatch => {
+    const response = await fetch(`/api/reviews/${cocktail.id}`)
 
-    const response = await csrfFetch('/api/reviews', {
+    if (response.ok) {
+        const allReviews = await response.json();
+        dispatch(getAllReviewsForSpecificCocktail(allReviews.Reviews));
+    }
+}
+
+export const createReviewThunk = (review) => async dispatch => {
+    const response = await csrfFetch(`/api/cocktails/${review.cocktailId}/reviews`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -29,12 +42,12 @@ export const reviewsReducer = (state = defaultState, action) => {
 
     switch (action.type) {
 
-        // case 'GET_ALL_REVIEWS': {
-        //     newState = { ...state };
-        //     // normalize data
-        //     action.payload.forEach(review => newState[review.id] = review);
-        //     return newState;
-        // }
+        case 'GET_ALL_REVIEWS_FOR_SPECIFIC_COCKTAIL': {
+            newState = {};
+            // normalize data
+            action.payload.forEach(review => newState[review.id] = review);
+            return newState;
+        }
 
         case 'CREATE_REVIEW': {
             newState = { ...state };

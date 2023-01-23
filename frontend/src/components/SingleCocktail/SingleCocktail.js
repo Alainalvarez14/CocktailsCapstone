@@ -16,7 +16,6 @@ const SingleCocktail = () => {
 
     const handleShowSpecificDrinkDetails = (e, cocktail) => {
         e.preventDefault();
-        console.log(cocktail);
         history.push(`/drink/${cocktail.id}`);
     }
 

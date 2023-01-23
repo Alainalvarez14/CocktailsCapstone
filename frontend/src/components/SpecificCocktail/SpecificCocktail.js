@@ -5,6 +5,8 @@ import { getAllCocktailsThunk } from "../../store/cocktails";
 import { deleteCocktailThunk } from "../../store/cocktails";
 import { editCocktailThunk } from "../../store/cocktails";
 import { useHistory } from "react-router";
+import { createReviewThunk } from "../../store/reviews";
+import { getAllReviewsForSpecificCocktailThunk } from "../../store/reviews";
 
 const SpecificCocktail = () => {
 
@@ -22,15 +24,15 @@ const SpecificCocktail = () => {
     const [glassType, setGlassType] = useState('');
     const [instructions, setInstructions] = useState('');
     const [measurements, setMeasurements] = useState('');
+    const [review, setReview] = useState('');
+    const [stars, setStars] = useState('');
+    const allCocktails = useSelector(state => state.cocktails);
+    const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
 
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
-
-    const allCocktails = useSelector(state => state.cocktails);
-    const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
-    console.log(specificCocktail)
 
     const handleDelete = (e, cocktail) => {
         e.preventDefault;
@@ -51,7 +53,18 @@ const SpecificCocktail = () => {
         setShowEditForm(false);
     }
 
+    const handleSubmitReviewForm = () => {
+        let reviewObj = { review, stars, userId: user.id, cocktailId: specificCocktail.id };
+        dispatch(createReviewThunk(reviewObj));
+        setShowReviewForm(false);
+    }
 
+    const seeAllReviews = (e) => {
+        e.preventDefault();
+        console.log(specificCocktail)
+        dispatch(getAllReviewsForSpecificCocktailThunk(specificCocktail));
+        // history.push(`${specificCocktail.id}/reviews`);
+    }
 
     return (
         <div style={{
@@ -74,6 +87,7 @@ const SpecificCocktail = () => {
                     <div>Instructions: {specificCocktail.instructions}</div>
 
                     <button onClick={() => setShowReviewForm(!showReviewForm)}>Leave a Review!</button>
+                    <button onClick={(e) => seeAllReviews(e)}>See all reviews</button>
 
                 </div>
             )}
@@ -114,7 +128,15 @@ const SpecificCocktail = () => {
                 </form>
             )}
             {user && specificCocktail && showReviewForm && (
-                <div>hi</div>
+                <form onSubmit={handleSubmitReviewForm}>
+                    <div>
+                        <input placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
+                    </div>
+                    <div>
+                        <input placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
+                    </div>
+                    <button type='submit'>Submit</button>
+                </form>
             )}
         </div>
     )

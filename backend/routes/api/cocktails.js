@@ -42,6 +42,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 //get all cocktails created by the current user
 router.get('/current', requireAuth, async (req, res) => {
+
     const myCocktails = await Cocktail.findAll({
         where: {
             creatorId: req.user.id
@@ -53,7 +54,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //edit a cocktail
 router.put('/:cocktailId', requireAuth, async (req, res, next) => {
-
+    console.log(req)
     const cocktail = await Cocktail.findOne({
         where: {
             id: req.params.cocktailId
