@@ -12,6 +12,11 @@ const createReview = (review) => {
     })
 };
 
+const deleteReview = review => ({
+    type: 'DELETE_REVIEW',
+    payload: review
+});
+
 export const getAllReviewsForSpecificCocktailThunk = (cocktail) => async dispatch => {
     const response = await fetch(`/api/reviews/${cocktail.id}`)
 
@@ -36,6 +41,15 @@ export const createReviewThunk = (review) => async dispatch => {
     }
 };
 
+export const deleteReviewThunk = (review) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${review.id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteReview(review));
+    }
+}
+
 const defaultState = {};
 export const reviewsReducer = (state = defaultState, action) => {
     let newState;
@@ -55,11 +69,11 @@ export const reviewsReducer = (state = defaultState, action) => {
             return newState;
         }
 
-        // case 'DELETE_REVIEW': {
-        //     newState = { ...state };
-        //     delete newState[action.payload.id];
-        //     return newState;
-        // }
+        case 'DELETE_REVIEW': {
+            newState = { ...state };
+            delete newState[action.payload.id];
+            return newState;
+        }
 
         default: {
             return state;

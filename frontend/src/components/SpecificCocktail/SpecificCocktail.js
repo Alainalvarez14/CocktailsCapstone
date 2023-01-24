@@ -7,6 +7,7 @@ import { editCocktailThunk } from "../../store/cocktails";
 import { useHistory } from "react-router";
 import { createReviewThunk } from "../../store/reviews";
 import { getAllReviewsForSpecificCocktailThunk } from "../../store/reviews";
+import { deleteReviewThunk } from "../../store/reviews";
 
 const SpecificCocktail = () => {
 
@@ -28,7 +29,8 @@ const SpecificCocktail = () => {
     const [stars, setStars] = useState('');
     const allCocktails = useSelector(state => state.cocktails);
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
-
+    const [showReviews, setShowReviews] = useState(false);
+    const allReviewsForCocktail = useSelector(state => state.reviews);
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
@@ -61,9 +63,13 @@ const SpecificCocktail = () => {
 
     const seeAllReviews = (e) => {
         e.preventDefault();
-        console.log(specificCocktail)
         dispatch(getAllReviewsForSpecificCocktailThunk(specificCocktail));
-        // history.push(`${specificCocktail.id}/reviews`);
+        setShowReviews(!showReviews);
+    }
+
+    const handleDeleteReview = (e, review) => {
+        e.preventDefault();
+        dispatch(deleteReviewThunk(review));
     }
 
     return (
@@ -137,6 +143,28 @@ const SpecificCocktail = () => {
                     </div>
                     <button type='submit'>Submit</button>
                 </form>
+            )}
+            {user && specificCocktail && !showReviewForm && showReviews && (
+                <div>
+                    {Object.values(allReviewsForCocktail).map(review => {
+                        return (
+                            <div style={{
+                                border: "1px solid red",
+                                marginTop: "5px"
+                            }}>
+                                <div>{review.review}</div>
+                                <div>stars: {review.stars}</div>
+                                <div>Reviewed by: User{review.userId}</div>
+                                {user.id === review.userId && (
+                                    <div>
+                                        <button>EDIT REVIEW</button>
+                                        <button onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
+                                    </div>
+                                )}
+                            </div>
+                        )
+                    })}
+                </div>
             )}
         </div>
     )

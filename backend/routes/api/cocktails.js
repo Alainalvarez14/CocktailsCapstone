@@ -122,9 +122,9 @@ router.delete('/:cocktailId', requireAuth, async (req, res) => {
 
     }
 
-    if (userId !== spot.ownerId) {
+    if (userId !== cocktail.creatorId) {
         const myError = {
-            message: "must be the owner of the spot in order to delete the spot."
+            message: "must be the creator of the cocktail in order to delete the cocktail."
         }
         return res.status(403).json(myError);
     }
