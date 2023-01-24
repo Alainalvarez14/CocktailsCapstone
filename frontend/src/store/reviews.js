@@ -41,6 +41,23 @@ export const createReviewThunk = (review) => async dispatch => {
     }
 };
 
+export const editReviewThunk = (review) => async dispatch => {
+    console.log('this is within the thunk')
+    console.log(review)
+    const response = await csrfFetch(`/api/reviews/${review.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+    });
+
+    if (response.ok) {
+        const review = await response.json();
+        dispatch(createReview(review));
+    }
+}
+
 export const deleteReviewThunk = (review) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${review.id}`, {
         method: "DELETE"

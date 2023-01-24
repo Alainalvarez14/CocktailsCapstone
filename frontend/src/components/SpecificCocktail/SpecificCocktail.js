@@ -8,14 +8,17 @@ import { useHistory } from "react-router";
 import { createReviewThunk } from "../../store/reviews";
 import { getAllReviewsForSpecificCocktailThunk } from "../../store/reviews";
 import { deleteReviewThunk } from "../../store/reviews";
+import { editReviewThunk } from "../../store/reviews";
 
 const SpecificCocktail = () => {
 
     const user = useSelector(state => state.session.user);
     const { drinkId } = useParams();
+    const { reviewId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showEditReviewForm, setShowEditReviewForm] = useState(false);
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
@@ -31,7 +34,10 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-
+    const [reviewToEdit, setReviewToEdit] = useState('');
+    // const specificReview = Object.values(allReviewsForCocktail).filter(review => review.cocktailId === Number(specificCocktail.id));
+    // console.log(Object.values(allReviewsForCocktail))
+    // console.log(specificCocktail)
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
@@ -48,9 +54,7 @@ const SpecificCocktail = () => {
     // }
 
     const handleSubmitEditForm = () => {
-        console.log('inside handleSUbmitEditForm')
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        console.log(cocktailObj)
         dispatch(editCocktailThunk(cocktailObj));
         setShowEditForm(false);
     }
@@ -70,6 +74,19 @@ const SpecificCocktail = () => {
     const handleDeleteReview = (e, review) => {
         e.preventDefault();
         dispatch(deleteReviewThunk(review));
+    }
+
+    const handleSubmitEditReviewForm = () => {
+        let reviewObj = { id: reviewToEdit.id, review, stars, userId: user.id, cocktailId: specificCocktail.id };
+        dispatch(editReviewThunk(reviewObj));
+        setShowEditReviewForm(false);
+    }
+
+    const openReviewForm = (e, review) => {
+        e.preventDefault()
+        console.log(review)
+        setShowEditReviewForm(!showEditReviewForm)
+        setReviewToEdit(review);
     }
 
     return (
@@ -101,7 +118,6 @@ const SpecificCocktail = () => {
                 <div>
                     <button onClick={() => setShowEditForm(!showEditForm)}>EDIT</button>
                     <button onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
-                    {/* <button onClick={() => dispatch(deleteCocktailThunk(specificCocktail))}>DELETE</button> */}
                 </div>
             )}
             {user && specificCocktail && specificCocktail.creatorId === user.id && showEditForm && (
@@ -157,7 +173,7 @@ const SpecificCocktail = () => {
                                 <div>Reviewed by: User{review.userId}</div>
                                 {user.id === review.userId && (
                                     <div>
-                                        <button>EDIT REVIEW</button>
+                                        <button onClick={(e) => openReviewForm(e, review)}>EDIT REVIEW</button>
                                         <button onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
                                     </div>
                                 )}
@@ -165,6 +181,17 @@ const SpecificCocktail = () => {
                         )
                     })}
                 </div>
+            )}
+            {user && specificCocktail && showEditReviewForm && reviewToEdit && (
+                <form onSubmit={handleSubmitEditReviewForm}>
+                    <div>
+                        <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
+                    </div>
+                    <div>
+                        <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
+                    </div>
+                    <button type='submit'>Submit</button>
+                </form>
             )}
         </div>
     )
