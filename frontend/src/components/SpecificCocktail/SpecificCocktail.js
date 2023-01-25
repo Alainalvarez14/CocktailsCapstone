@@ -96,7 +96,7 @@ const SpecificCocktail = () => {
             width: '400px',
             height: '600px'
         }}>
-            {user && specificCocktail && (
+            {specificCocktail && (
                 <div>
                     <div>{specificCocktail.image}</div>
                     <div>{specificCocktail.name}</div>
@@ -160,7 +160,7 @@ const SpecificCocktail = () => {
                     <button type='submit'>Submit</button>
                 </form>
             )}
-            {user && specificCocktail && !showReviewForm && showReviews && (
+            {specificCocktail && !showReviewForm && showReviews && (
                 <div>
                     {Object.values(allReviewsForCocktail).map(review => {
                         return (
@@ -171,7 +171,7 @@ const SpecificCocktail = () => {
                                 <div>{review.review}</div>
                                 <div>stars: {review.stars}</div>
                                 <div>Reviewed by: User{review.userId}</div>
-                                {user.id === review.userId && (
+                                {user && user.id === review.userId && (
                                     <div>
                                         <button onClick={(e) => openReviewForm(e, review)}>EDIT REVIEW</button>
                                         <button onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
