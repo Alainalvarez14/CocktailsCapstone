@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { createCollectionThunk } from "../../store/collections";
 
 const CollectionsContainer = () => {
 
@@ -8,14 +9,15 @@ const CollectionsContainer = () => {
     const [collectionName, setCollectionName] = useState('');
     const [drinksToAdd, setDrinksToAdd] = useState('');
 
-    const handleCreateNewCollection = (e) => {
+    const handleShowCreateNewCollectionForm = (e) => {
         e.preventDefault();
         setShowCollectionForm(!showCreateCollectionForm);
     }
 
-    const handleSubmitCreateCollectionForm = () => {
-        const collection = { name: collectionName, drinksToAdd }
-        // dispatch(createCollectionThunk(collection));
+    const handleSubmitCreateCollectionForm = (e) => {
+        e.preventDefault();
+        const collection = { name: collectionName, drinks: drinksToAdd }
+        dispatch(createCollectionThunk(collection));
     }
 
     return (
@@ -28,7 +30,7 @@ const CollectionsContainer = () => {
                 <button style={{
                     border: '1px solid red',
                     borderRadius: '20px',
-                }} onClick={(e) => handleCreateNewCollection(e)}>+</button>
+                }} onClick={(e) => handleShowCreateNewCollectionForm(e)}>+</button>
             </div>
             {showCreateCollectionForm && (
                 <form style={{

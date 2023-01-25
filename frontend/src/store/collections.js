@@ -6,6 +6,7 @@ const createCollection = (collection) => {
 };
 
 export const createCollectionThunk = (collection) => async dispatch => {
+    console.log(collection)
     const response = await csrfFetch('/api/collections', {
         method: "POST",
         headers: {

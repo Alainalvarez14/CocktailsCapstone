@@ -3,6 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const cocktailsRouter = require('./cocktails.js');
 const reviewsRouter = require('./reviews.js');
+const collectionsRouter = require('./collections.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 router.post('/test', function (req, res) {
@@ -40,6 +41,8 @@ router.use('/users', usersRouter);
 router.use('/cocktails', cocktailsRouter);
 
 router.use('/reviews', reviewsRouter);
+
+router.use('/collections', collectionsRouter);
 
 // // GET /api/require-auth
 // const { requireAuth } = require('../../utils/auth.js');
