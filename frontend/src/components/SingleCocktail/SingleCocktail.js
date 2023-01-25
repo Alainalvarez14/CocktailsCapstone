@@ -3,7 +3,6 @@ import './SingleCocktail.css';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
 import { getAllCocktailsThunk } from "../../store/cocktails";
-import Likes from "../Likes/Likes";
 
 const SingleCocktail = () => {
 
@@ -33,7 +32,6 @@ const SingleCocktail = () => {
                                 }}>
                                     <img src={`${drink.image}`} className="drinkImage"></img>
                                     <div>{drink.name}</div>
-                                    <Likes />
                                 </div>
                             )
                         })}
