@@ -9,6 +9,7 @@ import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailFo
 import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
+import CollectionsContainer from "./components/Collections/CollectionsContainer";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
             <CreateCocktailForm />
             <MyCreatedCocktailList />
             <SingleCocktail />
+            <CollectionsContainer />
           </Route>
         </Switch>
       )}
