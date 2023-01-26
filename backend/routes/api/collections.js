@@ -12,8 +12,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         const collection = await Collections.create({
             creatorId: req.user.id,
             name,
-            cocktail,
-            cocktailId
+            cocktail
         });
 
         return res.status(201).json(collection);
@@ -25,15 +24,16 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 //get all cocktails for current collection
 router.get('/:collectionId', requireAuth, async (req, res) => {
-
+    console.log(req.params.collectionId)
     const myCocktails = await CocktailCollectionsJoin.findAll({
         where: {
             collectionId: req.params.collectionId,
         },
-        include: { model: Cocktail }
+        // include: { model: Cocktail }
     });
 
-    return res.json({ Cocktails: myCocktails });
+    console.log(myCocktails, "this is within Route")
+    return res.json({ Cocktails: myCocktails.Cocktail });
 
     // const myCocktails = await Cocktail.findAll({
     //     where: {

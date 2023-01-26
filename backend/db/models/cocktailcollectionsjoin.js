@@ -1,6 +1,8 @@
 'use strict';
 // import Cocktail from "./cocktail"
 // import Collections from "./collections"
+// const db = require('./index.js');
+const db = require('../models/index')
 
 const {
   Model
@@ -13,22 +15,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // models.Cocktail.belongsToMany(models.Collections, { through: CocktailCollectionsJoin });
-      // models.Collections.belongsToMany(models.Cocktail, { through: CocktailCollectionsJoin });
+      models.CocktailCollectionsJoin.belongsTo(models.Collections, { foreignKey: 'collectionId' });
+      models.CocktailCollectionsJoin.belongsTo(models.Cocktail, { foreignKey: 'cocktailId' });
     }
   }
   CocktailCollectionsJoin.init({
     cocktailId: {
       type: DataTypes.INTEGER,
       // references: {
-      //   model: Cocktail,
+      //   model: db.Cocktail,
       //   key: 'id'
       // }
     },
     collectionId: {
       type: DataTypes.INTEGER,
       // references: {
-      //   model: Collections,
+      //   model: db.Collections,
       //   key: 'id'
       // }
     }
