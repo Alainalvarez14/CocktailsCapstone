@@ -6,13 +6,12 @@ const { Collections, Cocktail, CocktailCollectionsJoin } = require('../../db/mod
 
 // create a collection
 router.post('/', requireAuth, async (req, res, next) => {
-    const { name, cocktail, cocktailId } = req.body;
+    const { name } = req.body;
     console.log(name);
     try {
         const collection = await Collections.create({
             creatorId: req.user.id,
             name,
-            cocktail
         });
 
         return res.status(201).json(collection);

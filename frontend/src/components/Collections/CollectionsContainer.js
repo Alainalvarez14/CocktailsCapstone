@@ -9,8 +9,6 @@ const CollectionsContainer = () => {
     const dispatch = useDispatch();
     const [showCreateCollectionForm, setShowCollectionForm] = useState(false);
     const [collectionName, setCollectionName] = useState('');
-    const [drinksToAdd, setDrinksToAdd] = useState('');
-    const [drinkId, setDrinkId] = useState('');
     const [showCollections, setShowCollections] = useState(false);
     const user = useSelector(state => state.session.user);
 
@@ -25,7 +23,7 @@ const CollectionsContainer = () => {
 
     const handleSubmitCreateCollectionForm = (e) => {
         e.preventDefault();
-        const collection = { name: collectionName, cocktail: drinksToAdd, cocktailId: drinkId }
+        const collection = { name: collectionName }
         dispatch(createCollectionThunk(collection));
         setShowCollectionForm(false);
         setShowCollections(true);
@@ -53,12 +51,6 @@ const CollectionsContainer = () => {
                     <div>Create Collection Form</div>
                     <div>
                         <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder="Drinks to add" value={drinksToAdd} onChange={(e) => setDrinksToAdd(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder="Drink ID" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
                     </div>
                     <button type="submit">Submit</button>
                 </form>
