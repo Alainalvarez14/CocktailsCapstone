@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // Collections.belongsToMany(models.Cocktail, { through: CocktailCollectionsJoin });
+      Collections.belongsToMany(models.Cocktail, { through: 'CocktailCollectionsJoin' });
+      // Collections.hasMany(models.Cocktail);
+      // Collections.belongsToMany();
     }
   }
   Collections.init({
     name: DataTypes.STRING,
-    drinks: DataTypes.STRING,
+    cocktail: DataTypes.STRING,
+    cocktailId: DataTypes.INTEGER,
     creatorId: DataTypes.INTEGER
   }, {
     sequelize,

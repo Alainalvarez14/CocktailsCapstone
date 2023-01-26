@@ -12,8 +12,11 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      drinks: {
+      cocktail: {
         type: Sequelize.STRING
+      },
+      cocktailId: {
+        type: Sequelize.INTEGER
       },
       creatorId: {
         type: Sequelize.INTEGER

@@ -13,13 +13,25 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Cocktail.belongsToMany(models.Collections, { through: CocktailCollectionsJoin });
-      models.Collections.belongsToMany(models.Cocktail, { through: CocktailCollectionsJoin });
+      // models.Cocktail.belongsToMany(models.Collections, { through: CocktailCollectionsJoin });
+      // models.Collections.belongsToMany(models.Cocktail, { through: CocktailCollectionsJoin });
     }
   }
   CocktailCollectionsJoin.init({
-    cocktailId: DataTypes.INTEGER,
-    collectionId: DataTypes.INTEGER
+    cocktailId: {
+      type: DataTypes.INTEGER,
+      // references: {
+      //   model: Cocktail,
+      //   key: 'id'
+      // }
+    },
+    collectionId: {
+      type: DataTypes.INTEGER,
+      // references: {
+      //   model: Collections,
+      //   key: 'id'
+      // }
+    }
   }, {
     sequelize,
     modelName: 'CocktailCollectionsJoin',
