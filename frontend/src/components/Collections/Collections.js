@@ -23,7 +23,7 @@ const Collections = () => {
 
     const addDrink = (e, collection, drinkId) => {
         e.preventDefault();
-        const obj = { collectionId: collection.id, cocktailId: drinkId }
+        const obj = { collectionId: collection.id, cocktailId: Number(drinkId) }
         // history.push(`/collections/${collection.id}`);
         dispatch(addDrinkThunk(obj));
         // dispatch(addDrinkThunk(collection.id, drinkId));
