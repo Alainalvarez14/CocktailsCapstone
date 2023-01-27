@@ -26,8 +26,8 @@ export const addDrinkThunk = (drink) => async dispatch => {
     }
 }
 
-export const getAllCocktailsByCollectionThunk = (collection) => async dispatch => {
-    const response = await fetch(`/api/collections/${collection.id}`)
+export const getAllCocktailsByCollectionThunk = (collectionId) => async dispatch => {
+    const response = await fetch(`/api/collections/${collectionId}`)
 
     if (response.ok) {
         const list = await response.json();
@@ -65,12 +65,12 @@ export const cocktailCollectionsJoinReducer = (state = defaultState, action) => 
         }
 
         case 'GET_ALL_COCKTAILS_BY_COLLECTION': {
-            newState = { ...state };
+            newState = {};
             let tempState = action.payload.map(el => {
                 return reduceObjValues(el)
             })
-            tempState.forEach(cocktail => newState[cocktail.id] = cocktail);
-
+            tempState.forEach((cocktail, i) => newState[i + 1] = cocktail);
+            console.log(newState)
             return newState;
         }
 
