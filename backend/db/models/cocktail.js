@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Cocktail.hasMany(models.Review, { onDelete: 'CASCADE', foreignKey: 'cocktailId' });
-      Cocktail.belongsToMany(models.Collections, { through: models.CocktailCollectionsJoin, foreignKey: 'cocktailId' });
+      Cocktail.belongsToMany(models.Collections, { through: models.CocktailCollectionsJoin });
     }
   }
   Cocktail.init({

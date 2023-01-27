@@ -1,6 +1,11 @@
 
-const getAllCocktailsByCollection = list => ({
-    type: 'GET_ALL_COCKTAILS_BY_COLLECTION',
+// const getAllCocktailsByCollection = list => ({
+//     type: 'GET_ALL_COCKTAILS_BY_COLLECTION',
+//     payload: list
+// });
+
+const getAllCollectionsByUser = list => ({
+    type: 'GET_ALL_COLLECTIONS_BY_USER',
     payload: list
 });
 
@@ -11,16 +16,46 @@ const createCollection = (collection) => {
     })
 };
 
-export const getAllCocktailsByCollectionThunk = (collection) => async dispatch => {
-    console.log(collection);
-    const response = await fetch(`/api/collections/${collection.id}`)
+// const addDrinkId = (id) => {
+//     return ({
+//         type: 'ADD_DRINK_ID',
+//         payload: id
+//     })
+// }
 
+export const getAllCollectionsByUserThunk = (userId) => async dispatch => {
+    const response = await fetch(`/api/collections/user/${userId}`)
     if (response.ok) {
         const list = await response.json();
-        console.log(list);
-        // dispatch(getAllCocktailsByCollection(list.Cocktails));
+        dispatch(getAllCollectionsByUser(list));
     }
 }
+
+// export const getAllCocktailsByCollectionThunk = (collection) => async dispatch => {
+//     console.log(collection);
+//     const response = await fetch(`/api/collections/${collection.id}`)
+
+//     if (response.ok) {
+//         const list = await response.json();
+//         console.log(list);
+//         dispatch(getAllCocktailsByCollection(list));
+//     }
+// }
+
+// export const addDrinkThunk = (drink) => async dispatch => {
+//     const response = await csrfFetch('/api/collections/test', {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(drink)
+//     });
+
+//     if (response.ok) {
+//         const collection = await response.json();
+//         dispatch(createCollection(collection));
+//     }
+// }
 
 export const createCollectionThunk = (collection) => async dispatch => {
     const response = await csrfFetch('/api/collections', {
@@ -37,16 +72,24 @@ export const createCollectionThunk = (collection) => async dispatch => {
     }
 };
 
+// const defaultState = {drinksToAdd: []};
 const defaultState = {};
 export const collectionsReducer = (state = defaultState, action) => {
     let newState;
 
     switch (action.type) {
 
-        case 'GET_ALL_COCKTAILS_BY_COLLECTION': {
+
+        // case 'ADD_DRINK_ID': {
+        //     newState = { ...state };
+        //     newState.drinksToAdd.push(action.payload);
+        //     return newState;
+        // }
+
+        case 'GET_ALL_COLLECTIONS_BY_USER': {
             newState = { ...state };
             // normalize data
-            action.payload.forEach(collection => newState[collection.id] = collection);
+            action.payload.forEach(collections => newState[collections.id] = collections);
             return newState;
         }
 

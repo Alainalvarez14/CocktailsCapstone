@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import cocktailsReducer from "./cocktails";
 import { reviewsReducer } from "./reviews";
 import collectionsReducer from "./collections";
+import cocktailCollectionsJoinReducer from "./cocktailCollectionJoin";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   cocktails: cocktailsReducer,
   reviews: reviewsReducer,
-  collections: collectionsReducer
+  collections: collectionsReducer,
+  cocktailCollectionsJoin: cocktailCollectionsJoinReducer
 });
 
 let enhancer;

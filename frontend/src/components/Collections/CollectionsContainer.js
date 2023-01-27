@@ -3,18 +3,21 @@ import { useDispatch } from "react-redux";
 import { createCollectionThunk } from "../../store/collections";
 import { useSelector } from "react-redux";
 import Collections from "./Collections.js"
+import { getAllCollectionsByUserThunk } from "../../store/collections";
 
 const CollectionsContainer = () => {
 
     const dispatch = useDispatch();
     const [showCreateCollectionForm, setShowCollectionForm] = useState(false);
     const [collectionName, setCollectionName] = useState('');
-    const [showCollections, setShowCollections] = useState(false);
+    const [showCollections, setShowCollections] = useState(true);
     const user = useSelector(state => state.session.user);
+    const allCollections = useSelector(state => state.collections);
 
     useEffect(() => {
         //dispatch getAllCollections here.
-    }, []);
+        dispatch(getAllCollectionsByUserThunk(user.id))
+    }, [dispatch]);
 
     const handleShowCreateNewCollectionForm = (e) => {
         e.preventDefault();
@@ -41,6 +44,9 @@ const CollectionsContainer = () => {
                     borderRadius: '20px',
                 }} onClick={(e) => handleShowCreateNewCollectionForm(e)}>+</button>
                 {showCollections && (
+                    // <div>{Object.values(allCollections).map(collection => {
+                    //     <Collections id={collection.id} name={collection.name} /*drink */ />
+                    // })}</div>
                     <Collections />
                 )}
             </div>

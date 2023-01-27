@@ -36,8 +36,7 @@ const SpecificCocktail = () => {
     const allReviewsForCocktail = useSelector(state => state.reviews);
     const [reviewToEdit, setReviewToEdit] = useState('');
     // const specificReview = Object.values(allReviewsForCocktail).filter(review => review.cocktailId === Number(specificCocktail.id));
-    // console.log(Object.values(allReviewsForCocktail))
-    // console.log(specificCocktail)
+
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
@@ -84,7 +83,6 @@ const SpecificCocktail = () => {
 
     const openReviewForm = (e, review) => {
         e.preventDefault()
-        console.log(review)
         setShowEditReviewForm(!showEditReviewForm)
         setReviewToEdit(review);
     }

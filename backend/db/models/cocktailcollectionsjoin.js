@@ -19,9 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       models.CocktailCollectionsJoin.belongsTo(models.Cocktail, { foreignKey: 'cocktailId' });
     }
   }
+
   CocktailCollectionsJoin.init({
     cocktailId: {
       type: DataTypes.INTEGER,
+      unique: true
       // references: {
       //   model: db.Cocktail,
       //   key: 'id'
@@ -33,7 +35,16 @@ module.exports = (sequelize, DataTypes) => {
       //   model: db.Collections,
       //   key: 'id'
       // }
-    }
+    },
+    // creatorId: DataTypes.INTEGER,
+    // name: DataTypes.STRING,
+    // ingredients: DataTypes.STRING,
+    // isAlcoholic: DataTypes.BOOLEAN,
+    // category: DataTypes.STRING,
+    // image: DataTypes.STRING,
+    // glassType: DataTypes.STRING,
+    // instructions: DataTypes.STRING,
+    // measurements: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'CocktailCollectionsJoin',
