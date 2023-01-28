@@ -22,28 +22,51 @@ const SingleCocktail = () => {
     return (
         <div>
             {cocktail && (
-                <div>
-                    <div>
-                        {Object.values(cocktail).map(drink => {
-                            return (
-                                // <div onClick={(e) => handleShowSpecificDrinkDetails(e, drink)} style={{
-                                //     border: '1px solid red',
-                                //     marginTop: '5px'
-                                // }}>
-                                //     <img src={`${drink.image}`} className="drinkImage"></img>
-                                //     <div>{drink.name}</div>
-                                // </div>
-                                <div class="card" style={{ width: "18rem" }}>
+                // <div>
+                //     <div>
+                //         {Object.values(cocktail).map(drink => {
+                //             return (
+                //                 // <div class="row row-cols-1 row-cols-md-2 g-4">
+                //                 //     <div class="col">
+                //                 <div class="card" style={{ width: "18rem" }} onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>
+                //                     <img src={`${drink.image}`} class="card-img-top" alt="..." />
+                //                     <div class="card-body">
+                //                         <h5 class="card-title">{drink.name}</h5>
+                //                         <p class="card-text">{drink.ingredients}</p>
+                //                         {/* <a href="#" class="btn btn-primary" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>See More</a> */}
+                //                     </div>
+                //                     {/* </div>
+                //                     </div> */}
+                //                 </div>
+                //             )
+                //         })}
+                //     </div>
+                // </div>
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    {/* <div class="col">
+                        <div class="card">
+                            <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                        </div>
+                    </div> */}
+                    {Object.values(cocktail).map(drink => {
+                        return (
+                            <div class="col">
+                                <div class="card" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>
                                     <img src={`${drink.image}`} class="card-img-top" alt="..." />
                                     <div class="card-body">
                                         <h5 class="card-title">{drink.name}</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>See More</a>
+                                        <p class="card-text">{drink.ingredients}</p>
+                                        {/* <a href="#" class="btn btn-primary" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>See More</a> */}
                                     </div>
                                 </div>
-                            )
-                        })}
-                    </div>
+                            </div>
+                        )
+
+                    })}
                 </div>
             )}
         </div>

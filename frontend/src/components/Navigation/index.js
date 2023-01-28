@@ -7,6 +7,8 @@ import ProfileButton from './ProfileButton';
 // import LoginFormModal from '../LoginFormModal';
 // import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import CreateCocktailForm from '../CreateCocktailForm/CreateCocktailForm';
+import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailList';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -55,7 +57,7 @@ function Navigation({ isLoaded }) {
         // </ul>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="#">Cocktail Collection :D</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,8 +78,10 @@ function Navigation({ isLoaded }) {
                                 Dropdown
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                {/* <li><a class="dropdown-item" href="#"><CreateCocktailForm /></a></li> */}
+                                <li><CreateCocktailForm /></li>
+                                {/* <li><a class="dropdown-item" href="#">Another action</a></li> */}
+                                <li><MyCreatedCocktailList /></li>
                                 <li><hr class="dropdown-divider"></hr></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>

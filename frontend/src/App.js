@@ -33,8 +33,6 @@ function App() {
             <SpecificCocktail />
           </Route>
           <Route path="/">
-            <CreateCocktailForm />
-            <MyCreatedCocktailList />
             <SingleCocktail />
             <CollectionsContainer />
           </Route>
