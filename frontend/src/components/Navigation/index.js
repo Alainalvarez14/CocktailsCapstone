@@ -12,49 +12,8 @@ import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailLis
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
-    // const dispatch = useDispatch();
-
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     dispatch(sessionActions.logout());
-    // };
-
-    // let sessionLinks;
-    // if (sessionUser) {
-    //     sessionLinks = (
-    //         <li>
-    //             <ProfileButton user={sessionUser} />
-    //             {/* <button onClick={logout}>Log Out</button> */}
-    //         </li>
-    //     );
-    // } else {
-    //     sessionLinks = (
-    //         <li>
-    //             <OpenModalButton
-    //                 buttonText="Log In"
-    //                 modalComponent={<LoginFormModal />}
-    //             />
-    //             <OpenModalButton
-    //                 buttonText="Sign Up"
-    //                 modalComponent={<SignupFormModal />}
-    //             />
-    //             {/* <NavLink to="/login">Log In</NavLink> */}
-    //             {/* <NavLink to="/signup">Sign Up</NavLink> */}
-    //         </li>
-    //     );
-    // }
 
     return (
-        // <ul>
-        //     <li>
-        //         <NavLink exact to="/">Home</NavLink>
-        //     </li>
-        //     {isLoaded && (
-        //         <li>
-        //             <ProfileButton user={sessionUser} />
-        //         </li>
-        //     )}
-        // </ul>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Cocktail Collection :D</a>
