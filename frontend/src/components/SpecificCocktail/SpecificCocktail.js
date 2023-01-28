@@ -88,7 +88,7 @@ const SpecificCocktail = () => {
         setShowEditReviewForm(!showEditReviewForm)
         setReviewToEdit(review);
     }
-
+    console.log(specificCocktail)
     return (
         <div style={{
             border: '1px solid blue',
@@ -98,7 +98,7 @@ const SpecificCocktail = () => {
         }}>
             {specificCocktail && (
                 <div>
-                    <div>{specificCocktail.image}</div>
+                    <img src={`${specificCocktail.image}`}></img>
                     <div>{specificCocktail.name}</div>
                     <div>Drink type: {specificCocktail.isAlcoholic.toString()}</div>
 
