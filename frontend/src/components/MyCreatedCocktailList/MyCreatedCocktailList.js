@@ -27,7 +27,8 @@ const MyCreatedCocktailList = () => {
 
     return (
         <div>
-            <button onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</button>
+            {/* <button onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</button> */}
+            <a class="dropdown-item" href="#" onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</a>
             {showCreatedCocktailList && user && ownedCocktails && (
                 <div>
                     <button onClick={() => setShowCreatedCocktailList(false)}>CLOSE LIST</button>

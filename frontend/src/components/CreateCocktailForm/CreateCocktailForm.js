@@ -26,7 +26,7 @@ const CreateCocktailForm = () => {
 
     return (
         <div>
-            <button onClick={() => setShowCreateForm(!showCreateForm)}>Create Cocktail</button>
+            <a class="dropdown-item" onClick={() => setShowCreateForm(!showCreateForm)}>Create Cocktail</a>
             {showCreateForm && (
                 <form onSubmit={handleSubmitForm}>
                     <div>
