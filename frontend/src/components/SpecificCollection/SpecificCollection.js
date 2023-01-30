@@ -9,6 +9,7 @@ import { getAllCollectionsByUserThunk } from "../../store/collections";
 import { deleteCocktailFromCollectionThunk } from "../../store/cocktailCollectionJoin";
 import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
+import { editCollectionThunk } from "../../store/collections";
 
 
 const SpecificCollection = () => {
@@ -24,6 +25,8 @@ const SpecificCollection = () => {
     const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
     const user = useSelector(state => state.session.user);
     const history = useHistory();
+    const [showEditCollectionNameForm, setShowEditCollectionNameForm] = useState(false);
+    const [collectionName, setCollectionName] = useState(currCollection && currCollection.name);
 
     useEffect(() => {
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
@@ -55,6 +58,16 @@ const SpecificCollection = () => {
         history.push("/");
     }
 
+    const editCollectionName = (e) => {
+        e.preventDefault();
+        setShowEditCollectionNameForm(!showEditCollectionNameForm);
+    }
+
+    const handleSubmitEditCollectionNameForm = () => {
+        let collectionObj = { id: currCollection.id, name: collectionName };
+        dispatch(editCollectionThunk(collectionObj));
+    }
+
     return (
         <div>
             {user && currCollection && (
@@ -78,7 +91,7 @@ const SpecificCollection = () => {
                     )
                 })}</div>
             )}
-            <button>Edit Collection Name</button>
+            <button onClick={(e) => editCollectionName(e)}>Edit Collection Name</button>
             <button onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             {showAddDrinkForm && (
                 <form onSubmit={(e) => addDrink(e, drinkId)}>
@@ -101,6 +114,17 @@ const SpecificCollection = () => {
                     <div>{clickedCocktail.measurements}</div>
                     <div>{clickedCocktail.instructions}</div>
                 </div>
+            )}
+            {showEditCollectionNameForm && (
+                <form style={{
+                    border: "2px solid green"
+                }} onSubmit={handleSubmitEditCollectionNameForm}>
+                    <div>Edit Collection Name Form</div>
+                    <div>
+                        <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
             )}
         </div >
     )

@@ -77,6 +77,21 @@ export const createCollectionThunk = (collection) => async dispatch => {
     }
 };
 
+export const editCollectionThunk = (collection) => async dispatch => {
+    const response = await csrfFetch(`/api/collections/${collection.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(collection)
+    });
+
+    if (response.ok) {
+        const collection = await response.json();
+        dispatch(createCollection(collection));
+    }
+}
+
 export const deleteCollectionThunk = (collection) => async dispatch => {
     console.log(collection)
     const response = await csrfFetch(`/api/collections/${collection.id}`, {

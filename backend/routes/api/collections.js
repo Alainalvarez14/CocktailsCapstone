@@ -20,6 +20,41 @@ router.post('/', requireAuth, async (req, res, next) => {
     }
 });
 
+//edit a collection
+router.put('/:collectionId', requireAuth, async (req, res, next) => {
+    const collection = await Collections.findOne({
+        where: {
+            id: req.params.collectionId
+        }
+    });
+    const userId = req.user.id;
+    const { name } = req.body;
+
+    if (!collection) {
+        const myError = {
+            message: "Collection couldn't be found",
+            statusCode: 404,
+        };
+        return res.status(404).json(myError);
+    }
+
+    if (userId !== collection.creatorId) {
+        const myError = {
+            message: "must be the creator of the collection in order to edit the collection."
+        }
+        return res.status(403).json(myError);
+    }
+
+    if (userId === collection.creatorId) {
+
+        await collection.update({
+            name,
+        });
+
+        return res.json(collection);
+    }
+});
+
 //delete a collection
 router.delete('/:collectionId', requireAuth, async (req, res) => {
 
