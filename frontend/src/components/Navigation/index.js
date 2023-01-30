@@ -9,6 +9,7 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import CreateCocktailForm from '../CreateCocktailForm/CreateCocktailForm';
 import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailList';
+import Searchbar from '../Searchbar/Searchbar';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -49,10 +50,11 @@ function Navigation({ isLoaded }) {
                             <a class="nav-link disabled">Disabled</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
+                    {/* <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
                         <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> */}
+                    <Searchbar />
                 </div>
             </div>
         </nav>
