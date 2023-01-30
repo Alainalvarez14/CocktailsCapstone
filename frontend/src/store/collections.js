@@ -16,6 +16,11 @@ const createCollection = (collection) => {
     })
 };
 
+const deleteCollection = collection => ({
+    type: 'DELETE_COLLECTION',
+    payload: collection
+});
+
 // const addDrinkId = (id) => {
 //     return ({
 //         type: 'ADD_DRINK_ID',
@@ -72,6 +77,16 @@ export const createCollectionThunk = (collection) => async dispatch => {
     }
 };
 
+export const deleteCollectionThunk = (collection) => async dispatch => {
+    console.log(collection)
+    const response = await csrfFetch(`/api/collections/${collection.id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteCollection(collection));
+    }
+}
+
 // const defaultState = {drinksToAdd: []};
 const defaultState = {};
 export const collectionsReducer = (state = defaultState, action) => {
@@ -96,6 +111,12 @@ export const collectionsReducer = (state = defaultState, action) => {
         case 'CREATE_COLLECTION': {
             newState = { ...state };
             newState[action.payload.id] = action.payload;
+            return newState;
+        }
+
+        case 'DELETE_COLLECTION': {
+            newState = { ...state };
+            delete newState[action.payload.id];
             return newState;
         }
 

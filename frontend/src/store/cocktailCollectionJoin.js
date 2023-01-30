@@ -11,6 +11,11 @@ const getAllCocktailsByCollection = list => ({
     payload: list
 });
 
+const deleteCocktailFromCollection = cocktail => ({
+    type: 'DELETE_COCKTAIL',
+    payload: cocktail
+});
+
 export const addDrinkThunk = (drink) => async dispatch => {
     const response = await csrfFetch('/api/collections/test', { /*drink.id interpolated rather than test?*/
         method: "POST",
@@ -32,6 +37,15 @@ export const getAllCocktailsByCollectionThunk = (collectionId) => async dispatch
     if (response.ok) {
         const list = await response.json();
         dispatch(getAllCocktailsByCollection(list));
+    }
+}
+
+export const deleteCocktailFromCollectionThunk = (cocktail) => async dispatch => {
+    const response = await csrfFetch(`/api/collections/${cocktail.collectionId}/${cocktail.cocktailId}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteCocktailFromCollection(cocktail));
     }
 }
 
@@ -70,7 +84,13 @@ export const cocktailCollectionsJoinReducer = (state = defaultState, action) => 
                 return reduceObjValues(el)
             })
             tempState.forEach((cocktail, i) => newState[i + 1] = cocktail);
-            console.log(newState)
+            // console.log(newState)
+            return newState;
+        }
+
+        case 'DELETE_COCKTAIL_FROM_COLLECTION': {
+            newState = { ...state };
+            delete newState[action.payload.id];
             return newState;
         }
 

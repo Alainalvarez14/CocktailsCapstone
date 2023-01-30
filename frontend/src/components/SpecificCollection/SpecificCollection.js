@@ -5,6 +5,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { addDrinkThunk } from "../../store/cocktailCollectionJoin";
+import { getAllCollectionsByUserThunk } from "../../store/collections";
+import { deleteCocktailFromCollectionThunk } from "../../store/cocktailCollectionJoin";
+import { deleteCollectionThunk } from "../../store/collections";
+import { useHistory } from "react-router-dom";
 
 
 const SpecificCollection = () => {
@@ -14,14 +18,23 @@ const SpecificCollection = () => {
     const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
     const [drinkId, setDrinkId] = useState('');
     const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin);
+    const [showSpecificDrink, setShowSpecificDrink] = useState(false);
+    const [clickedCocktail, setClickedCocktail] = useState('');
+    const allCollections = useSelector(state => state.collections);
+    const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
+    const user = useSelector(state => state.session.user);
+    const history = useHistory();
 
     useEffect(() => {
+        if (user) dispatch(getAllCollectionsByUserThunk(user.id));
         dispatch(getAllCocktailsByCollectionThunk(Number(collectionId)));
     }, [dispatch]);
 
-    // const showAllDrinks = (e) => {
-    //     e.preventDefault();
-    // }
+    const openSpecificDrink = (e, cocktail) => {
+        e.preventDefault();
+        setShowSpecificDrink(!showSpecificDrink);
+        setClickedCocktail(cocktail);
+    }
 
     const addDrink = (e, drinkId) => {
         e.preventDefault();
@@ -30,14 +43,43 @@ const SpecificCollection = () => {
         dispatch(addDrinkThunk(obj));
     }
 
+    const removeDrinkFromList = (e, cocktail) => {
+        e.preventDefault();
+        console.log(cocktail)
+        dispatch(deleteCocktailFromCollectionThunk(cocktail))
+    }
+
+    const deleteCollection = (e) => {
+        e.preventDefault();
+        if (currCollection) dispatch(deleteCollectionThunk(currCollection));
+        history.push("/");
+    }
+
     return (
         <div>
-            <ul>
-                <li onClick={() => setShowAddDrinkForm(!showAddDrinkForm)}>Add Drink</li>
-                {/* <li onClick={(e) => showAllDrinks(e)}>Show Drinks</li> */}
-            </ul>
+            {user && currCollection && (
+                <div>
+                    <h1> {currCollection.name}</h1>
+                    <div onClick={() => setShowAddDrinkForm(!showAddDrinkForm)}>Add Drink To Collection</div>
+                </div>
+            )}
+            {cocktailsInList && (
+                <div>{Object.values(cocktailsInList).map(cocktail => {
+                    return (
+                        <div>
+                            <div style={{
+                                border: "2px solid green"
+                            }} onClick={(e) => openSpecificDrink(e, cocktail)}>
+                                <div>{cocktail.image}</div>
+                                <div>{cocktail.name}</div>
+                            </div>
+                            <button onClick={(e) => removeDrinkFromList(e, cocktail)}>Remove from List</button>
+                        </div>
+                    )
+                })}</div>
+            )}
             <button>Edit Collection Name</button>
-            <button>Delete Collection</button>
+            <button onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             {showAddDrinkForm && (
                 <form onSubmit={(e) => addDrink(e, drinkId)}>
                     <div>
@@ -46,7 +88,21 @@ const SpecificCollection = () => {
                     <button type="submit">Submit</button>
                 </form>
             )}
-        </div>
+            {showSpecificDrink && (
+                <div style={{
+                    border: "2px solid orange"
+                }}>
+                    <div>{clickedCocktail.image}</div>
+                    <div>{clickedCocktail.name}</div>
+                    <div>{clickedCocktail.isAlcoholic}</div>
+                    <div>{clickedCocktail.category}</div>
+                    <div>{clickedCocktail.glassType}</div>
+                    <div>{clickedCocktail.ingredients}</div>
+                    <div>{clickedCocktail.measurements}</div>
+                    <div>{clickedCocktail.instructions}</div>
+                </div>
+            )}
+        </div >
     )
 }
 

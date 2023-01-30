@@ -20,6 +20,46 @@ router.post('/', requireAuth, async (req, res, next) => {
     }
 });
 
+//delete a collection
+router.delete('/:collectionId', requireAuth, async (req, res) => {
+
+    const collection = await Collections.findOne({
+        where: {
+            id: req.params.collectionId
+        }
+    });
+    const userId = req.user.id;
+
+    if (!collection) {
+        const myError = {
+            message: "Collection couldn't be found",
+            statusCode: 404,
+        };
+        return res.status(404).json(myError);
+    }
+
+    if (userId === collection.creatorId) {
+
+        await collection.destroy({
+            where: {
+                id: req.params.collectionId
+            }
+        });
+
+        return res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        });
+    }
+
+    if (userId !== collection.creatorId) {
+        const myError = {
+            message: "must be the creator of the collection in order to delete the collection."
+        }
+        return res.status(403).json(myError);
+    }
+});
+
 // create a collectionJoins
 router.post('/test', requireAuth, async (req, res, next) => {
     const { collectionId } = req.body;
@@ -74,6 +114,40 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
     //     },
     //     include: Collections
     // });
+});
+
+//delete a cocktail from a collection
+router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
+    console.log("wihin delteCocktailFromCollection route")
+    console.log(req.params)
+    const cocktail = await CocktailCollectionsJoin.findOne({
+        where: {
+            // CocktailId: null,
+            // CollectionId: null,
+            cocktailId: Number(req.params.cocktailId),
+            collectionId: Number(req.params.collectionId)
+        }
+    });
+
+    if (!cocktail) {
+        const myError = {
+            message: "Cocktail couldn't be found",
+            statusCode: 404,
+        };
+        return res.status(404).json(myError);
+    }
+
+    await cocktail.destroy({
+        where: {
+            cocktailId: req.params.cocktailId,
+            collectionId: req.params.collectionId
+        }
+    });
+
+    return res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    });
 });
 
 module.exports = router;

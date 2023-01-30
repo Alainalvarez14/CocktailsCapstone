@@ -15,8 +15,7 @@ const CollectionsContainer = () => {
     const allCollections = useSelector(state => state.collections);
 
     useEffect(() => {
-        //dispatch getAllCollections here.
-        dispatch(getAllCollectionsByUserThunk(user.id))
+        if (user) dispatch(getAllCollectionsByUserThunk(user.id))
     }, [dispatch]);
 
     const handleShowCreateNewCollectionForm = (e) => {
@@ -37,12 +36,13 @@ const CollectionsContainer = () => {
             <div style={{
                 border: '2px solid blue',
                 height: '200px',
-                width: '150px',
+                width: '165px',
             }}>
                 <button style={{
                     border: '1px solid red',
                     borderRadius: '20px',
                 }} onClick={(e) => handleShowCreateNewCollectionForm(e)}>+</button>
+                <div>My Cocktail Collections</div>
                 {showCollections && (
                     // <div>{Object.values(allCollections).map(collection => {
                     //     <Collections id={collection.id} name={collection.name} /*drink */ />
