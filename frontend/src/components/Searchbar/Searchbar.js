@@ -41,7 +41,8 @@ const Searchbar = () => {
                     width: '18rem',
                     maxHeight: '15rem',
                     height: 'fit-content',
-                    overflow: 'auto'
+                    overflow: 'auto',
+                    zIndex: '100'
                 }}>{searchResults.map(cocktail => {
                     return (
                         <div onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
