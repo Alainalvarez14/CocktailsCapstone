@@ -35,7 +35,14 @@ const Searchbar = () => {
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {searchResults && name && (
-                <div>{searchResults.map(cocktail => {
+                <div style={{
+                    background: 'red',
+                    position: 'absolute',
+                    width: '18rem',
+                    maxHeight: '15rem',
+                    height: 'fit-content',
+                    overflow: 'auto'
+                }}>{searchResults.map(cocktail => {
                     return (
                         <div onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
                     )
