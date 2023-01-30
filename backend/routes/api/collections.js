@@ -153,7 +153,7 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
 
 //delete a cocktail from a collection
 router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
-    console.log("wihin delteCocktailFromCollection route")
+    console.log("within deleteCocktailFromCollection route")
     console.log(req.params)
     const cocktail = await CocktailCollectionsJoin.findOne({
         where: {

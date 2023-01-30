@@ -17,7 +17,7 @@ const Collections = () => {
 
     const openSpecificCollection = (e, collection) => {
         e.preventDefault();
-        dispatch(getAllCocktailsByCollectionThunk(collection.id));
+        // dispatch(getAllCocktailsByCollectionThunk(collection.id));
         history.push(`/collections/${collection.id}`);
     }
 

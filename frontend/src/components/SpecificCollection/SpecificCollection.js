@@ -40,7 +40,7 @@ const SpecificCollection = () => {
     }
 
     const addDrink = (e, drinkId) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (Object.values(cocktailsInList).some(el => el.cocktailId === Number(drinkId))) return;
         const obj = { collectionId: Number(collectionId), cocktailId: Number(drinkId) }
         dispatch(addDrinkThunk(obj));
@@ -73,7 +73,10 @@ const SpecificCollection = () => {
             {user && currCollection && (
                 <div>
                     <h1> {currCollection.name}</h1>
-                    <div onClick={() => setShowAddDrinkForm(!showAddDrinkForm)}>Add Drink To Collection</div>
+                    <div onClick={() => setShowAddDrinkForm(!showAddDrinkForm)} style={{
+                        border: '2px solid blue',
+                        width: '180px'
+                    }}>Add Drink To Collection</div>
                 </div>
             )}
             {cocktailsInList && (
