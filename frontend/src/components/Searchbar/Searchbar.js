@@ -43,13 +43,14 @@ const Searchbar = () => {
                     height: 'fit-content',
                     overflow: 'auto',
                     zIndex: '100'
-                }}>{searchResults.map(cocktail => {
+                }} /*class='dropdown-menu' aria-labelledby="dropdownMenuLink" */>{searchResults.map(cocktail => {
                     return (
-                        <div onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
+                        <div /*class="dropdown-item"*/ onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
                     )
                 })}</div>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 
