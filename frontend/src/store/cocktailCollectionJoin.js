@@ -43,6 +43,7 @@ export const getAllCocktailsByCollectionThunk = (collectionId) => async dispatch
 }
 
 export const deleteCocktailFromCollectionThunk = (cocktail) => async dispatch => {
+    console.log(cocktail)
     const response = await csrfFetch(`/api/collections/${cocktail.collectionId}/${cocktail.cocktailId}`, {
         method: "DELETE"
     });
@@ -51,21 +52,21 @@ export const deleteCocktailFromCollectionThunk = (cocktail) => async dispatch =>
     }
 }
 
-// Refactor
-const reduceObjValues = (obj, cache = {}) => {
-    const objectValues = Object.keys(obj).reduce((acc, cur) => {
-        if (!Array.isArray(obj[cur]) && typeof obj[cur] === 'object') {
-            return reduceObjValues({ ...acc, ...obj[cur] }, cache);
-        }
-        acc[cur] = obj[cur];
+// // Refactor
+// const reduceObjValues = (obj, cache = {}) => {
+//     const objectValues = Object.keys(obj).reduce((acc, cur) => {
+//         if (!Array.isArray(obj[cur]) && typeof obj[cur] === 'object') {
+//             return reduceObjValues({ ...acc, ...obj[cur] }, cache);
+//         }
+//         acc[cur] = obj[cur];
 
-        return acc;
-    }, {});
-    return {
-        ...objectValues,
-        ...cache,
-    };
-}
+//         return acc;
+//     }, {});
+//     return {
+//         ...objectValues,
+//         ...cache,
+//     };
+// }
 
 const defaultState = {};
 // const defaultState = {collection: {}};
@@ -105,7 +106,12 @@ export const cocktailCollectionsJoinReducer = (state = defaultState, action) => 
             return newState;
         }
 
-        case 'DELETE_COCKTAIL_FROM_COLLECTION': {
+        // case 'DELETE_COCKTAIL_FROM_COLLECTION': {
+        //     newState = { ...state };
+        //     delete newState[action.payload.id];
+        //     return newState;
+        // }
+        case 'DELETE_COCKTAIL': {
             newState = { ...state };
             delete newState[action.payload.id];
             return newState;

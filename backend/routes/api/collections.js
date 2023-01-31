@@ -150,26 +150,25 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
 //delete a cocktail from a collection
 router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
     console.log("within deleteCocktailFromCollection route")
-    // console.log(req.params)
 
     const cocktail = await CocktailCollectionsJoin.findOne({
         where: {
-            CocktailId: null,
-            CollectionId: null,
+            // CocktailId: null,
+            // CollectionId: null,
             cocktailId: Number(req.params.cocktailId),
             collectionId: Number(req.params.collectionId)
         }
     });
-    const cocktail2 = await CocktailCollectionsJoin.findAll();
-    console.log(cocktail2)
+    // const cocktail2 = await CocktailCollectionsJoin.findAll();
+    // console.log(cocktail2)
 
-    if (!cocktail) {
-        const myError = {
-            message: "Cocktail couldn't be found",
-            statusCode: 404,
-        };
-        return res.status(404).json(myError);
-    }
+    // if (!cocktail) {
+    //     const myError = {
+    //         message: "Cocktail couldn't be found",
+    //         statusCode: 404,
+    //     };
+    //     return res.status(404).json(myError);
+    // }
 
     await cocktail.destroy({
         where: {
