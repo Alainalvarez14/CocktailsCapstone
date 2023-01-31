@@ -32,10 +32,12 @@ export const addDrinkThunk = (drink) => async dispatch => {
 }
 
 export const getAllCocktailsByCollectionThunk = (collectionId) => async dispatch => {
+    console.log('hereeeeeeee')
     const response = await fetch(`/api/collections/${collectionId}`)
 
     if (response.ok) {
         const list = await response.json();
+        console.log(list)
         dispatch(getAllCocktailsByCollection(list));
     }
 }
@@ -74,17 +76,32 @@ export const cocktailCollectionsJoinReducer = (state = defaultState, action) => 
 
         case 'CREATE_COCKTAIL_COLLECTIONS_JOIN': {
             newState = { ...state };
-            newState[action.payload.cocktailId] = action.payload;
+            if (newState[action.payload.collectionId]) {
+                newState[action.payload.collectionId].push(action.payload);
+            }
+            else {
+                newState[action.payload.collectionId] = [];
+                newState[action.payload.collectionId].push(action.payload);
+            }
             return newState;
         }
 
         case 'GET_ALL_COCKTAILS_BY_COLLECTION': {
             newState = {};
-            let tempState = action.payload.map(el => {
-                return reduceObjValues(el)
+            // newState = {};
+            // let tempState = action.payload.map(el => {
+            //     return reduceObjValues(el)
+            // })
+            // tempState.forEach((cocktail, i) => newState[i + 1] = cocktail);
+            action.payload.forEach(cocktail => {
+                if (newState[cocktail.collectionId]) {
+                    newState[cocktail.collectionId].push(cocktail);
+                }
+                else {
+                    newState[cocktail.collectionId] = [];
+                    newState[cocktail.collectionId].push(cocktail);
+                }
             })
-            tempState.forEach((cocktail, i) => newState[i + 1] = cocktail);
-            // console.log(newState)
             return newState;
         }
 

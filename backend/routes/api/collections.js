@@ -100,13 +100,13 @@ router.post('/test', requireAuth, async (req, res, next) => {
     const { collectionId } = req.body;
     const { cocktailId } = req.body;
 
-    try {
-        const collection = await CocktailCollectionsJoin.create({
-            collectionId,
-            cocktailId,
-        });
+    const myCollection = await Collections.findByPk(collectionId);
+    const myCocktail = await Cocktail.findByPk(cocktailId);
 
-        return res.status(201).json(collection);
+    try {
+        myCollection.addCocktail(myCocktail);
+        return res.status(201).json({ cocktailId, collectionId });
+
     } catch (e) {
         e.status = 400;
         next(e);
@@ -128,41 +128,40 @@ router.get('/user/:userId', requireAuth, async (req, res) => {
 
 //get all cocktails for current collection
 router.get('/:collectionId', requireAuth, async (req, res) => {
+    console.log('within getAllCocktailsForCurrentCollection Route')
+    console.log(req.params.collectionId)
     const myCocktails = await CocktailCollectionsJoin.findAll({
         where: {
             collectionId: req.params.collectionId,
         },
-        include: { model: Cocktail }
+        // include: { model: Cocktail }
     });
 
+    console.log(myCocktails)
 
-    // return res.json({ Cocktails: myCocktails.Cocktail });
     myCocktails.map(el => {
         Object.values(el);
     });
+
     return res.json(myCocktails);
 
-    // const myCocktails = await Cocktail.findAll({
-    //     where: {
-    //         collectionId: req.params.collectionId,
-
-    //     },
-    //     include: Collections
-    // });
 });
 
 //delete a cocktail from a collection
 router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
     console.log("within deleteCocktailFromCollection route")
-    console.log(req.params)
+    // console.log(req.params)
+
     const cocktail = await CocktailCollectionsJoin.findOne({
         where: {
-            // CocktailId: null,
-            // CollectionId: null,
+            CocktailId: null,
+            CollectionId: null,
             cocktailId: Number(req.params.cocktailId),
             collectionId: Number(req.params.collectionId)
         }
     });
+    const cocktail2 = await CocktailCollectionsJoin.findAll();
+    console.log(cocktail2)
 
     if (!cocktail) {
         const myError = {

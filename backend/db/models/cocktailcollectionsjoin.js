@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.CocktailCollectionsJoin.belongsTo(models.Collections, { foreignKey: 'collectionId' });
-      models.CocktailCollectionsJoin.belongsTo(models.Cocktail, { foreignKey: 'cocktailId' });
+      // models.CocktailCollectionsJoin.belongsTo(models.Collections, { foreignKey: 'collectionId' });
+      // models.CocktailCollectionsJoin.belongsTo(models.Cocktail, { foreignKey: 'cocktailId' });
     }
   }
 
