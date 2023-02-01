@@ -38,6 +38,7 @@ const SpecificCocktail = () => {
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
+        //
     }, [dispatch]);
 
     const handleDelete = (e, cocktail) => {
