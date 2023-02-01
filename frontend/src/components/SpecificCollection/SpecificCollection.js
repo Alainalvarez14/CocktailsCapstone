@@ -43,12 +43,6 @@ const SpecificCollection = () => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
 
-    console.log(Object.values(cocktailsInList))
-    console.log(Object.values(allCocktails))
-    console.log(collectionName)
-    console.log(currCollection)
-
-
     const openSpecificDrink = (e, cocktail) => {
         e.preventDefault();
         setShowSpecificDrink(!showSpecificDrink);
@@ -67,6 +61,7 @@ const SpecificCollection = () => {
         e.preventDefault();
         console.log(cocktailItem)
         dispatch(deleteCocktailFromCollectionThunk(cocktailItem))
+        dispatch(getAllCocktailsByCollectionThunk(collectionId))
     }
 
     const deleteCollection = (e) => {
@@ -84,9 +79,7 @@ const SpecificCollection = () => {
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
     }
-    // console.log(Object.values(cocktailsInList))
-    // console.log(Object.values(allCocktails))
-    // console.log(collectionName)
+
     return (
         <div>
             {user && currCollection && (

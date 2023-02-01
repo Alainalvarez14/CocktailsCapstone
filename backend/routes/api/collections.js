@@ -75,11 +75,12 @@ router.delete('/:collectionId', requireAuth, async (req, res) => {
 
     if (userId === collection.creatorId) {
 
-        await collection.destroy({
-            where: {
-                id: req.params.collectionId
-            }
-        });
+        // await collection.destroy({
+        //     where: {
+        //         id: req.params.collectionId
+        //     }
+        // });
+        await collection.destroy();
 
         return res.json({
             "message": "Successfully deleted",
@@ -149,7 +150,12 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
 
 //delete a cocktail from a collection
 router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
-    console.log("within deleteCocktailFromCollection route")
+
+    // const { collectionId } = req.params;
+    // const { cocktailId } = req.params;
+
+    // const myCollection = await Collections.findByPk(collectionId);
+    // const myCocktail = await Cocktail.findByPk(cocktailId);
 
     const cocktail = await CocktailCollectionsJoin.findOne({
         where: {
@@ -169,8 +175,8 @@ router.delete('/:collectionId/:cocktailId', requireAuth, async (req, res) => {
     //     };
     //     return res.status(404).json(myError);
     // }
-
-    await cocktail.destroy({
+    // await cocktail.destroy();
+    await CocktailCollectionsJoin.destroy({
         where: {
             cocktailId: req.params.cocktailId,
             collectionId: req.params.collectionId
