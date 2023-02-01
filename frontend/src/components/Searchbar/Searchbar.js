@@ -35,19 +35,20 @@ const Searchbar = () => {
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {searchResults && name && (
-                <div style={{
-                    background: 'red',
-                    position: 'absolute',
-                    width: '18rem',
-                    maxHeight: '15rem',
-                    height: 'fit-content',
-                    overflow: 'auto',
-                    zIndex: '100'
-                }} /*class='dropdown-menu' aria-labelledby="dropdownMenuLink" */>{searchResults.map(cocktail => {
-                    return (
-                        <div /*class="dropdown-item"*/ onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
-                    )
-                })}</div>
+                <ul class="list-group"
+                    style={{
+                        position: 'absolute',
+                        width: '18rem',
+                        maxHeight: '15rem',
+                        overflow: 'auto',
+                        zIndex: '100'
+                    }}>
+                    {searchResults.map(cocktail => {
+                        return (
+                            <li class="list-group-item" onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</li>
+                        )
+                    })}
+                </ul>
             )
             }
         </div>

@@ -272,9 +272,6 @@ const SpecificCocktail = () => {
                                             <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
                                         </div>
                                     )}
-                                    {reviewToEdit && (
-                                        <div>hi{console.log(reviewToEdit.review)}</div>
-                                    )}
                                 </div>
                             </div>
                         )
