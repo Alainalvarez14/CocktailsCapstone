@@ -37,7 +37,7 @@ const SpecificCollection = () => {
 
     useEffect(() => {
         dispatch(getAllCocktailsByCollectionThunk(collectionId));
-    }, [dispatch]);
+    }, [dispatch, allCocktails]);
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
