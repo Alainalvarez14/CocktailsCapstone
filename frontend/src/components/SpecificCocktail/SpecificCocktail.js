@@ -17,9 +17,9 @@ const SpecificCocktail = () => {
     const { reviewId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
-    const [showEditForm, setShowEditForm] = useState(false);
+    // const [showEditForm, setShowEditForm] = useState(false);
     const [showEditReviewForm, setShowEditReviewForm] = useState(false);
-    const [showReviewForm, setShowReviewForm] = useState(false);
+    // const [showReviewForm, setShowReviewForm] = useState(false);
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [isAlcoholic, setIsAlcoholic] = useState('');
@@ -28,13 +28,13 @@ const SpecificCocktail = () => {
     const [glassType, setGlassType] = useState('');
     const [instructions, setInstructions] = useState('');
     const [measurements, setMeasurements] = useState('');
-    const [review, setReview] = useState('');
-    const [stars, setStars] = useState('');
+    const [reviewToEdit, setReviewToEdit] = useState('');
+    const [review, setReview] = useState(reviewToEdit.review);
+    const [stars, setStars] = useState(reviewToEdit.stars);
     const allCocktails = useSelector(state => state.cocktails);
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-    const [reviewToEdit, setReviewToEdit] = useState('');
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
@@ -49,13 +49,13 @@ const SpecificCocktail = () => {
     const handleSubmitEditForm = () => {
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(editCocktailThunk(cocktailObj));
-        setShowEditForm(false);
+        // setShowEditForm(false);
     }
 
     const handleSubmitReviewForm = () => {
         let reviewObj = { review, stars, userId: user.id, cocktailId: specificCocktail.id };
         dispatch(createReviewThunk(reviewObj));
-        setShowReviewForm(false);
+        // setShowReviewForm(false);
     }
 
     const seeAllReviews = (e) => {
@@ -71,14 +71,15 @@ const SpecificCocktail = () => {
 
     const handleSubmitEditReviewForm = () => {
         let reviewObj = { id: reviewToEdit.id, review, stars, userId: user.id, cocktailId: specificCocktail.id };
+        console.log(reviewObj)
         dispatch(editReviewThunk(reviewObj));
         setShowEditReviewForm(false);
     }
 
     const openReviewForm = (e, review) => {
         e.preventDefault()
-        console.log(review)
-        setShowEditReviewForm(!showEditReviewForm)
+        // console.log(review)
+        // setShowEditReviewForm(!showEditReviewForm)
         setReviewToEdit(review);
     }
 
@@ -97,7 +98,7 @@ const SpecificCocktail = () => {
                             marginTop: 'auto',
                             marginBottom: 'auto',
                         }}>
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setShowReviewForm(!showReviewForm)}>Leave a Review!</button>
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" /*onClick={() => setShowReviewForm(!showReviewForm)}*/>Leave a Review!</button>
                             <button type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
 
                         </div>
@@ -161,6 +162,7 @@ const SpecificCocktail = () => {
                                     <form onSubmit={handleSubmitEditReviewForm}>
                                         <div>
                                             <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
+                                            {console.log(reviewToEdit.review)}
                                         </div>
                                         <div>
                                             <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
@@ -176,7 +178,7 @@ const SpecificCocktail = () => {
             )}
             {user && specificCocktail && specificCocktail.creatorId === user.id && (
                 <div>
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal" onClick={() => setShowEditForm(!showEditForm)}>EDIT</button>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal" /*onClick={() => setShowEditForm(!showEditForm)}*/>EDIT</button>
                     <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
                 </div>
             )}
@@ -253,7 +255,7 @@ const SpecificCocktail = () => {
                 </div>
             </div>
             {/* )} */}
-            {specificCocktail && !showReviewForm && showReviews && (
+            {specificCocktail && /*!showReviewForm && */showReviews && (
                 <div>
                     <h1 class="display-5">Reviews</h1>
                     {Object.values(allReviewsForCocktail).map(review => {
@@ -268,6 +270,9 @@ const SpecificCocktail = () => {
                                             <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={(e) => openReviewForm(e, review)}>EDIT REVIEW</button>
                                             <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
                                         </div>
+                                    )}
+                                    {reviewToEdit && (
+                                        <div>hi{console.log(reviewToEdit.review)}</div>
                                     )}
                                 </div>
                             </div>
