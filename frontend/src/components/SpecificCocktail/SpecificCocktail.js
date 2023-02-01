@@ -36,6 +36,7 @@ const SpecificCocktail = () => {
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
 
+
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
