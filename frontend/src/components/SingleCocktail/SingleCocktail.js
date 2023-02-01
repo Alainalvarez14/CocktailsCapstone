@@ -26,7 +26,7 @@ const SingleCocktail = () => {
                     {Object.values(cocktail).map(drink => {
                         return (
                             <div class="col">
-                                <div class="card" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)}>
+                                <div class="card" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)} style={{ cursor: "pointer" }}>
                                     <img src={`${drink.image}`} class="card-img-top drinkImage" alt="..." />
                                     <div class="card-body">
                                         <h5 class="card-title">{drink.name}</h5>

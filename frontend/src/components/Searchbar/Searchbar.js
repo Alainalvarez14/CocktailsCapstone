@@ -45,7 +45,7 @@ const Searchbar = () => {
                     }}>
                     {searchResults.map(cocktail => {
                         return (
-                            <li class="list-group-item" onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</li>
+                            <li style={{ cursor: "pointer" }} class="list-group-item list-group-item-action" onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</li>
                         )
                     })}
                 </ul>
