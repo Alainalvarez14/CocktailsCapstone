@@ -32,9 +32,7 @@ export const getAllCocktailsByUserThunk = () => async dispatch => {
 }
 
 export const getAllCocktailsThunk = () => async dispatch => {
-    console.log("within thunk")
     const response = await fetch('/api/cocktails')
-    console.log("yo")
 
     if (response.ok) {
         const allCocktails = await response.json();

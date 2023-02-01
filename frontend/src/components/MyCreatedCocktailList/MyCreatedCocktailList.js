@@ -8,7 +8,11 @@ const MyCreatedCocktailList = () => {
     const [showCreatedCocktailList, setShowCreatedCocktailList] = useState(false);
     const user = useSelector(state => state.session.user);
     const cocktails = useSelector(state => state.cocktails);
-    const ownedCocktails = Object.values(cocktails).filter(cocktail => cocktail.creatorId === user.id);
+
+    let ownedCocktails;
+    if (user) {
+        ownedCocktails = Object.values(cocktails).filter(cocktail => cocktail.creatorId === user.id);
+    }
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -23,7 +27,8 @@ const MyCreatedCocktailList = () => {
 
     return (
         <div>
-            <button onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</button>
+            {/* <button onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</button> */}
+            <a class="dropdown-item" href="#" onClick={(e) => handleOpenCreatedCocktailList(e)}>My Created Cocktail List</a>
             {showCreatedCocktailList && user && ownedCocktails && (
                 <div>
                     <button onClick={() => setShowCreatedCocktailList(false)}>CLOSE LIST</button>

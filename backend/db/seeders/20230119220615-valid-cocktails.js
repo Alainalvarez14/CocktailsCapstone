@@ -19,7 +19,7 @@ module.exports = {
         ingredients: 'mint, rum, sprite',
         isAlcoholic: true,
         category: 'aCategory',
-        image: 'image.img',
+        image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/frozen-blue-moscato-margaritas3-1653174015.jpg',
         glassType: 'highball glass',
         instructions: 'do it right',
         measurements: '1 tsp mint, 1 cup rum, 2 cups sprite',
@@ -30,7 +30,7 @@ module.exports = {
         ingredients: 'coke, rum, lime',
         isAlcoholic: true,
         category: 'bCategory',
-        image: 'image.imggg',
+        image: 'https://www.acouplecooks.com/wp-content/uploads/2021/03/Blue-Hawaii-Drink-001.jpg',
         glassType: 'highball glass',
         instructions: 'do it right',
         measurements: '1 tsp lime, 1 cup rum, 2 cups coke'
@@ -41,7 +41,7 @@ module.exports = {
         ingredients: 'pina colada mix, ice',
         isAlcoholic: false,
         category: 'cCategory',
-        image: 'virgin.img',
+        image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/frozen-blue-moscato-margaritas3-1653174015.jpg',
         glassType: 'highball glass',
         instructions: 'do it right',
         measurements: '1 cup ice, 2 cups pina colada mix'
