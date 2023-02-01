@@ -50,7 +50,7 @@ const Searchbar = () => {
                 })}</div>
             )
             }
-        </div >
+        </div>
     )
 }
 
