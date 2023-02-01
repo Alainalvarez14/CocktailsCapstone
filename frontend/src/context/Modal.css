@@ -21,4 +21,11 @@
 #modal-content {
     position: absolute;
     background-color: white;
+    /* border: 2px solid black; */
+    border-radius: 8px;
+    height: 42vh;
+    width: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

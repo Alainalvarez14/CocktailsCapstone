@@ -35,8 +35,12 @@ function SignupFormModal() {
 
     return (
         <div>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 style={{
+                display: "flex",
+                justifyContent: 'center',
+                marginBottom: '2vh'
+            }}>Sign Up</h1>
+            {/* <form onSubmit={handleSubmit}>
                 <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
@@ -95,6 +99,50 @@ function SignupFormModal() {
                     />
                 </label>
                 <button type="submit">Sign Up</button>
+            </form> */}
+            <form onSubmit={handleSubmit}>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <div class="form-group" style={{
+                    paddingBottom: '1vh'
+                }}>
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Username</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">First name</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Last name</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required />
+                </div>
+                <button type="submit" style={{
+                    display: "flex",
+                    marginRight: "auto",
+                    marginLeft: 'auto',
+                    marginTop: '1.2vh'
+                }} class="btn btn-primary">Sign up</button>
             </form>
         </div>
     );
