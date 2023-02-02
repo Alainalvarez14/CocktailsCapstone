@@ -34,9 +34,9 @@ function App() {
           <Route path="/drink/:drinkId">
             <SpecificCocktail />
           </Route>
-          <Route path="/collections/drink/:drinkId">
+          {/* <Route path="/collections/drink/:drinkId">
             <SpecificCocktail />
-          </Route>
+          </Route> */}
           <Route path="/collections/:collectionId">
             <SpecificCollection />
           </Route>

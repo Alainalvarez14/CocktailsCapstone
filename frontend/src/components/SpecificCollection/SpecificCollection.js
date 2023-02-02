@@ -48,7 +48,7 @@ const SpecificCollection = () => {
         e.preventDefault();
         // setShowSpecificDrink(!showSpecificDrink);
         // setClickedCocktail(cocktail);
-        history.push(`/collections/drink/${cocktail.id}`);
+        history.push(`/drink/${cocktail.id}`);
     }
 
     const addDrink = (e, drinkId) => {
