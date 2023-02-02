@@ -33,29 +33,9 @@ const Collections = () => {
         <div>
             {Object.values(allCollections).map(collection => {
                 return (
-                    <div>
-                        <div style={{
-                            border: "1px solid orange",
-                            marginTop: "5px"
-                        }} onClick={(e) => openSpecificCollection(e, collection)} /* onClick={() => setShowOptions(!showOptions)} */ >
-                            {collection.name}
-                        </div>
-                        {/* {showOptions && (
-                            <ul>
-                                // <li onClick={(e) => addDrink(e, collection)}>Add Drink</li>
-                                <li onClick={() => setShowAddDrinkForm(!showAddDrinkForm)}>Add Drink</li>
-                                <li onClick={(e) => openSpecificCollection(e, collection)}>Show Drinks</li>
-                            </ul>
-                        )}
-                        {showAddDrinkForm && (
-                            <form onSubmit={(e) => addDrink(e, collection, drinkId)}>
-                                <div>
-                                    <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
-                                </div>
-                                <button type="submit">Submit</button>
-                            </form>
-                        )} */}
-                    </div>
+                    <li class="mb-1">
+                        <button onClick={(e) => openSpecificCollection(e, collection)} class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">{collection.name}</button>
+                    </li>
                 )
             })}
         </div>
