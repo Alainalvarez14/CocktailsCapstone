@@ -105,35 +105,35 @@ function SignupFormModal() {
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div class="form-group" style={{
-                    paddingBottom: '1vh'
+                    paddingBottom: '1vh',
                 }}>
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    {/* <label for="exampleInputEmail1">Email address</label> */}
+                    <input type="text" class="form-control inputField" id="Email" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Username</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    {/* <label for="exampleInputPassword1">Username</label> */}
+                    <input type="text" class="form-control inputField" id="Username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">First name</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={firstName}
+                    {/* <label for="exampleInputPassword1">First name</label> */}
+                    <input type="text" class="form-control inputField" id="FirstName" placeholder="First name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Last name</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={lastName}
+                    {/* <label for="exampleInputPassword1">Last name</label> */}
+                    <input type="text" class="form-control inputField" id="LastName" placeholder="Last name" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    {/* <label for="exampleInputPassword1">Password</label> */}
+                    <input type="password" class="form-control inputField" id="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Confirm password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value={confirmPassword}
+                    {/* <label for="exampleInputPassword1">Confirm password</label> */}
+                    <input type="password" class="form-control inputField" id="ConfirmPassword" placeholder="Confirm Password" value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required />
                 </div>

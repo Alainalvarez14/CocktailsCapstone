@@ -12,7 +12,7 @@ import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailLis
 import Searchbar from '../Searchbar/Searchbar';
 
 function Navigation({ isLoaded }) {
-    const sessionUser = useSelector(state => state.session.user);
+    // const sessionUser = useSelector(state => state.session.user);
 
     return (
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -26,13 +26,13 @@ function Navigation({ isLoaded }) {
                         <li class="nav-item">
                             <a href="/" class="nav-link active" aria-current="page">Home</a>
                         </li>
-                        <li class="nav-item">
+                        {/* <li class="nav-item">
                             {isLoaded && (
                                 <a class="nav-link">
                                     <ProfileButton user={sessionUser} />
                                 </a>
                             )}
-                        </li>
+                        </li> */}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown

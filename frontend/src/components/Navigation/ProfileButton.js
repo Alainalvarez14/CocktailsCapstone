@@ -46,9 +46,9 @@ function ProfileButton({ user }) {
     return (
         <div>
 
-            <button onClick={(e) => openMenu(e)}>
+            <div onClick={(e) => openMenu(e)}>
                 Profile
-            </button>
+            </div>
             {showMenu &&
                 <ul className={ulClassName} ref={ulRef}>
                     {user ? (
