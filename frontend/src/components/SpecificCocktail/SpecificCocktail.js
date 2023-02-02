@@ -35,6 +35,8 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
+    // const [reviewToEdit, setReviewToEdit] = useState('');
+    // const specificReview = Object.values(allReviewsForCocktail).filter(review => review.cocktailId === Number(specificCocktail.id));
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());

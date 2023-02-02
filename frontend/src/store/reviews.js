@@ -42,8 +42,6 @@ export const createReviewThunk = (review) => async dispatch => {
 };
 
 export const editReviewThunk = (review) => async dispatch => {
-    console.log('this is within the thunk')
-    console.log(review)
     const response = await csrfFetch(`/api/reviews/${review.id}`, {
         method: "PUT",
         headers: {

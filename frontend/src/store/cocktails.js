@@ -41,7 +41,6 @@ export const getAllCocktailsThunk = () => async dispatch => {
 }
 
 export const createCocktailThunk = (cocktail) => async dispatch => {
-    // console.log('within thunk!')
     const response = await csrfFetch('/api/cocktails', {
         method: "POST",
         headers: {
@@ -49,19 +48,14 @@ export const createCocktailThunk = (cocktail) => async dispatch => {
         },
         body: JSON.stringify(cocktail)
     });
-    // console.log(response)
 
     if (response.ok) {
         const cocktail = await response.json();
-        // console.log(cocktail);
         dispatch(createCocktail(cocktail));
     }
 };
 
 export const editCocktailThunk = (cocktail) => async dispatch => {
-    console.log(cocktail)
-    console.log('within edit cocktail thunk')
-    console.log(cocktail.id)
     const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
         method: "PUT",
         headers: {
@@ -70,8 +64,6 @@ export const editCocktailThunk = (cocktail) => async dispatch => {
         body: JSON.stringify(cocktail)
     });
 
-    console.log(response)
-
     if (response.ok) {
         const cocktail = await response.json();
         dispatch(createCocktail(cocktail));
@@ -79,8 +71,6 @@ export const editCocktailThunk = (cocktail) => async dispatch => {
 }
 
 export const deleteCocktailThunk = (cocktail) => async dispatch => {
-    console.log("within thunk here");
-    console.log(typeof (cocktail.id));
     const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
         method: "DELETE"
     });

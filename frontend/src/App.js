@@ -10,6 +10,7 @@ import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
+import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
 import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
           </Route> */}
           <Route path="/drink/:drinkId">
             <SpecificCocktail />
+          </Route>
+          <Route path="/collections/:collectionId">
+            <SpecificCollection />
           </Route>
           <Route path="/">
             {/* <SingleCocktail />

@@ -15,9 +15,7 @@ router.get('/', async (req, res) => {
 
 // create a cocktail
 router.post('/', requireAuth, async (req, res, next) => {
-    console.log('hi')
     const { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements } = req.body;
-    console.log(name);
     try {
         const cocktail = await Cocktail.create({
             creatorId: req.user.id,
@@ -30,9 +28,6 @@ router.post('/', requireAuth, async (req, res, next) => {
             instructions,
             measurements
         });
-
-        // console.log(cocktail)
-
         return res.status(201).json(cocktail);
     } catch (e) {
         e.status = 400;
@@ -54,7 +49,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //edit a cocktail
 router.put('/:cocktailId', requireAuth, async (req, res, next) => {
-    console.log(req)
     const cocktail = await Cocktail.findOne({
         where: {
             id: req.params.cocktailId
