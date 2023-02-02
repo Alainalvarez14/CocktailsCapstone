@@ -11,6 +11,7 @@ import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedC
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
 import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
+import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,10 +38,20 @@ function App() {
             <SpecificCollection />
           </Route>
           <Route path="/">
-            <CreateCocktailForm />
-            <MyCreatedCocktailList />
-            <SingleCocktail />
-            <CollectionsContainer />
+            {/* <SingleCocktail />
+            <MyProfileCard /> */}
+            <div style={{
+              display: 'flex',
+              marginTop: '1rem',
+            }}>
+              <div style={{
+                marginRight: '5rem',
+              }}>
+                <MyProfileCard />
+                <CollectionsContainer />
+              </div>
+              <SingleCocktail />
+            </div>
           </Route>
         </Switch>
       )}

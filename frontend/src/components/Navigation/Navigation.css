@@ -1,4 +1,9 @@
-.profile-dropdown {}
+.profile-dropdown {
+    position: absolute;
+    overflow: auto;
+    z-index: 100;
+    background-color: white;
+}
 
 .hidden {
     display: none;
