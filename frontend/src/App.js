@@ -10,6 +10,7 @@ import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
+import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +34,20 @@ function App() {
             <SpecificCocktail />
           </Route>
           <Route path="/">
-            <SingleCocktail />
-            <CollectionsContainer />
+            {/* <SingleCocktail />
+            <MyProfileCard /> */}
+            <div style={{
+              display: 'flex',
+              marginTop: '1rem',
+            }}>
+              <div style={{
+                marginRight: '5rem',
+              }}>
+                <MyProfileCard />
+                <CollectionsContainer />
+              </div>
+              <SingleCocktail />
+            </div>
           </Route>
         </Switch>
       )}
