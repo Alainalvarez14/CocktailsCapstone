@@ -32,7 +32,11 @@ const MyProfileCard = () => {
                 }}>
                     <div style={{ width: '100%' }} >
                         {user ? (
-                            <div>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}>
                                 <div>{user.username}</div>
                                 <div>{user.firstName} {user.lastName}</div>
                                 <div>{user.email}</div>
