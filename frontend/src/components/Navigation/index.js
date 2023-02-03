@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
                                 <li><CreateCocktailForm /></li>
                                 {/* <li><a class="dropdown-item" href="#">Another action</a></li> */}
                                 {/* <li><MyCreatedCocktailList /></li> */}
-                                <li onClick={() => history.push("/myCreatedCocktailList")}>My Created Cocktails</li>
+                                <li onClick={() => history.push("/myCreatedCocktailList")}><a class="dropdown-item" href="#">My Created Cocktails</a></li>
                                 {/* <div onClick={() => history.push("/myCreatedCocktailList")}>
                                     <li>My Created Cocktails</li>
                                 </div> */}

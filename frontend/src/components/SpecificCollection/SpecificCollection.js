@@ -29,6 +29,8 @@ const SpecificCollection = () => {
     const history = useHistory();
     const [showEditCollectionNameForm, setShowEditCollectionNameForm] = useState(false);
     const [collectionName, setCollectionName] = useState('');
+    const [name, setName] = useState('');
+    const [searchResults, setSearchResults] = useState('');
 
     useEffect(() => {
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
@@ -43,6 +45,17 @@ const SpecificCollection = () => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (allCocktails) setSearchResults(Object.values(allCocktails).filter(cocktail => cocktail.name.toLowerCase().includes(name.toLowerCase())));
+    }, [name]);
+
+    // const openSpecificCocktail = (e, cocktail) => {
+    //     e.preventDefault();
+    //     setSearchResults('');
+    //     setName('');
+    //     history.push(`/drink/${cocktail.id}`);
+    // }
+
     const openSpecificDrink = (e, cocktail) => {
         console.log(cocktail.id)
         e.preventDefault();
@@ -53,6 +66,8 @@ const SpecificCollection = () => {
 
     const addDrink = (e, drinkId) => {
         e.preventDefault();
+        setSearchResults('');
+        setName('');
         if (!drinkId) return
         if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) return;
         const obj = { collectionId: Number(collectionId), cocktailId: Number(drinkId) }
@@ -127,16 +142,44 @@ const SpecificCollection = () => {
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add a drink to your collection!</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form onSubmit={(e) => addDrink(e, drinkId)}>
+                                    <div>
+                                        <form class="d-flex" role="search">
+                                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
+                                        </form>
+                                        {searchResults && name && (
+                                            <ul class="list-group"
+                                                style={{
+                                                    position: 'absolute',
+                                                    width: '12.7rem',
+                                                    maxHeight: '15rem',
+                                                    overflow: 'auto',
+                                                    zIndex: '100'
+                                                }}>
+                                                {searchResults.map(cocktail => {
+                                                    return (
+                                                        <li style={{
+                                                            cursor: "pointer",
+                                                            textOverflow: 'ellipsis',
+                                                            overflow: 'hidden'
+                                                        }} class="list-group-item list-group-item-action"
+                                                            onClick={(e) => addDrink(e, cocktail.id)} data-bs-dismiss="modal">
+                                                            {cocktail.name}
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        )}
+                                    </div>
+                                    {/* <form onSubmit={(e) => addDrink(e, drinkId)}>
                                         <div>
                                             <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
                                         </div>
                                         <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
-                                    </form>
+                                    </form> */}
                                 </div>
                             </div>
                         </div>
