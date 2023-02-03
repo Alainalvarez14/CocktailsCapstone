@@ -10,9 +10,11 @@ import './Navigation.css';
 import CreateCocktailForm from '../CreateCocktailForm/CreateCocktailForm';
 import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailList';
 import Searchbar from '../Searchbar/Searchbar';
+import { useHistory } from 'react-router-dom';
 
 function Navigation({ isLoaded }) {
     // const sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
 
     return (
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -41,7 +43,11 @@ function Navigation({ isLoaded }) {
                                 {/* <li><a class="dropdown-item" href="#"><CreateCocktailForm /></a></li> */}
                                 <li><CreateCocktailForm /></li>
                                 {/* <li><a class="dropdown-item" href="#">Another action</a></li> */}
-                                <li><MyCreatedCocktailList /></li>
+                                {/* <li><MyCreatedCocktailList /></li> */}
+                                <li onClick={() => history.push("/myCreatedCocktailList")}>My Created Cocktails</li>
+                                {/* <div onClick={() => history.push("/myCreatedCocktailList")}>
+                                    <li>My Created Cocktails</li>
+                                </div> */}
                                 <li><hr class="dropdown-divider"></hr></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>

@@ -40,6 +40,9 @@ function App() {
           <Route path="/collections/:collectionId">
             <SpecificCollection />
           </Route>
+          <Route path="/myCreatedCocktailList">
+            <MyCreatedCocktailList />
+          </Route>
           <Route path="/">
             {/* <SingleCocktail />
             <MyProfileCard /> */}

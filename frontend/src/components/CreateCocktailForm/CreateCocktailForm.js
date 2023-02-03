@@ -57,11 +57,11 @@ const CreateCocktailForm = () => {
                     </div>
                     <button type='submit'>Submit</button>
                 </form>
-                // <div class="modal fade" id="CreateCocktailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                // <div class="modal fade" id="CreateCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 //     <div class="modal-dialog">
                 //         <div class="modal-content">
                 //             <div class="modal-header">
-                //                 <h1 class="modal-title fs-5" id="exampleModalLabel">Create a cocktail!</h1>
+                //                 <h1 class="modal-title fs-5" id="exampleModalLabel">Create a Cocktail!</h1>
                 //                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 //             </div>
                 //             <div class="modal-body">
@@ -90,7 +90,7 @@ const CreateCocktailForm = () => {
                 //                     <div>
                 //                         <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                 //                     </div>
-                //                     <button type='submit'>Submit</button>
+                //                     <button type='submit' class="btn btn-primary" data-bs-dismiss="modal" /*onClick={(e) => handleSubmitForm(e)}*/>Submit</button>
                 //                 </form>
                 //             </div>
                 //         </div>
