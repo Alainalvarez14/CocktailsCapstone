@@ -18,11 +18,8 @@ const SpecificCollection = () => {
     const dispatch = useDispatch();
     const { collectionId } = useParams()
     const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
-    const [drinkId, setDrinkId] = useState('');
     const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin) ? useSelector(state => state.cocktailCollectionsJoin) : [];
     const allCocktails = useSelector(state => state.cocktails);
-    const [showSpecificDrink, setShowSpecificDrink] = useState(false);
-    const [clickedCocktail, setClickedCocktail] = useState('');
     const allCollections = useSelector(state => state.collections);
     const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
     const user = useSelector(state => state.session.user);
@@ -34,7 +31,6 @@ const SpecificCollection = () => {
 
     useEffect(() => {
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
-        // dispatch(getAllCocktailsByCollectionThunk(Number(collectionId)));
     }, [dispatch]);
 
     useEffect(() => {
@@ -49,18 +45,8 @@ const SpecificCollection = () => {
         if (allCocktails) setSearchResults(Object.values(allCocktails).filter(cocktail => cocktail.name.toLowerCase().includes(name.toLowerCase())));
     }, [name]);
 
-    // const openSpecificCocktail = (e, cocktail) => {
-    //     e.preventDefault();
-    //     setSearchResults('');
-    //     setName('');
-    //     history.push(`/drink/${cocktail.id}`);
-    // }
-
     const openSpecificDrink = (e, cocktail) => {
-        console.log(cocktail.id)
         e.preventDefault();
-        // setShowSpecificDrink(!showSpecificDrink);
-        // setClickedCocktail(cocktail);
         history.push(`/drink/${cocktail.id}`);
     }
 
@@ -132,12 +118,6 @@ const SpecificCollection = () => {
             </div>
             {
                 showAddDrinkForm && (
-                    // <form onSubmit={(e) => addDrink(e, drinkId)}>
-                    //     <div>
-                    //         <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
-                    //     </div>
-                    //     <button type="submit">Submit</button>
-                    // </form>
                     <div class="modal fade" id="AddDrinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -174,44 +154,13 @@ const SpecificCollection = () => {
                                             </ul>
                                         )}
                                     </div>
-                                    {/* <form onSubmit={(e) => addDrink(e, drinkId)}>
-                                        <div>
-                                            <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
-                                        </div>
-                                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
-                                    </form> */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )
             }
-            {/* {
-                showSpecificDrink && (
-                    <div style={{
-                        border: "2px solid orange"
-                    }}>
-                        <div>{clickedCocktail.image}</div>
-                        <div>{clickedCocktail.name}</div>
-                        <div>{clickedCocktail.isAlcoholic}</div>
-                        <div>{clickedCocktail.category}</div>
-                        <div>{clickedCocktail.glassType}</div>
-                        <div>{clickedCocktail.ingredients}</div>
-                        <div>{clickedCocktail.measurements}</div>
-                        <div>{clickedCocktail.instructions}</div>
-                    </div>
-                )
-            } */}
             {showEditCollectionNameForm && (
-                // <form style={{
-                //     border: "2px solid green"
-                // }} onSubmit={handleSubmitEditCollectionNameForm}>
-                //     <div>Edit Collection Name Form</div>
-                //     <div>
-                //         <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
-                //     </div>
-                //     <button type="submit">Submit</button>
-                // </form>
                 <div class="modal fade" id="EditCollectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
