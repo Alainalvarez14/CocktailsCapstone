@@ -110,7 +110,7 @@ const SpecificCocktail = () => {
                                 </tr>
                                 <tr>
                                     <th scope="row">Ingredients:</th>
-                                    <td colspan="2"></td>
+                                    <td colspan="2">{specificCocktail.ingredients}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Instructions:</th>
