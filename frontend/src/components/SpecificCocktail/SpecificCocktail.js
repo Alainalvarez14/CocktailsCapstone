@@ -76,7 +76,7 @@ const SpecificCocktail = () => {
     }
 
     return (
-        <div>
+        <div style={{ padding: '40px' }}>
             {specificCocktail && (
                 <div class="card" style={{ width: "80vw", maxWidth: '700px', display: 'flex', margin: 'auto' }}>
                     <div class="card-body">
@@ -88,9 +88,10 @@ const SpecificCocktail = () => {
                             <div style={{
                                 marginTop: 'auto',
                                 marginBottom: 'auto',
+                                display: 'flex'
                             }}>
-                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
-                                <button type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
+                                <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
+                                <button style={{ display: 'flex', marginRight: 'auto', marginLeft: '1vw' }} type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
                             </div>
                         </p>
                     </div>
