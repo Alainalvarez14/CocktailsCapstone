@@ -78,97 +78,99 @@ const SpecificCocktail = () => {
     return (
         <div>
             {specificCocktail && (
-                <div style={{
-                    width: "80vw",
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between'
-                    }}>
-                        <h1 class="display-4">{specificCocktail.name}</h1>
-                        <div style={{
-                            marginTop: 'auto',
-                            marginBottom: 'auto',
+                <div class="card" style={{ width: "80vw", maxWidth: '700px', display: 'flex', margin: 'auto' }}>
+                    <div class="card-body">
+                        <p class="card-text" style={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
                         }}>
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
-                            <button type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
-                        </div>
-                    </div>
-                    <img src={`${specificCocktail.image}`} class="img-fluid" ></img>
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Drink Type:</th>
-                                <td>{specificCocktail.isAlcoholic.toString() ? "Alcoholic" : "NonAlcoholic"}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Glass Type:</th>
-                                <td>{specificCocktail.glassType}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Ingredients:</th>
-                                <td colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Instructions:</th>
-                                <td colspan="2">{specificCocktail.instructions}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form onSubmit={handleSubmitReviewForm}>
-                                        <div>
-                                            <input placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
-                                        </div>
-                                        <div>
-                                            <input placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit review</button>
-                                    </form>
-                                </div>
+                            <h1 class="display-4">{specificCocktail.name}</h1>
+                            <div style={{
+                                marginTop: 'auto',
+                                marginBottom: 'auto',
+                            }}>
+                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
+                                <button type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
                             </div>
-                        </div>
+                        </p>
                     </div>
-
-                    <div class="modal fade" id="EditReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit a review!</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form onSubmit={handleSubmitEditReviewForm}>
-                                        <div>
-                                            <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
-                                            {console.log(reviewToEdit.review)}
-                                        </div>
-                                        <div>
-                                            <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
-                                        </div>
-                                        <button type='submit' class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
+                    <img src={`${specificCocktail.image}`} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Drink Type:</th>
+                                    <td>{specificCocktail.isAlcoholic.toString() ? "Alcoholic" : "NonAlcoholic"}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Glass Type:</th>
+                                    <td>{specificCocktail.glassType}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Ingredients:</th>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Instructions:</th>
+                                    <td colspan="2">{specificCocktail.instructions}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {user && specificCocktail && specificCocktail.creatorId === user.id && (
+                            <div style={{ display: 'flex' }}>
+                                <button style={{ width: '12vw', justifyContent: 'center', display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal">EDIT</button>
+                                <button style={{ width: '12vw', justifyContent: 'center', display: 'flex', marginRight: 'auto', marginLeft: '1vw' }} type="button" class="btn btn-outline-dark" onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
                             </div>
-                        </div>
+                        )}
                     </div>
-
                 </div>
             )}
-            {user && specificCocktail && specificCocktail.creatorId === user.id && (
-                <div>
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal">EDIT</button>
-                    <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={handleSubmitReviewForm}>
+                                <div>
+                                    <input placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
+                                </div>
+                                <div>
+                                    <input placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit review</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            )}
+            </div>
+
+            <div class="modal fade" id="EditReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit a review!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={handleSubmitEditReviewForm}>
+                                <div>
+                                    <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
+                                    {console.log(reviewToEdit.review)}
+                                </div>
+                                <div>
+                                    <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
+                                </div>
+                                <button type='submit' class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="modal fade" id="EditCocktailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -210,6 +212,13 @@ const SpecificCocktail = () => {
                 </div>
             </div>
 
+            {/* {user && specificCocktail && specificCocktail.creatorId === user.id && (
+                <div>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal">EDIT</button>
+                    <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
+                </div>
+            )} */}
+
             {specificCocktail && showReviews && (
                 <div>
                     <h1 class="display-5">Reviews</h1>
@@ -232,6 +241,9 @@ const SpecificCocktail = () => {
                     })}
                 </div>
             )}
+
+
+
         </div>
     )
 }
