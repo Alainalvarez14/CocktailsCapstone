@@ -14,12 +14,8 @@ const SpecificCocktail = () => {
 
     const user = useSelector(state => state.session.user);
     const { drinkId } = useParams();
-    const { reviewId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
-    // const [showEditForm, setShowEditForm] = useState(false);
-    const [showEditReviewForm, setShowEditReviewForm] = useState(false);
-    // const [showReviewForm, setShowReviewForm] = useState(false);
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [isAlcoholic, setIsAlcoholic] = useState('');
@@ -35,12 +31,9 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-    // const [reviewToEdit, setReviewToEdit] = useState('');
-    // const specificReview = Object.values(allReviewsForCocktail).filter(review => review.cocktailId === Number(specificCocktail.id));
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
-        //
     }, [dispatch]);
 
     const handleDelete = (e, cocktail) => {
@@ -52,13 +45,11 @@ const SpecificCocktail = () => {
     const handleSubmitEditForm = () => {
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(editCocktailThunk(cocktailObj));
-        // setShowEditForm(false);
     }
 
     const handleSubmitReviewForm = () => {
         let reviewObj = { review, stars, userId: user.id, cocktailId: specificCocktail.id };
         dispatch(createReviewThunk(reviewObj));
-        // setShowReviewForm(false);
     }
 
     const seeAllReviews = (e) => {
@@ -76,13 +67,11 @@ const SpecificCocktail = () => {
         let reviewObj = { id: reviewToEdit.id, review, stars, userId: user.id, cocktailId: specificCocktail.id };
         console.log(reviewObj)
         dispatch(editReviewThunk(reviewObj));
-        setShowEditReviewForm(false);
+        // setShowEditReviewForm(false);
     }
 
     const openReviewForm = (e, review) => {
         e.preventDefault()
-        // console.log(review)
-        // setShowEditReviewForm(!showEditReviewForm)
         setReviewToEdit(review);
     }
 
@@ -101,12 +90,11 @@ const SpecificCocktail = () => {
                             marginTop: 'auto',
                             marginBottom: 'auto',
                         }}>
-                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" /*onClick={() => setShowReviewForm(!showReviewForm)}*/>Leave a Review!</button>
+                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
                             <button type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
-
                         </div>
                     </div>
-                    <img src={`${specificCocktail.image}`} class="img-fluid"></img>
+                    <img src={`${specificCocktail.image}`} class="img-fluid" ></img>
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
@@ -146,10 +134,6 @@ const SpecificCocktail = () => {
                                         <button type="submit" class="btn btn-primary">Submit review</button>
                                     </form>
                                 </div>
-                                {/* <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Submit review</button>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -181,43 +165,11 @@ const SpecificCocktail = () => {
             )}
             {user && specificCocktail && specificCocktail.creatorId === user.id && (
                 <div>
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal" /*onClick={() => setShowEditForm(!showEditForm)}*/>EDIT</button>
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCocktailModal">EDIT</button>
                     <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDelete(e, specificCocktail)}>DELETE</button>
                 </div>
             )}
-            {/* {user && specificCocktail && specificCocktail.creatorId === user.id && showEditForm && (
-                <form onSubmit={handleSubmitEditForm}>
-                    <div>
-                        <input placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
-                    </div>
-                    <div>
-                        <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
-                    </div>
-                    <button type='submit'>Submit</button>
-                </form>
-            )} */}
 
-
-
-            {/* {user && specificCocktail && specificCocktail.creatorId === user.id && showEditForm && ( */}
             <div class="modal fade" id="EditCocktailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -251,14 +203,14 @@ const SpecificCocktail = () => {
                                 <div>
                                     <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                                 </div>
-                                <button type='submit'>Submit</button>
+                                <button type='submit' class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* )} */}
-            {specificCocktail && /*!showReviewForm && */showReviews && (
+
+            {specificCocktail && showReviews && (
                 <div>
                     <h1 class="display-5">Reviews</h1>
                     {Object.values(allReviewsForCocktail).map(review => {

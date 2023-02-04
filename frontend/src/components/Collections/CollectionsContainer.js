@@ -103,8 +103,8 @@ const CollectionsContainer = () => {
 
     return (
         <div>
-            {showCreateCollectionForm && (
-                // <form style={{
+            {/* {showCreateCollectionForm && ( */}
+            {/* // <form style={{
                 //     border: "2px solid green"
                 // }} onSubmit={handleSubmitCreateCollectionForm}>
                 //     <div>Create Collection Form</div>
@@ -112,28 +112,28 @@ const CollectionsContainer = () => {
                 //         <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
                 //     </div>
                 //     <button type="submit">Submit</button>
-                // </form>
+                // </form> */}
 
-                <div class="modal fade" id="addCollectionModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Collection Form</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form onSubmit={handleSubmitCreateCollectionForm}>
-                                    <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
-                                    <button type="submit" class="btn btn-primary" style={{
-                                        display: 'flex',
-                                        marginTop: '1vh'
-                                    }} data-bs-dismiss="modal">Submit</button>
-                                </form>
-                            </div>
+            <div class="modal fade" id="AddCollectionModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Collection Form</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={handleSubmitCreateCollectionForm}>
+                                <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                <button type="submit" class="btn btn-primary" style={{
+                                    display: 'flex',
+                                    marginTop: '1vh'
+                                }} data-bs-dismiss="modal">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            )}
+            </div>
+            {/* // )} */}
 
             <div class="flex-shrink-0 p-3 bg-white" style={{ width: "280px" }}>
                 <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
@@ -142,7 +142,7 @@ const CollectionsContainer = () => {
                 </a>
                 <ul class="list-unstyled ps-0">
                     <li class="mb-1">
-                        <button class="btn align-items-center rounded" data-bs-toggle="modal" data-bs-target="#addCollectionModal" onClick={(e) => handleShowCreateNewCollectionForm(e)}>
+                        <button class="btn align-items-center rounded" data-bs-toggle="modal" data-bs-target="#AddCollectionModal" /*onClick={(e) => handleShowCreateNewCollectionForm(e)}*/>
                             Add Collection
                         </button>
                     </li>
