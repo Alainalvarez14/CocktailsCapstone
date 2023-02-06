@@ -135,7 +135,7 @@ const SpecificCollection = () => {
                                     <ul class="list-group"
                                         style={{
                                             position: 'absolute',
-                                            width: '12.7rem',
+                                            width: '28.7rem',
                                             maxHeight: '15rem',
                                             overflow: 'auto',
                                             zIndex: '100'
@@ -148,7 +148,8 @@ const SpecificCollection = () => {
                                                     overflow: 'hidden'
                                                 }} class="list-group-item list-group-item-action"
                                                     onClick={(e) => addDrink(e, cocktail.id)} data-bs-dismiss="modal">
-                                                    {cocktail.name}
+                                                    <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
+                                                    <span>{cocktail.name}</span>
                                                 </li>
                                             )
                                         })}

@@ -82,6 +82,7 @@ const MyProfileCard = () => {
                                         modalComponent={<SignupFormModal />}
                                     />
                                 </button>
+
                             </div>
                         )}
                     </div>

@@ -84,7 +84,7 @@ const SpecificCocktail = () => {
     }
 
     return (
-        <div style={{ padding: '40px' }}>
+        <div style={{ padding: '40px 40px 140px 40px' }}>
             {specificCocktail && (
                 <div class="card" style={{ width: "80vw", maxWidth: '700px', display: 'flex', margin: 'auto' }}>
                     <div class="card-body">
@@ -98,7 +98,6 @@ const SpecificCocktail = () => {
                                 marginBottom: 'auto',
                                 display: 'flex'
                             }}>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#CreateCocktailModal">hhh</button>
                                 <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
                                 <button style={{ display: 'flex', marginRight: 'auto', marginLeft: '1vw' }} type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
                             </div>
@@ -223,7 +222,7 @@ const SpecificCocktail = () => {
             </div>
 
 
-            {<div class="modal fade" id="CreateCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* {<div class="modal fade" id="CreateCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -261,7 +260,7 @@ const SpecificCocktail = () => {
                         </div >
                     </div >
                 </div >
-            </div >}
+            </div >} */}
 
             {/* {user && specificCocktail && specificCocktail.creatorId === user.id && (
                 <div>
@@ -274,7 +273,10 @@ const SpecificCocktail = () => {
                 specificCocktail && showReviews && (
                     <div>
                         <h1 class="display-5">Reviews</h1>
-                        {Object.values(allReviewsForCocktail).map(review => {
+                        {Object.values(allReviewsForCocktail).length === 0 && (
+                            <p>Be the first to leave a review!</p>
+                        )}
+                        {allReviewsForCocktail && Object.values(allReviewsForCocktail).map(review => {
                             return (
                                 <div class="card">
                                     <div class="card-body">

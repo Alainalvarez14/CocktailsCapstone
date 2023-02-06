@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -42,7 +42,8 @@ const Searchbar = () => {
                                 overflow: 'hidden'
                             }} class="list-group-item list-group-item-action"
                                 onClick={(e) => openSpecificCocktail(e, cocktail)}>
-                                {cocktail.name}
+                                <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
+                                <span>{cocktail.name}</span>
                             </li>
                         )
                     })}

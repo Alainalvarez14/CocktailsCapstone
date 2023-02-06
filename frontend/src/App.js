@@ -12,6 +12,7 @@ import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
 import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
 import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,9 +59,11 @@ function App() {
               </div>
               <SingleCocktail />
             </div>
+
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
