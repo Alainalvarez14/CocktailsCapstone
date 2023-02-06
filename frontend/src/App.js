@@ -50,6 +50,7 @@ function App() {
             <div style={{
               display: 'flex',
               marginTop: '1rem',
+              paddingBottom: '10rem'
             }}>
               <div style={{
                 marginRight: '5rem',
