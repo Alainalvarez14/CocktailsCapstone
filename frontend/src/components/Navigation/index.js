@@ -12,6 +12,7 @@ import CreateCocktailForm from '../CreateCocktailForm/CreateCocktailForm';
 import MyCreatedCocktailList from '../MyCreatedCocktailList/MyCreatedCocktailList';
 import Searchbar from '../Searchbar/Searchbar';
 import { useHistory } from 'react-router-dom';
+import logo from '../../appLogo/logo.png'
 
 function Navigation({ isLoaded }) {
     const history = useHistory();
@@ -36,10 +37,21 @@ function Navigation({ isLoaded }) {
     // }
 
     return (
-        <div>
+        <div class="sticky-top" style={{
+            background: 'white'
+        }}>
+            <img class="navbar-brand" src={`${logo}`} style={{
+                // width: '100%',
+                // height: '10vh'
+                width: '50%',
+                margin: '0 auto',
+                display: 'flex',
+            }}></img>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Cocktail App</a>
+                    {/* <img class="navbar-brand" src={`${logo}`} style={{
+                        width: '12rem',
+                    }}></img> */}
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
