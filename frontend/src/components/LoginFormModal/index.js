@@ -29,6 +29,17 @@ const LoginFormModal = () => {
             });
     }
 
+    const handleSubmitDemoUser = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+    }
+
     return (
         <div>
             <h1 style={{
@@ -79,8 +90,21 @@ const LoginFormModal = () => {
                     display: "flex",
                     marginRight: "auto",
                     marginLeft: 'auto',
-                    marginTop: '1.2vh'
+                    marginTop: '1.2vh',
+                    width: '7.5rem',
+                    justifyContent: 'center'
                 }} class="btn btn-primary">Log In</button>
+
+                <button class="btn btn-primary" style={{
+                    display: "flex",
+                    marginRight: "auto",
+                    marginLeft: 'auto',
+                    marginTop: '1.2vh',
+                    width: '7.5rem',
+                    justifyContent: 'center'
+                }} onClick={(e) => handleSubmitDemoUser(e)}>
+                    Demo Login
+                </button>
             </form>
         </div>
     );

@@ -18,21 +18,19 @@ const SpecificCollection = () => {
     const dispatch = useDispatch();
     const { collectionId } = useParams()
     const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
-    const [drinkId, setDrinkId] = useState('');
     const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin) ? useSelector(state => state.cocktailCollectionsJoin) : [];
     const allCocktails = useSelector(state => state.cocktails);
-    const [showSpecificDrink, setShowSpecificDrink] = useState(false);
-    const [clickedCocktail, setClickedCocktail] = useState('');
     const allCollections = useSelector(state => state.collections);
     const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
     const user = useSelector(state => state.session.user);
     const history = useHistory();
     const [showEditCollectionNameForm, setShowEditCollectionNameForm] = useState(false);
     const [collectionName, setCollectionName] = useState('');
+    const [name, setName] = useState('');
+    const [searchResults, setSearchResults] = useState('');
 
     useEffect(() => {
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
-        // dispatch(getAllCocktailsByCollectionThunk(Number(collectionId)));
     }, [dispatch]);
 
     useEffect(() => {
@@ -43,16 +41,19 @@ const SpecificCollection = () => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (allCocktails) setSearchResults(Object.values(allCocktails).filter(cocktail => cocktail.name.toLowerCase().includes(name.toLowerCase())));
+    }, [name]);
+
     const openSpecificDrink = (e, cocktail) => {
-        console.log(cocktail.id)
         e.preventDefault();
-        // setShowSpecificDrink(!showSpecificDrink);
-        // setClickedCocktail(cocktail);
-        history.push(`/collections/drink/${cocktail.id}`);
+        history.push(`/drink/${cocktail.id}`);
     }
 
     const addDrink = (e, drinkId) => {
         e.preventDefault();
+        setSearchResults('');
+        setName('');
         if (!drinkId) return
         if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) return;
         const obj = { collectionId: Number(collectionId), cocktailId: Number(drinkId) }
@@ -88,7 +89,7 @@ const SpecificCollection = () => {
             {user && currCollection && (
                 <div>
                     <h1 class="display-4">{currCollection.name}</h1>
-                    <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" onClick={() => setShowAddDrinkForm(true)}>Add Drink To Collection</button>
+                    <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" /*onClick={() => setShowAddDrinkForm(true)}*/>Add Drink To Collection</button>
                 </div>
             )}
             {cocktailsInList && allCocktails && (
@@ -112,80 +113,74 @@ const SpecificCollection = () => {
             )
             }
             <div style={{ marginTop: '2vh' }}>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => editCollectionName(e)}>Edit Collection Name</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" /*onClick={(e) => editCollectionName(e)}*/>Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             </div>
-            {
-                showAddDrinkForm && (
-                    // <form onSubmit={(e) => addDrink(e, drinkId)}>
-                    //     <div>
-                    //         <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
-                    //     </div>
-                    //     <button type="submit">Submit</button>
-                    // </form>
-                    <div class="modal fade" id="AddDrinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form onSubmit={(e) => addDrink(e, drinkId)}>
-                                        <div>
-                                            <input placeholder="Drink Id" value={drinkId} onChange={(e) => setDrinkId(e.target.value)}></input>
-                                        </div>
-                                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
+
+
+            {/* {showAddDrinkForm && ( */}
+            <div class="modal fade" id="AddDrinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add a drink to your collection!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-                )
-            }
-            {/* {
-                showSpecificDrink && (
-                    <div style={{
-                        border: "2px solid orange"
-                    }}>
-                        <div>{clickedCocktail.image}</div>
-                        <div>{clickedCocktail.name}</div>
-                        <div>{clickedCocktail.isAlcoholic}</div>
-                        <div>{clickedCocktail.category}</div>
-                        <div>{clickedCocktail.glassType}</div>
-                        <div>{clickedCocktail.ingredients}</div>
-                        <div>{clickedCocktail.measurements}</div>
-                        <div>{clickedCocktail.instructions}</div>
-                    </div>
-                )
-            } */}
-            {showEditCollectionNameForm && (
-                // <form style={{
-                //     border: "2px solid green"
-                // }} onSubmit={handleSubmitEditCollectionNameForm}>
-                //     <div>Edit Collection Name Form</div>
-                //     <div>
-                //         <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
-                //     </div>
-                //     <button type="submit">Submit</button>
-                // </form>
-                <div class="modal fade" id="EditCollectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Collection Name</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form onSubmit={handleSubmitEditCollectionNameForm}>
-                                    <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
-                                    <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
+                        <div class="modal-body">
+                            <div>
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </form>
+                                {searchResults && name && (
+                                    <ul class="list-group"
+                                        style={{
+                                            position: 'absolute',
+                                            width: '28.7rem',
+                                            maxHeight: '15rem',
+                                            overflow: 'auto',
+                                            zIndex: '100'
+                                        }}>
+                                        {searchResults.map(cocktail => {
+                                            return (
+                                                <li style={{
+                                                    cursor: "pointer",
+                                                    textOverflow: 'ellipsis',
+                                                    overflow: 'hidden'
+                                                }} class="list-group-item list-group-item-action"
+                                                    onClick={(e) => addDrink(e, cocktail.id)} data-bs-dismiss="modal">
+                                                    <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
+                                                    <span>{cocktail.name}</span>
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
-            )}
+            </div>
+            {/* )} */}
+
+
+            {/* {showEditCollectionNameForm && ( */}
+            <div class="modal fade" id="EditCollectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Collection Name</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={handleSubmitEditCollectionNameForm}>
+                                <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* )} */}
         </div >
     )
 }

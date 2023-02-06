@@ -12,6 +12,7 @@ import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
 import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
 import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,11 +35,14 @@ function App() {
           <Route path="/drink/:drinkId">
             <SpecificCocktail />
           </Route>
-          <Route path="/collections/drink/:drinkId">
+          {/* <Route path="/collections/drink/:drinkId">
             <SpecificCocktail />
-          </Route>
+          </Route> */}
           <Route path="/collections/:collectionId">
             <SpecificCollection />
+          </Route>
+          <Route path="/myCreatedCocktailList">
+            <MyCreatedCocktailList />
           </Route>
           <Route path="/">
             {/* <SingleCocktail />
@@ -55,9 +59,11 @@ function App() {
               </div>
               <SingleCocktail />
             </div>
+
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
