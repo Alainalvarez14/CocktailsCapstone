@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       glassType: {
         type: Sequelize.STRING
