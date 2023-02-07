@@ -1,6 +1,10 @@
 'use strict';
 
 // /** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -12,7 +16,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Reviews', [
+    options.tableName = 'Reviews';
+    return queryInterface.bulkInsert(options, [
       {
         review: 'efkjbdskjlvbdskvbdsvb kwjerbvekrbverov ebvoaerovervreovreo',
         stars: 1,
@@ -31,16 +36,13 @@ module.exports = {
         userId: 3,
         cocktailId: 3
       }
-    ], {});
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    return queryInterface.bulkDelete('Reviews', {}, {});
+
+    // return queryInterface.bulkDelete('Reviews', {}, {});
+    options.tableName = 'Reviews';
+    return queryInterface.bulkDelete(options);
   }
 };

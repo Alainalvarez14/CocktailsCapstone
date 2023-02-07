@@ -1,6 +1,11 @@
 'use strict';
 
 // /** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -12,7 +17,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Cocktails', [
+    options.tableName = 'Cocktails'
+    return queryInterface.bulkInsert(options, [
       {
         creatorId: 1,
         name: 'Mojito',
@@ -113,20 +119,17 @@ module.exports = {
         measurements: '1 1/2 ounces vodka, Orange juice, freshly squeezed, to top'
       }
 
-    ], {});
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Cocktails', {
-      name: { [Op.in]: ['Mojito', 'Rum and coke', 'Virgin pina colada'] }
-      // name: { [Op.in]: ['Mojito'] }
-    }, {});
+
+    // const Op = Sequelize.Op;
+    // return queryInterface.bulkDelete('Cocktails', {
+    //   name: { [Op.in]: ['Mojito', 'Rum and coke', 'Virgin pina colada'] }
+    //   // name: { [Op.in]: ['Mojito'] }
+    // }, {});
+    options.tableName = 'Cocktails'
+    return queryInterface.bulkDelete(options);
   }
 };
