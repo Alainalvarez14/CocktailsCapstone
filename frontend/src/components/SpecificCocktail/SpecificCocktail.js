@@ -38,7 +38,7 @@ const SpecificCocktail = () => {
     }, [dispatch]);
 
     const handleDelete = (e, cocktail) => {
-        e.preventDefault;
+        e.preventDefault();
         dispatch(deleteCocktailThunk(cocktail));
         history.push("/");
     }
@@ -79,7 +79,7 @@ const SpecificCocktail = () => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        dispatch(createCocktailThunk(cocktailObj));
+        // dispatch(createCocktailThunk(cocktailObj));
         // dispatch(getAllCocktailsByUserThunk());
         // setShowCreateForm(false);
     }

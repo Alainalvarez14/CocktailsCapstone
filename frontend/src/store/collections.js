@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf";
 // const getAllCocktailsByCollection = list => ({
 //     type: 'GET_ALL_COCKTAILS_BY_COLLECTION',
 //     payload: list

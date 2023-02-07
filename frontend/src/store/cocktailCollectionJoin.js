@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const createCocktailCollectionJoin = (collection) => {
     return ({
         type: 'CREATE_COCKTAIL_COLLECTIONS_JOIN',
