@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(3999)
       },
       ingredients: {
         type: Sequelize.TEXT
@@ -27,13 +27,13 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       category: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(3999)
       },
       image: {
         type: Sequelize.TEXT
       },
       glassType: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(3999)
       },
       instructions: {
         type: Sequelize.TEXT

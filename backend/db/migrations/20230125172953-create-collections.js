@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(3999)
       },
       creatorId: {
         type: Sequelize.INTEGER
