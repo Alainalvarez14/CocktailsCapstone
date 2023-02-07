@@ -16,9 +16,12 @@ const OpenModalMenuItem = ({
     };
 
     return (
-        <li onClick={onClick}>
+        // <li onClick={onClick}>
+        //     {itemText}
+        // </li>
+        <div onClick={onClick}>
             {itemText}
-        </li>
+        </div>
     )
 }
 

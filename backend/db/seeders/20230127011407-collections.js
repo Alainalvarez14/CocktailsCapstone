@@ -5,6 +5,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -16,33 +17,31 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    options.tableName = 'Reviews';
+    options.tableName = 'Collections';
     return queryInterface.bulkInsert(options, [
       {
-        review: 'efkjbdskjlvbdskvbdsvb kwjerbvekrbverov ebvoaerovervreovreo',
-        stars: 1,
-        userId: 1,
-        cocktailId: 1
+        creatorId: 1,
+        name: 'FridayNightDrinks',
       },
       {
-        review: 'berkherkviue eijrhvbeiruiuv dfveaon efouvhreiohvoeirhahvioehaiopeopiaeopvaievpeaivpearpvipjevpo',
-        stars: 4,
-        userId: 2,
-        cocktailId: 2
+        creatorId: 2,
+        name: 'FavoriteWhiskeyDrinks',
       },
       {
-        review: 'reghjrebkjrebuirebiouveroqvnoiernoveqriuvbor eofuvhoueqrnvioneroivneorinve  o3qihvnoirvnrniovnqprenqpvrqnvoqmnpoqo',
-        stars: 5,
-        userId: 3,
-        cocktailId: 3
+        creatorId: 3,
+        name: 'Top10SweetDrinks',
       }
     ]);
   },
 
   async down(queryInterface, Sequelize) {
-
-    // return queryInterface.bulkDelete('Reviews', {}, {});
-    options.tableName = 'Reviews';
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+    options.tableName = 'Collections';
     return queryInterface.bulkDelete(options);
   }
 };

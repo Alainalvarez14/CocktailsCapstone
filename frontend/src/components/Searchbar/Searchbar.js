@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import SpecificCocktail from "../SpecificCocktail/SpecificCocktail";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const Searchbar = () => {
 
-    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const allCocktails = useSelector(state => state.cocktails);
     const [searchResults, setSearchResults] = useState('');
@@ -14,12 +12,6 @@ const Searchbar = () => {
     useEffect(() => {
         if (allCocktails) setSearchResults(Object.values(allCocktails).filter(cocktail => cocktail.name.toLowerCase().includes(name.toLowerCase())));
     }, [name]);
-
-    const searchCocktail = (e) => {
-        e.preventDefault()
-        // setSearchResults(Object.values(allCocktails).filter(cocktail => cocktail.name.toLowerCase().includes(name.toLowerCase())));
-        // setName('');
-    }
 
     const openSpecificCocktail = (e, cocktail) => {
         e.preventDefault();
@@ -30,26 +22,33 @@ const Searchbar = () => {
 
     return (
         <div>
-            <form class="d-flex" role="search" onSubmit={(e) => searchCocktail(e)}>
+            <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
-                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {searchResults && name && (
-                <div style={{
-                    background: 'red',
-                    position: 'absolute',
-                    width: '18rem',
-                    maxHeight: '15rem',
-                    height: 'fit-content',
-                    overflow: 'auto',
-                    zIndex: '100'
-                }} /*class='dropdown-menu' aria-labelledby="dropdownMenuLink" */>{searchResults.map(cocktail => {
-                    return (
-                        <div /*class="dropdown-item"*/ onClick={(e) => openSpecificCocktail(e, cocktail)}>{cocktail.name}</div>
-                    )
-                })}</div>
-            )
-            }
+                <ul class="list-group"
+                    style={{
+                        position: 'absolute',
+                        width: '12.7rem',
+                        maxHeight: '15rem',
+                        overflow: 'auto',
+                        zIndex: '100'
+                    }}>
+                    {searchResults.map(cocktail => {
+                        return (
+                            <li style={{
+                                cursor: "pointer",
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden'
+                            }} class="list-group-item list-group-item-action"
+                                onClick={(e) => openSpecificCocktail(e, cocktail)}>
+                                <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
+                                <span>{cocktail.name}</span>
+                            </li>
+                        )
+                    })}
+                </ul>
+            )}
         </div>
     )
 }

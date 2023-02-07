@@ -10,6 +10,9 @@ import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
 import CollectionsContainer from "./components/Collections/CollectionsContainer";
+import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
+import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,12 +35,36 @@ function App() {
           <Route path="/drink/:drinkId">
             <SpecificCocktail />
           </Route>
+          {/* <Route path="/collections/drink/:drinkId">
+            <SpecificCocktail />
+          </Route> */}
+          <Route path="/collections/:collectionId">
+            <SpecificCollection />
+          </Route>
+          <Route path="/myCreatedCocktailList">
+            <MyCreatedCocktailList />
+          </Route>
           <Route path="/">
-            <SingleCocktail />
-            <CollectionsContainer />
+            {/* <SingleCocktail />
+            <MyProfileCard /> */}
+            <div style={{
+              display: 'flex',
+              marginTop: '1rem',
+              paddingBottom: '10rem'
+            }}>
+              <div style={{
+                marginRight: '5rem',
+              }}>
+                <MyProfileCard />
+                <CollectionsContainer />
+              </div>
+              <SingleCocktail />
+            </div>
+
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
