@@ -18,7 +18,7 @@ const SpecificCollection = () => {
     const dispatch = useDispatch();
     const { collectionId } = useParams()
     const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
-    const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin) ? useSelector(state => state.cocktailCollectionsJoin) : [];
+    const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin) /*? useSelector(state => state.cocktailCollectionsJoin) : []*/;
     const allCocktails = useSelector(state => state.cocktails);
     const allCollections = useSelector(state => state.collections);
     const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
