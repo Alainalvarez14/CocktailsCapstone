@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       ingredients: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       isAlcoholic: {
         type: Sequelize.BOOLEAN
@@ -36,10 +36,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       instructions: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       measurements: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
   Cocktail.init({
     creatorId: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    ingredients: DataTypes.STRING,
+    ingredients: DataTypes.TEXT,
     isAlcoholic: DataTypes.BOOLEAN,
     category: DataTypes.STRING,
     image: DataTypes.STRING,
     glassType: DataTypes.STRING,
-    instructions: DataTypes.STRING,
-    measurements: DataTypes.STRING
+    instructions: DataTypes.TEXT,
+    measurements: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Cocktail',
