@@ -51,12 +51,14 @@ const SpecificCocktail = () => {
         history.push("/");
     }
 
-    const handleSubmitEditForm = () => {
+    const handleSubmitEditForm = (e) => {
+        e.preventDefault();
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(editCocktailThunk(cocktailObj));
     }
 
-    const handleSubmitReviewForm = () => {
+    const handleSubmitReviewForm = (e) => {
+        e.preventDefault();
         if (hasLeftReview) {
             return alert("cant leave more than one review!");
         }
@@ -76,7 +78,8 @@ const SpecificCocktail = () => {
         dispatch(deleteReviewThunk(review));
     }
 
-    const handleSubmitEditReviewForm = () => {
+    const handleSubmitEditReviewForm = (e) => {
+        e.preventDefault();
         let reviewObj = { id: reviewToEdit.id, review, stars, userId: user.id, cocktailId: specificCocktail.id };
         console.log(reviewObj)
         dispatch(editReviewThunk(reviewObj));
@@ -161,14 +164,14 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitReviewForm}>
+                            <form onSubmit={(e) => handleSubmitReviewForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -183,7 +186,7 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitEditReviewForm}>
+                            <form onSubmit={(e) => handleSubmitEditReviewForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
                                     {console.log(reviewToEdit.review)}
@@ -191,7 +194,7 @@ const SpecificCocktail = () => {
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
-                                <button type='submit' class="btn btn-primary">Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -206,7 +209,7 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitEditForm}>
+                            <form onSubmit={(e) => handleSubmitEditForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </div>
@@ -263,7 +266,7 @@ const SpecificCocktail = () => {
                                         <option value="Rocks">Rocks</option>
                                     </select>
                                 </div>
-                                <button type='submit' class="btn btn-primary">Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
