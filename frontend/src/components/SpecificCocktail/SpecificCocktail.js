@@ -31,11 +31,16 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-
+    const hasLeftReview = Object.values(allReviewsForCocktail).some(review => review.userId === user.id);
+    console.log(hasLeftReview);
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getAllReviewsForSpecificCocktailThunk(specificCocktail));
+    }, []);
 
     const handleDelete = (e, cocktail) => {
         e.preventDefault();
@@ -49,6 +54,10 @@ const SpecificCocktail = () => {
     }
 
     const handleSubmitReviewForm = () => {
+        if (hasLeftReview) {
+            return alert("cant leave more than one review!");
+        }
+
         let reviewObj = { review, stars, userId: user.id, cocktailId: specificCocktail.id };
         dispatch(createReviewThunk(reviewObj));
     }
@@ -99,7 +108,7 @@ const SpecificCocktail = () => {
                                 marginBottom: 'auto',
                                 display: 'flex'
                             }}>
-                                <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
+                                {user && user.id !== specificCocktail.creatorId && <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>}
                                 <button style={{ display: 'flex', marginRight: 'auto', marginLeft: '1vw' }} type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
                             </div>
                         </p>

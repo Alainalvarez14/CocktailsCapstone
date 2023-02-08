@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createCocktailThunk } from '../../store/cocktails';
 import { getAllCocktailsByUserThunk } from '../../store/cocktails';
+import { useSelector } from 'react-redux';
 
 const CreateCocktailForm = () => {
 
@@ -15,6 +16,7 @@ const CreateCocktailForm = () => {
     const [glassType, setGlassType] = useState('');
     const [instructions, setInstructions] = useState('');
     const [measurements, setMeasurements] = useState('');
+    const user = useSelector(state => state.session.user);
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -24,9 +26,16 @@ const CreateCocktailForm = () => {
         // setShowCreateForm(false);
     }
 
+    // const checkUser = (e) => {
+    //     e.preventDefault();
+    //     if (!user) {
+    //         alert("Must be logged on!");
+    //     }
+    // }
+    // class={`nav-link active ${!user ? "disabled" : ""}`}
     return (
         <div>
-            <a class="nav-link active" type="button" data-bs-toggle="modal" data-bs-target="#CreateCocktailModal">Create a Cocktail</a>
+            <a class="nav-link active" type="button" data-bs-toggle="modal" data-bs-target="#CreateCocktailModal" >Create a Cocktail</a>
             <div class="modal fade" id="CreateCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

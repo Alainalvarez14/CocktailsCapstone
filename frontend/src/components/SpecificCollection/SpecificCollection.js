@@ -129,7 +129,7 @@ const SpecificCollection = () => {
                         <div class="modal-body">
                             <div>
                                 <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
+                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </form>
                                 {searchResults && name && (
                                     <ul class="list-group"
