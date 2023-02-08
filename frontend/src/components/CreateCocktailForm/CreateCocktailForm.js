@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createCocktailThunk } from '../../store/cocktails';
 import { getAllCocktailsByUserThunk } from '../../store/cocktails';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 const CreateCocktailForm = () => {
 
@@ -17,11 +18,13 @@ const CreateCocktailForm = () => {
     const [instructions, setInstructions] = useState('');
     const [measurements, setMeasurements] = useState('');
     const user = useSelector(state => state.session.user);
+    const history = useHistory();
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(createCocktailThunk(cocktailObj));
+        history.push("/");
         // dispatch(getAllCocktailsByUserThunk());
         // setShowCreateForm(false);
     }

@@ -18,6 +18,14 @@ const deleteCocktailFromCollection = cocktail => ({
     payload: cocktail
 });
 
+const resetState = () => ({
+    type: 'RESET_STATE'
+});
+
+export const resetStateThunk = () => async dispatch => {
+    dispatch(resetState());
+}
+
 export const addDrinkThunk = (drink) => async dispatch => {
     const response = await csrfFetch('/api/collections/test', { /*drink.id interpolated rather than test?*/
         method: "POST",
@@ -117,6 +125,10 @@ export const cocktailCollectionsJoinReducer = (state = defaultState, action) => 
             newState = { ...state };
             delete newState[action.payload.id];
             return newState;
+        }
+
+        case 'RESET_STATE': {
+            return state;
         }
 
         default: {

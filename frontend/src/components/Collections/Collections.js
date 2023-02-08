@@ -3,7 +3,8 @@ import { useHistory } from "react-router";
 import { getAllCocktailsByCollectionThunk } from "../../store/cocktailCollectionJoin";
 import { addDrinkThunk } from "../../store/cocktailCollectionJoin";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllCollectionsByUserThunk } from "../../store/collections";
 
 const Collections = () => {
 
@@ -13,6 +14,11 @@ const Collections = () => {
     // const [showOptions, setShowOptions] = useState(false);
     // const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
     // const [drinkId, setDrinkId] = useState('');
+    const user = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (user) dispatch(getAllCollectionsByUserThunk(user.id));
+    }, [dispatch, user]);
 
 
     const openSpecificCollection = (e, collection) => {
@@ -31,7 +37,7 @@ const Collections = () => {
 
     return (
         <div>
-            {Object.values(allCollections).map(collection => {
+            {user && Object.values(allCollections).map(collection => {
                 return (
                     <li class="mb-1">
                         <button onClick={(e) => openSpecificCollection(e, collection)} class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">{collection.name}</button>

@@ -11,6 +11,7 @@ import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
 import { editCollectionThunk } from "../../store/collections";
 import { getAllCocktailsThunk } from "../../store/cocktails";
+import { resetStateThunk } from "../../store/cocktailCollectionJoin";
 
 
 const SpecificCollection = () => {
@@ -30,8 +31,9 @@ const SpecificCollection = () => {
     const [searchResults, setSearchResults] = useState('');
 
     useEffect(() => {
+        // if (!user) dispatch(resetStateThunk());
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     useEffect(() => {
         dispatch(getAllCocktailsByCollectionThunk(collectionId));
