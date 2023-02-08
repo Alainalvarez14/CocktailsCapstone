@@ -30,7 +30,7 @@ export const getAllCocktailsByUserThunk = () => async dispatch => {
         dispatch(getAllCocktailsByUser(list.Cocktails));
     }
 }
-
+//
 export const getAllCocktailsThunk = () => async dispatch => {
     const response = await fetch('/api/cocktails')
 
