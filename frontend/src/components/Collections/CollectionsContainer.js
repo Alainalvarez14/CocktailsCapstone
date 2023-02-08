@@ -32,7 +32,9 @@ const CollectionsContainer = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitCreateCollectionForm}>
-                                <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                </div>
                                 <button type="submit" class="btn btn-primary" style={{
                                     display: 'flex',
                                     marginTop: '1vh'

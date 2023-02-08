@@ -175,7 +175,9 @@ const SpecificCollection = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitEditCollectionNameForm}>
-                                <input placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                </div>
                                 <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
                             </form>
                         </div>

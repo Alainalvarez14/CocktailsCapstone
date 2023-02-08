@@ -162,11 +162,11 @@ const SpecificCocktail = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitReviewForm}>
-                                <div>
-                                    <input placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit review</button>
                             </form>
@@ -184,12 +184,12 @@ const SpecificCocktail = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitEditReviewForm}>
-                                <div>
-                                    <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
                                     {console.log(reviewToEdit.review)}
                                 </div>
-                                <div>
-                                    <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
                                 <button type='submit' class="btn btn-primary">Submit</button>
                             </form>
@@ -207,33 +207,23 @@ const SpecificCocktail = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitEditForm}>
-                                <div>
-                                    <input placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
-                                {/* <div>
-                                    <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
-                                </div> */}
-                                <div>
-                                    <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
                                 </div>
-                                {/* <div>
-                                    <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
-                                </div> */}
-                                <div>
-                                    <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                                 </div>
                                 <fieldset class="form-group">
                                     <div class="row">
-                                        {/* <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend> */}
                                         <div class="col-sm-10">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />

@@ -47,11 +47,11 @@ const CreateCocktailForm = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleSubmitForm}>
-                                <div>
-                                    <input placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
                                 {/* <div>
                                     <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
@@ -59,19 +59,19 @@ const CreateCocktailForm = () => {
                                 {/* <div>
                                     <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
                                 </div> */}
-                                <div>
-                                    <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
                                 </div>
                                 {/* <div>
                                     <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
                                 </div> */}
-                                <div>
-                                    <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                                 </div>
-                                <fieldset class="form-group">
+                                <fieldset class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <div class="row">
                                         {/* <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend> */}
                                         <div class="col-sm-10">
