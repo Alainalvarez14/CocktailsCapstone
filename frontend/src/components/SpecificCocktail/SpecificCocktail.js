@@ -123,7 +123,7 @@ const SpecificCocktail = () => {
                             <tbody>
                                 <tr>
                                     <th scope="row">Drink Type:</th>
-                                    <td>{specificCocktail.isAlcoholic.toString() ? "Alcoholic" : "NonAlcoholic"}</td>
+                                    <td>{specificCocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic"}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Glass Type:</th>

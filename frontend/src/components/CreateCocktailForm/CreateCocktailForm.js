@@ -23,10 +23,9 @@ const CreateCocktailForm = () => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        dispatch(createCocktailThunk(cocktailObj));
-        history.push("/");
-        // dispatch(getAllCocktailsByUserThunk());
-        // setShowCreateForm(false);
+        console.log(cocktailObj)
+        // dispatch(createCocktailThunk(cocktailObj));
+        // history.push("/");
     }
 
     // const checkUser = (e) => {
@@ -54,12 +53,12 @@ const CreateCocktailForm = () => {
                                 <div>
                                     <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
-                                </div>
-                                <div>
+                                </div> */}
+                                {/* <div>
                                     <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
-                                </div>
+                                </div> */}
                                 <div>
                                     <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
                                 </div>
@@ -72,6 +71,119 @@ const CreateCocktailForm = () => {
                                 <div>
                                     <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                                 </div>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Alcoholic
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value={false} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Virgin
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Category</label>
+                                    <select id="inputState" class="form-control">
+                                        <option value="Cocktail" onChange={(e) => setCategory(e.target.value)}>Cocktail</option>
+                                        <option value="Sweet" onChange={(e) => setCategory(e.target.value)}>Sweet</option>
+                                        <option value="Tropical" onChange={(e) => setCategory(e.target.value)}>Tropical</option>
+                                        <option value="Shot" onChange={(e) => setCategory(e.target.value)}>Shot</option>
+                                        <option value="Sour" onChange={(e) => setCategory(e.target.value)}>Sour</option>
+                                        <option value="Wine" onChange={(e) => setCategory(e.target.value)}>Wine</option>
+                                    </select>
+                                </div>
+
+                                {/* <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Glass Type</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Highball
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Hurricane
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" />
+                                                <label class="form-check-label" for="gridRadios3">
+                                                    Collins
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4" value="option4" />
+                                                <label class="form-check-label" for="gridRadios4">
+                                                    Shot
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios5" value="option5" />
+                                                <label class="form-check-label" for="gridRadios5">
+                                                    Rocks
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Category</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Cocktail
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios2" value="option2" />
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Sweet
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Tropical
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Shot
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Sour
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Wine
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset> */}
                                 <button type='submit' data-bs-dismiss="modal" class="btn btn-primary"> Submit</button>
                             </form >
                         </div >
