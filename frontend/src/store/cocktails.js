@@ -41,7 +41,7 @@ export const getAllCocktailsThunk = () => async dispatch => {
 }
 
 export const createCocktailThunk = (cocktail) => async dispatch => {
-    const response = await csrfFetch('/api/cocktails', {
+    const response = await fetch('/api/cocktails', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
