@@ -18,14 +18,12 @@ const SpecificCollection = () => {
 
     const dispatch = useDispatch();
     const { collectionId } = useParams()
-    const [showAddDrinkForm, setShowAddDrinkForm] = useState(false);
     const cocktailsInList = useSelector(state => state.cocktailCollectionsJoin) /*? useSelector(state => state.cocktailCollectionsJoin) : []*/;
     const allCocktails = useSelector(state => state.cocktails);
     const allCollections = useSelector(state => state.collections);
     const currCollection = Object.values(allCollections).find(collection => collection.id === Number(collectionId))
     const user = useSelector(state => state.session.user);
     const history = useHistory();
-    const [showEditCollectionNameForm, setShowEditCollectionNameForm] = useState(false);
     const [collectionName, setCollectionName] = useState('');
     const [name, setName] = useState('');
     const [searchResults, setSearchResults] = useState('');
@@ -76,12 +74,8 @@ const SpecificCollection = () => {
         history.push("/");
     }
 
-    const editCollectionName = (e) => {
+    const handleSubmitEditCollectionNameForm = (e) => {
         e.preventDefault();
-        setShowEditCollectionNameForm(true);
-    }
-
-    const handleSubmitEditCollectionNameForm = () => {
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
     }
@@ -115,12 +109,10 @@ const SpecificCollection = () => {
             )
             }
             <div style={{ marginTop: '2vh' }}>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" /*onClick={(e) => editCollectionName(e)}*/>Edit Collection Name</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal">Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             </div>
 
-
-            {/* {showAddDrinkForm && ( */}
             <div class="modal fade" id="AddDrinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -162,10 +154,7 @@ const SpecificCollection = () => {
                     </div>
                 </div>
             </div>
-            {/* )} */}
 
-
-            {/* {showEditCollectionNameForm && ( */}
             <div class="modal fade" id="EditCollectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -174,7 +163,7 @@ const SpecificCollection = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitEditCollectionNameForm}>
+                            <form onSubmit={(e) => handleSubmitEditCollectionNameForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
                                 </div>
@@ -184,7 +173,6 @@ const SpecificCollection = () => {
                     </div>
                 </div>
             </div>
-            {/* )} */}
         </div >
     )
 }
