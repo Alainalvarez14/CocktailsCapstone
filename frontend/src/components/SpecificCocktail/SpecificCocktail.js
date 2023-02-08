@@ -126,6 +126,10 @@ const SpecificCocktail = () => {
                                     <td>{specificCocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic"}</td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Category:</th>
+                                    <td>{specificCocktail.category}</td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Glass Type:</th>
                                     <td>{specificCocktail.glassType}</td>
                                 </tr>
@@ -209,23 +213,65 @@ const SpecificCocktail = () => {
                                 <div>
                                     <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
                                 </div>
                                 <div>
                                     <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
-                                </div>
+                                </div> */}
                                 <div>
                                     <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
-                                </div>
+                                </div> */}
                                 <div>
                                     <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
                                 </div>
                                 <div>
                                     <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        {/* <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend> */}
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Alcoholic
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value={false} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Virgin
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Category</label>
+                                    <select id="inputState" class="form-control" onChange={(e) => setCategory(e.target.value)}>
+                                        <option value="Cocktail">Cocktail</option>
+                                        <option value="Sweet">Sweet</option>
+                                        <option value="Tropical">Tropical</option>
+                                        <option value="Shot">Shot</option>
+                                        <option value="Sour">Sour</option>
+                                        <option value="Wine">Wine</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Glass Type</label>
+                                    <select id="inputState" class="form-control" onChange={(e) => setGlassType(e.target.value)}>
+                                        <option value="Highball">Highball</option>
+                                        <option value="Hurricane">Hurricane</option>
+                                        <option value="Collins">Collins</option>
+                                        <option value="Shot">Shot</option>
+                                        <option value="Rocks">Rocks</option>
+                                    </select>
                                 </div>
                                 <button type='submit' class="btn btn-primary">Submit</button>
                             </form>
