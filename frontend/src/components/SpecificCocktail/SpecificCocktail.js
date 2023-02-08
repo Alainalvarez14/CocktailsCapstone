@@ -31,7 +31,10 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-    const hasLeftReview = Object.values(allReviewsForCocktail).some(review => review.userId === user.id);
+    let hasLeftReview;
+    if (user) {
+        hasLeftReview = Object.values(allReviewsForCocktail).some(review => review.userId === user.id);
+    }
     console.log(hasLeftReview);
 
     useEffect(() => {
