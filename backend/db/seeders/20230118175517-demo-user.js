@@ -17,6 +17,7 @@ module.exports = {
         username: 'Demo-lition',
         firstName: 'Alain',
         lastName: 'Alvarez',
+        profileImage: 'https://www.nicepng.com/png/detail/53-530608_al-pacino-portrait-scarface-tony-montana-domestic-poster.png',
         hashedPassword: bcrypt.hashSync('password')
       },
       {
@@ -24,6 +25,7 @@ module.exports = {
         username: 'FakeUser1',
         firstName: 'AlainA',
         lastName: 'AlvarezA',
+        profileImage: 'https://i.pinimg.com/originals/ac/2e/49/ac2e4968e9974ef54359c34533f6c06c.jpg',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
@@ -31,6 +33,7 @@ module.exports = {
         username: 'FakeUser2',
         firstName: 'AlainB',
         lastName: 'AlvarezB',
+        profileImage: 'https://media.vanityfair.com/photos/615dcfaf3aae1b3c1f41b920/9:16/w_746,h_1327,c_limit/the-godfather-site-story.jpg',
         hashedPassword: bcrypt.hashSync('password3')
       }
     ]);
