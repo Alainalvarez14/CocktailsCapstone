@@ -31,11 +31,19 @@ const SpecificCocktail = () => {
     const specificCocktail = Object.values(allCocktails).filter(cocktail => cocktail.id === Number(drinkId))[0];
     const [showReviews, setShowReviews] = useState(false);
     const allReviewsForCocktail = useSelector(state => state.reviews);
-
+    let hasLeftReview;
+    if (user) {
+        hasLeftReview = Object.values(allReviewsForCocktail).some(review => review.userId === user.id);
+    }
+    console.log(hasLeftReview);
 
     useEffect(() => {
         dispatch(getAllCocktailsThunk());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getAllReviewsForSpecificCocktailThunk(specificCocktail));
+    }, []);
 
     const handleDelete = (e, cocktail) => {
         e.preventDefault();
@@ -43,12 +51,18 @@ const SpecificCocktail = () => {
         history.push("/");
     }
 
-    const handleSubmitEditForm = () => {
+    const handleSubmitEditForm = (e) => {
+        e.preventDefault();
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         dispatch(editCocktailThunk(cocktailObj));
     }
 
-    const handleSubmitReviewForm = () => {
+    const handleSubmitReviewForm = (e) => {
+        e.preventDefault();
+        if (hasLeftReview) {
+            return alert("cant leave more than one review!");
+        }
+
         let reviewObj = { review, stars, userId: user.id, cocktailId: specificCocktail.id };
         dispatch(createReviewThunk(reviewObj));
     }
@@ -64,7 +78,8 @@ const SpecificCocktail = () => {
         dispatch(deleteReviewThunk(review));
     }
 
-    const handleSubmitEditReviewForm = () => {
+    const handleSubmitEditReviewForm = (e) => {
+        e.preventDefault();
         let reviewObj = { id: reviewToEdit.id, review, stars, userId: user.id, cocktailId: specificCocktail.id };
         console.log(reviewObj)
         dispatch(editReviewThunk(reviewObj));
@@ -99,7 +114,7 @@ const SpecificCocktail = () => {
                                 marginBottom: 'auto',
                                 display: 'flex'
                             }}>
-                                <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>
+                                {user && user.id !== specificCocktail.creatorId && <button style={{ display: 'flex', marginLeft: 'auto', marginRight: '1vw' }} type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Leave a Review!</button>}
                                 <button style={{ display: 'flex', marginRight: 'auto', marginLeft: '1vw' }} type="button" class="btn btn-outline-dark" onClick={(e) => seeAllReviews(e)}>See all reviews</button>
                             </div>
                         </p>
@@ -111,7 +126,11 @@ const SpecificCocktail = () => {
                             <tbody>
                                 <tr>
                                     <th scope="row">Drink Type:</th>
-                                    <td>{specificCocktail.isAlcoholic.toString() ? "Alcoholic" : "NonAlcoholic"}</td>
+                                    <td>{specificCocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic"}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Category:</th>
+                                    <td>{specificCocktail.category}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Glass Type:</th>
@@ -145,14 +164,14 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitReviewForm}>
-                                <div>
-                                    <input placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
+                            <form onSubmit={(e) => handleSubmitReviewForm(e)}>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -167,15 +186,15 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitEditReviewForm}>
-                                <div>
-                                    <input placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
+                            <form onSubmit={(e) => handleSubmitEditReviewForm(e)}>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setReview(e.target.value)}></input>
                                     {console.log(reviewToEdit.review)}
                                 </div>
-                                <div>
-                                    <input placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setStars(e.target.value)}></input>
                                 </div>
-                                <button type='submit' class="btn btn-primary">Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -190,32 +209,64 @@ const SpecificCocktail = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitEditForm}>
-                                <div>
-                                    <input placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
+                            <form onSubmit={(e) => handleSubmitEditForm(e)}>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Alcoholic
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value={false} onChange={(e) => setIsAlcoholic(e.target.value)} />
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Virgin
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Category</label>
+                                    <select id="inputState" class="form-control" onChange={(e) => setCategory(e.target.value)}>
+                                        <option value="Cocktail">Cocktail</option>
+                                        <option value="Sweet">Sweet</option>
+                                        <option value="Tropical">Tropical</option>
+                                        <option value="Shot">Shot</option>
+                                        <option value="Sour">Sour</option>
+                                        <option value="Wine">Wine</option>
+                                    </select>
                                 </div>
-                                <div>
-                                    <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Glass Type</label>
+                                    <select id="inputState" class="form-control" onChange={(e) => setGlassType(e.target.value)}>
+                                        <option value="Highball">Highball</option>
+                                        <option value="Hurricane">Hurricane</option>
+                                        <option value="Collins">Collins</option>
+                                        <option value="Shot">Shot</option>
+                                        <option value="Rocks">Rocks</option>
+                                    </select>
                                 </div>
-                                <div>
-                                    <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
-                                </div>
-                                <button type='submit' class="btn btn-primary">Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>

@@ -27,7 +27,7 @@ const MyCreatedCocktailList = () => {
     }
 
     return (
-        <div>
+        <div style={{ paddingBottom: '8rem', paddingTop: '2rem', paddingLeft: '2rem' }}>
             <h1 class="display-4">My Created Cocktail List</h1>
             {ownedCocktails.map(cocktail => {
                 return (
