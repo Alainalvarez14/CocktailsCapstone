@@ -117,7 +117,7 @@ export const collectionsReducer = (state = defaultState, action) => {
         // }
 
         case 'GET_ALL_COLLECTIONS_BY_USER': {
-            newState = { ...state };
+            newState = {};
             // normalize data
             action.payload.forEach(collections => newState[collections.id] = collections);
             return newState;
