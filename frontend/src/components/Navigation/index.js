@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a href="/" class="nav-link active" aria-current="page">Home</a>
+                                <a style={{ cursor: 'pointer' }} class="nav-link active" aria-current="page" onClick={() => history.push("/")}>Home</a>
                             </li>
                             {user && <li class="nav-item"><CreateCocktailForm /></li>}
                             {user && <li class="nav-item">

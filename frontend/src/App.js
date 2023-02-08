@@ -49,8 +49,8 @@ function App() {
             <MyProfileCard /> */}
             <div style={{
               display: 'flex',
-              marginTop: '1rem',
-              paddingBottom: '10rem'
+              paddingBottom: '10rem',
+              margin: '1vh 3vw'
             }}>
               <div style={{
                 marginRight: '5rem',
