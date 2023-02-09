@@ -25,6 +25,14 @@ const CreateCocktailForm = () => {
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
         console.log(cocktailObj)
         dispatch(createCocktailThunk(cocktailObj));
+        setName('');
+        setIngredients('');
+        setIsAlcoholic('');
+        setCategory('');
+        setImage('');
+        setGlassType('');
+        setInstructions('');
+        setMeasurements('');
         history.push("/");
     }
 
@@ -60,7 +68,7 @@ const CreateCocktailForm = () => {
                                         {/* <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend> */}
                                         <div class="col-sm-10">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} checked />
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Alcoholic
                                                 </label>
@@ -78,6 +86,7 @@ const CreateCocktailForm = () => {
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Category</label>
                                     <select id="inputState" class="form-control" onChange={(e) => setCategory(e.target.value)}>
+                                        <option value="">choose one...</option>
                                         <option value="Cocktail">Cocktail</option>
                                         <option value="Sweet">Sweet</option>
                                         <option value="Tropical">Tropical</option>
@@ -90,6 +99,7 @@ const CreateCocktailForm = () => {
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Glass Type</label>
                                     <select id="inputState" class="form-control" onChange={(e) => setGlassType(e.target.value)}>
+                                        <option value="">choose one...</option>
                                         <option value="Highball">Highball</option>
                                         <option value="Hurricane">Hurricane</option>
                                         <option value="Collins">Collins</option>
@@ -97,7 +107,7 @@ const CreateCocktailForm = () => {
                                         <option value="Rocks">Rocks</option>
                                     </select>
                                 </div>
-                                {name && ingredients && image && instructions && measurements && (
+                                {name && ingredients && image && instructions && measurements && isAlcoholic && category && glassType && (
                                     disabled = false
                                 )}
                                 <button type='submit' data-bs-dismiss="modal" class="btn btn-primary" disabled={disabled}> Submit</button>
