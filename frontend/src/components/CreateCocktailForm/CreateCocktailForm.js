@@ -24,7 +24,7 @@ const CreateCocktailForm = () => {
         e.preventDefault();
         // $('#CreateCocktailModal').modal('hide')
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        console.log(cocktailObj)
+        // console.log(cocktailObj)
         dispatch(createCocktailThunk(cocktailObj));
         setName('');
         setIngredients('');
@@ -34,7 +34,7 @@ const CreateCocktailForm = () => {
         setGlassType('');
         setInstructions('');
         setMeasurements('');
-        console.log(isAlcoholic)
+        // console.log(isAlcoholic)
         history.push("/");
     }
 

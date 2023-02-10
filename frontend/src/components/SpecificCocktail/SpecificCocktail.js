@@ -58,8 +58,8 @@ const SpecificCocktail = () => {
     const handleSubmitEditForm = (e) => {
         e.preventDefault();
         let test = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        console.log(test)
-        console.log(test)
+        // console.log(test)
+        // console.log(test)
         if (name === specificCocktail.name
             && ingredients === specificCocktail.ingredients
             && image === specificCocktail.image
@@ -80,7 +80,7 @@ const SpecificCocktail = () => {
         }
 
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        console.log(isAlcoholic)
+        // console.log(isAlcoholic)
         dispatch(editCocktailThunk(cocktailObj));
     }
 

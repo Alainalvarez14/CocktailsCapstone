@@ -93,7 +93,7 @@ export const editCollectionThunk = (collection) => async dispatch => {
 }
 
 export const deleteCollectionThunk = (collection) => async dispatch => {
-    console.log(collection)
+    // console.log(collection)
     const response = await csrfFetch(`/api/collections/${collection.id}`, {
         method: "DELETE"
     });
