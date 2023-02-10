@@ -31,11 +31,12 @@ export const login = (user) => async (dispatch) => {
 };
 
 export const signup = (user) => async (dispatch) => {
-    const { username, firstName, lastName, email, password } = user;
+    const { username, profileImage, firstName, lastName, email, password } = user;
     const response = await csrfFetch("/api/users", {
         method: "POST",
         body: JSON.stringify({
             username,
+            profileImage,
             firstName,
             lastName,
             email,

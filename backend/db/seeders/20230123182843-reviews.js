@@ -21,19 +21,19 @@ module.exports = {
       {
         review: 'efkjbdskjlvbdskvbdsvb kwjerbvekrbverov ebvoaerovervreovreo',
         stars: 1,
-        userId: 1,
+        userId: 2,
         cocktailId: 1
       },
       {
         review: 'berkherkviue eijrhvbeiruiuv dfveaon efouvhreiohvoeirhahvioehaiopeopiaeopvaievpeaivpearpvipjevpo',
         stars: 4,
-        userId: 2,
+        userId: 3,
         cocktailId: 2
       },
       {
         review: 'reghjrebkjrebuirebiouveroqvnoiernoveqriuvbor eofuvhoueqrnvioneroivneorinve  o3qihvnoirvnrniovnqprenqpvrqnvoqmnpoqo',
         stars: 5,
-        userId: 3,
+        userId: 1,
         cocktailId: 3
       }
     ]);

@@ -42,18 +42,18 @@ export const addDrinkThunk = (drink) => async dispatch => {
 }
 
 export const getAllCocktailsByCollectionThunk = (collectionId) => async dispatch => {
-    console.log('hereeeeeeee')
+    // console.log('hereeeeeeee')
     const response = await fetch(`/api/collections/${collectionId}`)
 
     if (response.ok) {
         const list = await response.json();
-        console.log(list)
+        // console.log(list)
         dispatch(getAllCocktailsByCollection(list));
     }
 }
 
 export const deleteCocktailFromCollectionThunk = (cocktail) => async dispatch => {
-    console.log(cocktail)
+    // console.log(cocktail)
     const response = await csrfFetch(`/api/collections/${cocktail.collectionId}/${cocktail.cocktailId}`, {
         method: "DELETE"
     });

@@ -63,7 +63,7 @@ const SpecificCollection = () => {
     const removeDrinkFromList = (e, cocktailItem) => {
         // e.preventDefault();
         e.stopPropagation();
-        console.log(cocktailItem)
+        // console.log(cocktailItem)
         dispatch(deleteCocktailFromCollectionThunk(cocktailItem))
         dispatch(getAllCocktailsByCollectionThunk(collectionId))
     }
