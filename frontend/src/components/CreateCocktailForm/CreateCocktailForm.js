@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createCocktailThunk } from '../../store/cocktails';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { getAllCocktailsThunk } from '../../store/cocktails';
 
 const CreateCocktailForm = () => {
 
@@ -33,6 +34,7 @@ const CreateCocktailForm = () => {
         setGlassType('');
         setInstructions('');
         setMeasurements('');
+        console.log(isAlcoholic)
         history.push("/");
     }
 
@@ -43,7 +45,10 @@ const CreateCocktailForm = () => {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create a Cocktail!</h1>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create a Cocktail!</h1>
+                                <small>Please complete all fields</small>
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -63,9 +68,8 @@ const CreateCocktailForm = () => {
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)} required></input>
                                 </div>
-                                <fieldset class="form-group" style={{ marginBottom: '0.5vh' }} required>
+                                {/* <fieldset class="form-group" style={{ marginBottom: '0.5vh' }} required>
                                     <div class="row">
-                                        {/* <legend class="col-form-label col-sm-2 pt-0">Alcoholic?</legend> */}
                                         <div class="col-sm-10">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
@@ -81,12 +85,22 @@ const CreateCocktailForm = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </fieldset>
+                                </fieldset> */}
+
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Is Alcoholic?</label>
+                                    <select id="inputState" class="form-control form-select" onChange={(e) => setIsAlcoholic(e.target.value)}>
+                                        <option value="" selected>choose one...</option>
+                                        <option value="true" >True</option>
+                                        <option value="false" >False</option>
+                                    </select>
+                                </div>
+
 
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Category</label>
-                                    <select id="inputState" class="form-control" onChange={(e) => setCategory(e.target.value)}>
-                                        <option value="">choose one...</option>
+                                    <select id="inputState" class="form-control form-select" onChange={(e) => setCategory(e.target.value)}>
+                                        <option value="" selected>choose one...</option>
                                         <option value="Cocktail">Cocktail</option>
                                         <option value="Sweet">Sweet</option>
                                         <option value="Tropical">Tropical</option>
@@ -98,8 +112,8 @@ const CreateCocktailForm = () => {
 
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Glass Type</label>
-                                    <select id="inputState" class="form-control" onChange={(e) => setGlassType(e.target.value)}>
-                                        <option value="">choose one...</option>
+                                    <select id="inputState" class="form-control form-select" onChange={(e) => setGlassType(e.target.value)}>
+                                        <option value="" selected>choose one...</option>
                                         <option value="Highball">Highball</option>
                                         <option value="Hurricane">Hurricane</option>
                                         <option value="Collins">Collins</option>
