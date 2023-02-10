@@ -129,8 +129,8 @@ router.get('/user/:userId', requireAuth, async (req, res) => {
 
 //get all cocktails for current collection
 router.get('/:collectionId', requireAuth, async (req, res) => {
-    console.log('within getAllCocktailsForCurrentCollection Route')
-    console.log(req.params.collectionId)
+    // console.log('within getAllCocktailsForCurrentCollection Route')
+    // console.log(req.params.collectionId)
     const myCocktails = await CocktailCollectionsJoin.findAll({
         where: {
             collectionId: req.params.collectionId,
@@ -138,7 +138,7 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
         // include: { model: Cocktail }
     });
 
-    console.log(myCocktails)
+    // console.log(myCocktails)
 
     myCocktails.map(el => {
         Object.values(el);
