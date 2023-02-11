@@ -80,7 +80,6 @@ const SpecificCocktail = () => {
         }
 
         let cocktailObj = { id: specificCocktail.id, name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-        // console.log(isAlcoholic)
         dispatch(editCocktailThunk(cocktailObj));
     }
 
