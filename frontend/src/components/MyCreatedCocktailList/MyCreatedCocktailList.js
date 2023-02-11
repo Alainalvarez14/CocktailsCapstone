@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCocktailsByUserThunk } from "../../store/cocktails";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
 import { getAllCocktailsThunk } from "../../store/cocktails";
@@ -27,8 +25,10 @@ const MyCreatedCocktailList = () => {
     }
 
     return (
-        <div style={{ paddingBottom: '8rem', paddingTop: '2rem', paddingLeft: '2rem' }}>
+        <div style={{ paddingBottom: '8rem', paddingTop: '2rem', paddingLeft: '2rem', paddingRight: '2rem' }}>
             <h1 class="display-4">My Created Cocktail List</h1>
+            {/* {console.log(ownedCocktails)} */}
+            {!ownedCocktails.length && <div>You havent created any cocktails! You can create personalized cocktails by clicking "Create a Cocktail" in the navigation bar above!</div>}
             {ownedCocktails.map(cocktail => {
                 return (
                     <div onClick={(e) => handleShowSpecificDrinkDetails(e, cocktail)} class="card mb-3" style={{ maxWidth: "1040px", cursor: 'pointer' }}>
@@ -50,29 +50,6 @@ const MyCreatedCocktailList = () => {
                 )
             })}
         </div>
-        // {/* <div>
-        //     <h1 class="display-4">My Created Cocktail List</h1>
-        //     {user && ownedCocktails && (
-        //         <div class="row row-cols-1 row-cols-md-4 g-4">
-        //             <div style={{
-        //                 // display: 'flex',
-        //                 // marginTop: '1rem',
-        //             }}>{ownedCocktails.map(cocktail => {
-        //                 return (
-        //                     <div class="col" >
-        //                         <div class="card" onClick={(e) => handleShowSpecificDrinkDetails(e, cocktail)} style={{ cursor: "pointer" }}>
-        //                             <img src={`${cocktail.image}`} class="card-img-top drinkImg"></img>
-        //                             <div class="card-body">
-        //                                 <h5 class="card-title">{cocktail.name}</h5>
-        //                                 <div class="card-text">Ingredients: {cocktail.ingredients}</div>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 )
-        //             })}</div>
-        //         </div>
-        //     )}
-        // </div> */}
     )
 }
 
