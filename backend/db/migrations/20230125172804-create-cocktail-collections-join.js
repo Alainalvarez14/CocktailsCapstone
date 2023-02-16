@@ -14,10 +14,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cocktailId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Cocktails'
+        }
       },
       collectionId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Collections'
+        }
       },
       createdAt: {
         allowNull: false,
