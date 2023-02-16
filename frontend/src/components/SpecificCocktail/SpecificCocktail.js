@@ -227,7 +227,7 @@ const SpecificCocktail = () => {
                 </div>
             )}
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -253,7 +253,7 @@ const SpecificCocktail = () => {
                 </div>
             </div>
 
-            <div class="modal fade" id="EditReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="EditReviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -276,7 +276,7 @@ const SpecificCocktail = () => {
                 </div>
             </div>
 
-            {specificCocktail && <div class="modal fade" id="EditCocktailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {specificCocktail && <div class="modal fade" id="EditCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

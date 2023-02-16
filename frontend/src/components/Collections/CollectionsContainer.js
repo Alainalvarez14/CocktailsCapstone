@@ -38,7 +38,7 @@ const CollectionsContainer = () => {
                                 <button type="submit" class="btn btn-primary" style={{
                                     display: 'flex',
                                     marginTop: '1vh'
-                                }} data-bs-dismiss="modal">Submit</button>
+                                }} data-bs-dismiss="modal" disabled={collectionName === '' || !collectionName.trim()}>Submit</button>
                             </form>
                         </div>
                     </div>

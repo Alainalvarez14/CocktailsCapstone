@@ -140,9 +140,9 @@ router.get('/:collectionId', requireAuth, async (req, res) => {
 
     // console.log(myCocktails)
 
-    myCocktails.map(el => {
-        Object.values(el);
-    });
+    // myCocktails.map(el => {
+    //     Object.values(el);
+    // });
 
     return res.json(myCocktails);
 
