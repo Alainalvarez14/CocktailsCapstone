@@ -91,6 +91,10 @@ const SpecificCollection = () => {
             alert("no changes have been made!");
             return;
         }
+        if (currCollection && collectionName.length > 40) {
+            alert("Collection name cannot be longer than 40 characters!");
+            return;
+        }
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
     }

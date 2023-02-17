@@ -17,6 +17,11 @@ const CollectionsContainer = () => {
 
     const handleSubmitCreateCollectionForm = (e) => {
         e.preventDefault();
+        if (collectionName.length > 40) {
+            alert("Name cannot be longer than 40 characters!");
+            setCollectionName('');
+            return;
+        }
         const collection = { name: collectionName }
         dispatch(createCollectionThunk(collection));
     }
