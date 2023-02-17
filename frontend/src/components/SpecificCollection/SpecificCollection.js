@@ -25,7 +25,7 @@ const SpecificCollection = () => {
     const user = useSelector(state => state.session.user);
     const history = useHistory();
     const [collectionName, setCollectionName] = useState('');
-    // const [editCollectionName, setEditCollectionName] = useState('');
+    const [editCollectionName, setEditCollectionName] = useState('');
     const [name, setName] = useState('');
     const [searchResults, setSearchResults] = useState('');
 
@@ -55,8 +55,14 @@ const SpecificCollection = () => {
         e.preventDefault();
         setSearchResults('');
         setName('');
-        if (!drinkId) return
-        if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) return;
+        if (!drinkId) {
+            alert("Cocktail does not exist!");
+            return;
+        }
+        if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) {
+            alert("Cocktail already exists in your collection!");
+            return;
+        }
         const obj = { collectionId: Number(collectionId), cocktailId: Number(drinkId) }
         dispatch(addDrinkThunk(obj));
     }
@@ -77,14 +83,28 @@ const SpecificCollection = () => {
 
     const handleSubmitEditCollectionNameForm = (e) => {
         e.preventDefault();
+        if (currCollection && collectionName === '' || !collectionName.trim()) {
+            alert("name must not be empty!");
+            return;
+        }
+        if (currCollection && collectionName === currCollection.name) {
+            alert("no changes have been made!");
+            return;
+        }
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
     }
 
-    // const handleEditCollectionName = (e) => {
-    //     e.preventDefault();
-    //     console.log(currCollection)
-    //     setEditCollectionName(currCollection.name);
+    const handleEditCollectionName = (e) => {
+        e.preventDefault();
+        console.log(currCollection)
+        setEditCollectionName(currCollection.name);
+    }
+
+    // const handleCloseModal = (e) => {
+    //     // e.preventDefault();
+    //     setEditCollectionName('');
+    //     setCollectionName('');
     // }
 
     return (
@@ -119,7 +139,7 @@ const SpecificCollection = () => {
             )
             }
             <div style={{ marginTop: '2vh' }}>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" /* onClick={(e) => handleEditCollectionName(e)} */>Edit Collection Name</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => handleEditCollectionName(e)} >Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             </div>
 
@@ -170,12 +190,12 @@ const SpecificCollection = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Collection Name</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" /*onClick={(e) => handleCloseModal(e)}*/></button>
                         </div>
                         <div class="modal-body">
                             <form onSubmit={(e) => handleSubmitEditCollectionNameForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    {currCollection && <input class="form-control" placeholder="Name of collection" defaultValue={currCollection.name} onChange={(e) => setCollectionName(e.target.value)}></input>}
+                                    {currCollection && <input class="form-control" placeholder="Name of collection" defaultValue={editCollectionName} onChange={(e) => setCollectionName(e.target.value)}></input>}
                                 </div>
                                 {currCollection && <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>}
                             </form>
