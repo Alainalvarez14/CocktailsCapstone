@@ -33,6 +33,7 @@ const CollectionsContainer = () => {
             return;
         }
         const collection = { name: collectionName }
+        setCollectionName('');
         dispatch(createCollectionThunk(collection));
 
     }
