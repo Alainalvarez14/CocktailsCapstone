@@ -10,6 +10,7 @@ const CollectionsContainer = () => {
     const dispatch = useDispatch();
     const [collectionName, setCollectionName] = useState('');
     const user = useSelector(state => state.session.user);
+    const allCollections = useSelector(state => state.collections);
 
     useEffect(() => {
         if (user) dispatch(getAllCollectionsByUserThunk(user.id))
@@ -17,13 +18,23 @@ const CollectionsContainer = () => {
 
     const handleSubmitCreateCollectionForm = (e) => {
         e.preventDefault();
+
         if (collectionName.length > 40) {
             alert("Name cannot be longer than 40 characters!");
             setCollectionName('');
             return;
         }
+
+        const test = Object.values(allCollections).some(el => el.name === collectionName)
+
+        if (test) {
+            alert("Collection with the same name already exists!");
+            setCollectionName('');
+            return;
+        }
         const collection = { name: collectionName }
         dispatch(createCollectionThunk(collection));
+
     }
 
     return (
