@@ -11,7 +11,7 @@ import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
 import { editCollectionThunk } from "../../store/collections";
 import { getAllCocktailsThunk } from "../../store/cocktails";
-import { resetStateThunk } from "../../store/cocktailCollectionJoin";
+// import { resetStateThunk } from "../../store/cocktailCollectionJoin";
 
 
 const SpecificCollection = () => {
@@ -25,6 +25,7 @@ const SpecificCollection = () => {
     const user = useSelector(state => state.session.user);
     const history = useHistory();
     const [collectionName, setCollectionName] = useState('');
+    // const [editCollectionName, setEditCollectionName] = useState('');
     const [name, setName] = useState('');
     const [searchResults, setSearchResults] = useState('');
 
@@ -80,6 +81,12 @@ const SpecificCollection = () => {
         dispatch(editCollectionThunk(collectionObj));
     }
 
+    // const handleEditCollectionName = (e) => {
+    //     e.preventDefault();
+    //     console.log(currCollection)
+    //     setEditCollectionName(currCollection.name);
+    // }
+
     return (
         <div style={{ padding: '10px' }}>
             {user && currCollection && (
@@ -87,6 +94,9 @@ const SpecificCollection = () => {
                     <h1 class="display-4">{currCollection.name}</h1>
                     <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" /*onClick={() => setShowAddDrinkForm(true)}*/>Add Drink To Collection</button>
                 </div>
+            )}
+            {user && currCollection && Object.keys(cocktailsInList).length === 0 && (
+                <div>There are no cocktails in collection!</div>
             )}
             {cocktailsInList && allCocktails && (
                 <div>
@@ -109,7 +119,7 @@ const SpecificCollection = () => {
             )
             }
             <div style={{ marginTop: '2vh' }}>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal">Edit Collection Name</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" /* onClick={(e) => handleEditCollectionName(e)} */>Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             </div>
 
@@ -165,9 +175,9 @@ const SpecificCollection = () => {
                         <div class="modal-body">
                             <form onSubmit={(e) => handleSubmitEditCollectionNameForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                    {currCollection && <input class="form-control" placeholder="Name of collection" defaultValue={currCollection.name} onChange={(e) => setCollectionName(e.target.value)}></input>}
                                 </div>
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
+                                {currCollection && <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>}
                             </form>
                         </div>
                     </div>
