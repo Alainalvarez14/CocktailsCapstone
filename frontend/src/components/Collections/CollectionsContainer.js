@@ -25,9 +25,9 @@ const CollectionsContainer = () => {
             return;
         }
 
-        const test = Object.values(allCollections).some(el => el.name === collectionName)
+        const exists = Object.values(allCollections).some(el => el.name === collectionName)
 
-        if (test) {
+        if (exists) {
             alert("Collection with the same name already exists!");
             setCollectionName('');
             return;

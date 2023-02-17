@@ -95,6 +95,13 @@ const SpecificCollection = () => {
             alert("Collection name cannot be longer than 40 characters!");
             return;
         }
+        const exists = Object.values(allCollections).some(el => el.name === collectionName)
+
+        if (exists) {
+            alert("Collection with the same name already exists!");
+            setCollectionName('');
+            return;
+        }
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
     }
