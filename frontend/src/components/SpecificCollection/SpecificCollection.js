@@ -118,6 +118,12 @@ const SpecificCollection = () => {
     //     setCollectionName('');
     // }
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+        }
+    }
+
     return (
         <div style={{ padding: '10px' }}>
             {user && currCollection && (
@@ -159,12 +165,12 @@ const SpecificCollection = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Add a drink to your collection!</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setName('')}></button>
                         </div>
                         <div class="modal-body">
                             <div>
                                 <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
+                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => handleKeyPress(e)} ></input>
                                 </form>
                                 {searchResults && name && (
                                     <ul class="list-group"
