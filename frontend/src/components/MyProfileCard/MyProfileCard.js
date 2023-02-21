@@ -26,6 +26,10 @@ const MyProfileCard = () => {
     const editUser = (e) => {
         e.preventDefault();
         const userObj = { id: user.id, firstName, lastName, username: userName, email, profileImage };
+        if (user.firstName === firstName && user.lastName === lastName && user.username === userName && user.email === email && user.profileImage === profileImage) {
+            alert("No changes have been made!");
+            return;
+        }
         dispatch(sessionActions.edit(userObj));
     }
 
@@ -33,9 +37,9 @@ const MyProfileCard = () => {
         e.preventDefault();
         setFirstName(user.firstName);
         setLastName(user.lastName);
+        setUserName(user.username);
         setEmail(user.email);
         setProfileImage(user.profileImage);
-        setUserName(user.userName);
     }
 
     return (
@@ -130,7 +134,7 @@ const MyProfileCard = () => {
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
                                 </div>
-                                <button type='submit' class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                                <button type='submit' class="btn btn-primary" data-bs-dismiss="modal" disabled={!firstName || !lastName || !userName || !email || !profileImage}>Submit</button>
                             </form>
                         </div>
                     </div>
