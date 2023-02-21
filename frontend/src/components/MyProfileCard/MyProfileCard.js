@@ -29,6 +29,15 @@ const MyProfileCard = () => {
         dispatch(sessionActions.edit(userObj));
     }
 
+    const handleSetEditUser = (e) => {
+        e.preventDefault();
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setEmail(user.email);
+        setProfileImage(user.profileImage);
+        setUserName(user.userName);
+    }
+
     return (
         <div class="card" style={{ width: '18rem' }}>
             {user && <img src={`${user.profileImage}`} class="card-img-top" alt="..." />}
@@ -86,7 +95,7 @@ const MyProfileCard = () => {
                         maxWidth: '100px',
                         justifyContent: 'center'
                     }}>Log Out</button>
-                    <button data-bs-toggle="modal" data-bs-target="#EditUserModal" class="btn btn-primary" style={{
+                    <button onClick={(e) => handleSetEditUser(e)} data-bs-toggle="modal" data-bs-target="#EditUserModal" class="btn btn-primary" style={{
                         display: "flex",
                         marginRight: "auto",
                         marginLeft: 'auto',
@@ -97,30 +106,29 @@ const MyProfileCard = () => {
                 </div>
             </div>}
 
-
             <div class="modal fade" id="EditUserModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User!</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User Info!</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form onSubmit={editUser}>
-                                <div>
-                                    <input placeholder='First name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='First name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Last name' value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Last name' value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Username' value={userName} onChange={(e) => setUserName(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Username' value={userName} onChange={(e) => setUserName(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
-                                <div>
-                                    <input placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
                                 </div>
                                 <button type='submit' class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
                             </form>
