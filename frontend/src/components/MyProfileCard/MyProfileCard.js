@@ -11,37 +11,29 @@ const MyProfileCard = () => {
 
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-    // const [showCreateForm, setShowCreateForm] = useState(false);
-    // const [name, setName] = useState('');
-    // const [ingredients, setIngredients] = useState('');
-    // const [isAlcoholic, setIsAlcoholic] = useState('');
-    // const [category, setCategory] = useState('');
-    // const [image, setImage] = useState('');
-    // const [glassType, setGlassType] = useState('');
-    // const [instructions, setInstructions] = useState('');
-    // const [measurements, setMeasurements] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [profileImage, setProfileImage] = useState('');
+    const [email, setEmail] = useState('');
 
-    // const handleSubmitForm = (e) => {
-    //     e.preventDefault();
-    //     let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
-    //     dispatch(createCocktailThunk(cocktailObj));
-    //     // dispatch(getAllCocktailsByUserThunk());
-    //     // setShowCreateForm(false);
-    // }
 
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
     };
 
+    const editUser = (e) => {
+        e.preventDefault();
+        const userObj = { id: user.id, firstName, lastName, username: userName, email, profileImage };
+        dispatch(sessionActions.edit(userObj));
+    }
+
     return (
         <div class="card" style={{ width: '18rem' }}>
             {user && <img src={`${user.profileImage}`} class="card-img-top" alt="..." />}
             {!user && <img src={`https://www.wowktv.com/wp-content/uploads/sites/52/2021/01/bffa689e69f048508c2d333865e136e0.jpg`} class="card-img-top" alt="..." />}
-            {/* <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div> */}
+
             <ul class="list-group list-group-flush" >
                 <li class="list-group-item" style={{
                     display: "flex",
@@ -59,9 +51,6 @@ const MyProfileCard = () => {
                                 <div>{user.username}</div>
                                 <div>{user.firstName} {user.lastName}</div>
                                 <div>{user.email}</div>
-                                {/* <div>
-                                    <button onClick={logout} class="btn btn-primary">Log Out</button>
-                                </div> */}
                             </div>
                         ) : (
                             <div style={{
@@ -72,14 +61,12 @@ const MyProfileCard = () => {
                                 <button class="btn btn-primary" style={{ width: '5.5rem' }}>
                                     <OpenModalMenuItem
                                         itemText="Log In"
-                                        // onItemClick={closeMenu}
                                         modalComponent={<LoginFormModal />}
                                     />
                                 </button>
                                 <button class="btn btn-primary" style={{ width: '5.5rem' }}>
                                     <OpenModalMenuItem
                                         itemText="Sign Up"
-                                        // onItemClick={closeMenu}
                                         modalComponent={<SignupFormModal />}
                                     />
                                 </button>
@@ -88,63 +75,59 @@ const MyProfileCard = () => {
                         )}
                     </div>
                 </li>
-                {/* <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li> */}
             </ul>
             {user && <div class="card-body">
-                {/* <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a> */}
-                <div>
+                <div style={{ display: 'flex' }}>
                     <button onClick={logout} class="btn btn-primary" style={{
                         display: "flex",
                         marginRight: "auto",
                         marginLeft: 'auto',
+                        width: '11.3vw',
+                        maxWidth: '100px',
+                        justifyContent: 'center'
                     }}>Log Out</button>
-                    {/* <button data-bs-toggle="modal" data-bs-target="#CreateCocktailModal">hhh</button> */}
+                    <button data-bs-toggle="modal" data-bs-target="#EditUserModal" class="btn btn-primary" style={{
+                        display: "flex",
+                        marginRight: "auto",
+                        marginLeft: 'auto',
+                        width: '11.3vw',
+                        maxWidth: '100px',
+                        justifyContent: 'center'
+                    }}>Edit User</button>
                 </div>
             </div>}
 
 
-            {/* <div class="modal fade" id="CreateCocktailModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="EditUserModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create a Cocktail!</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User!</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={handleSubmitForm}>
+                            <form onSubmit={editUser}>
                                 <div>
-                                    <input placeholder='Cocktail Name' value={name} onChange={(e) => setName(e.target.value)}></input>
+                                    <input placeholder='First name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
                                 </div>
                                 <div>
-                                    <input placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
+                                    <input placeholder='Last name' value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
                                 </div>
                                 <div>
-                                    <input placeholder='isAlcoholic' value={isAlcoholic} onChange={(e) => setIsAlcoholic(e.target.value)}></input>
+                                    <input placeholder='Username' value={userName} onChange={(e) => setUserName(e.target.value)}></input>
                                 </div>
                                 <div>
-                                    <input placeholder='Category' value={category} onChange={(e) => setCategory(e.target.value)}></input>
+                                    <input placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
                                 <div>
-                                    <input placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <input placeholder='Glass Type' value={glassType} onChange={(e) => setGlassType(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <input placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <input placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)}></input>
+                                    <input placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
                                 </div>
                                 <button type='submit' class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div> */}
-
+            </div>
 
         </div>
     )
