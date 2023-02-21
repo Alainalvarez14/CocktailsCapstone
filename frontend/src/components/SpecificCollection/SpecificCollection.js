@@ -11,7 +11,7 @@ import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
 import { editCollectionThunk } from "../../store/collections";
 import { getAllCocktailsThunk } from "../../store/cocktails";
-import { resetStateThunk } from "../../store/cocktailCollectionJoin";
+// import { resetStateThunk } from "../../store/cocktailCollectionJoin";
 
 
 const SpecificCollection = () => {
@@ -25,6 +25,7 @@ const SpecificCollection = () => {
     const user = useSelector(state => state.session.user);
     const history = useHistory();
     const [collectionName, setCollectionName] = useState('');
+    const [editCollectionName, setEditCollectionName] = useState('');
     const [name, setName] = useState('');
     const [searchResults, setSearchResults] = useState('');
 
@@ -54,8 +55,14 @@ const SpecificCollection = () => {
         e.preventDefault();
         setSearchResults('');
         setName('');
-        if (!drinkId) return
-        if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) return;
+        if (!drinkId) {
+            alert("Cocktail does not exist!");
+            return;
+        }
+        if (Object.values(cocktailsInList)[0]?.some(el => el.cocktailId === Number(drinkId))) {
+            alert("Cocktail already exists in your collection!");
+            return;
+        }
         const obj = { collectionId: Number(collectionId), cocktailId: Number(drinkId) }
         dispatch(addDrinkThunk(obj));
     }
@@ -76,8 +83,45 @@ const SpecificCollection = () => {
 
     const handleSubmitEditCollectionNameForm = (e) => {
         e.preventDefault();
+        if (currCollection && collectionName === '' || !collectionName.trim()) {
+            alert("name must not be empty!");
+            return;
+        }
+        if (currCollection && collectionName === currCollection.name) {
+            alert("no changes have been made!");
+            return;
+        }
+        if (currCollection && collectionName.length > 40) {
+            alert("Collection name cannot be longer than 40 characters!");
+            return;
+        }
+        const exists = Object.values(allCollections).some(el => el.name === collectionName)
+
+        if (exists) {
+            alert("Collection with the same name already exists!");
+            setCollectionName('');
+            return;
+        }
         let collectionObj = { id: currCollection.id, name: collectionName };
         dispatch(editCollectionThunk(collectionObj));
+    }
+
+    const handleEditCollectionName = (e) => {
+        e.preventDefault();
+        console.log(currCollection)
+        setEditCollectionName(currCollection.name);
+    }
+
+    // const handleCloseModal = (e) => {
+    //     // e.preventDefault();
+    //     setEditCollectionName('');
+    //     setCollectionName('');
+    // }
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+        }
     }
 
     return (
@@ -87,6 +131,9 @@ const SpecificCollection = () => {
                     <h1 class="display-4">{currCollection.name}</h1>
                     <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" /*onClick={() => setShowAddDrinkForm(true)}*/>Add Drink To Collection</button>
                 </div>
+            )}
+            {user && currCollection && Object.keys(cocktailsInList).length === 0 && (
+                <div>There are no cocktails in collection!</div>
             )}
             {cocktailsInList && allCocktails && (
                 <div>
@@ -109,7 +156,7 @@ const SpecificCollection = () => {
             )
             }
             <div style={{ marginTop: '2vh' }}>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal">Edit Collection Name</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => handleEditCollectionName(e)} >Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
             </div>
 
@@ -118,12 +165,12 @@ const SpecificCollection = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Add a drink to your collection!</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setName('')}></button>
                         </div>
                         <div class="modal-body">
                             <div>
                                 <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)}></input>
+                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => handleKeyPress(e)} ></input>
                                 </form>
                                 {searchResults && name && (
                                     <ul class="list-group"
@@ -160,14 +207,14 @@ const SpecificCollection = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Collection Name</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" /*onClick={(e) => handleCloseModal(e)}*/></button>
                         </div>
                         <div class="modal-body">
                             <form onSubmit={(e) => handleSubmitEditCollectionNameForm(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder="Name of collection" value={collectionName} onChange={(e) => setCollectionName(e.target.value)}></input>
+                                    {currCollection && <input class="form-control" placeholder="Name of collection" defaultValue={editCollectionName} onChange={(e) => setCollectionName(e.target.value)}></input>}
                                 </div>
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>
+                                {currCollection && <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Submit</button>}
                             </form>
                         </div>
                     </div>
