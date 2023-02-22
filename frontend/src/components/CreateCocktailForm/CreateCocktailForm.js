@@ -24,6 +24,7 @@ const CreateCocktailForm = () => {
         e.preventDefault();
         // $('#CreateCocktailModal').modal('hide')
         let cocktailObj = { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements };
+        console.log(cocktailObj);
         // console.log(cocktailObj)
         dispatch(createCocktailThunk(cocktailObj));
         setName('');
@@ -37,6 +38,12 @@ const CreateCocktailForm = () => {
         // console.log(isAlcoholic)
         history.push("/");
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+        console.log(image);
+    };
 
     return (
         <div>
@@ -60,7 +67,7 @@ const CreateCocktailForm = () => {
                                     <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)} required></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)} required></input>
+                                    <input type="file" class="form-control" placeholder='Image' onChange={updateFile} required></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)} required></input>
@@ -68,24 +75,6 @@ const CreateCocktailForm = () => {
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Measurements' value={measurements} onChange={(e) => setMeasurements(e.target.value)} required></input>
                                 </div>
-                                {/* <fieldset class="form-group" style={{ marginBottom: '0.5vh' }} required>
-                                    <div class="row">
-                                        <div class="col-sm-10">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value={true} onChange={(e) => setIsAlcoholic(e.target.value)} />
-                                                <label class="form-check-label" for="gridRadios1">
-                                                    Alcoholic
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value={false} onChange={(e) => setIsAlcoholic(e.target.value)} />
-                                                <label class="form-check-label" for="gridRadios2">
-                                                    Virgin
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset> */}
 
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Is Alcoholic?</label>
@@ -95,7 +84,6 @@ const CreateCocktailForm = () => {
                                         <option value="false" >False</option>
                                     </select>
                                 </div>
-
 
                                 <div class="form-group col-md-4">
                                     <label for="inputState">Category</label>

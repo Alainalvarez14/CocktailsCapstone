@@ -30,7 +30,6 @@ const MyProfileCard = () => {
             alert("No changes have been made!");
             return;
         }
-        // console.log(profileImage)
         dispatch(sessionActions.edit(userObj));
     }
 
@@ -46,7 +45,6 @@ const MyProfileCard = () => {
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setProfileImage(file);
-        // console.log(profileImage)
     };
 
     return (

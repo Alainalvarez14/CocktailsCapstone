@@ -41,12 +41,30 @@ export const getAllCocktailsThunk = () => async dispatch => {
 }
 
 export const createCocktailThunk = (cocktail) => async dispatch => {
+    console.log(cocktail);
+    const { image, name, ingredients, instructions, isAlcoholic, measurements, category, glassType } = cocktail;
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("ingredients", ingredients);
+    formData.append("instructions", instructions);
+    formData.append("isAlcoholic", isAlcoholic);
+    formData.append("measurements", measurements);
+    formData.append("category", category);
+    formData.append("glassType", glassType);
+
+    if (image) formData.append("image", image);
+
     const response = await csrfFetch('/api/cocktails', {
         method: "POST",
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
+        // body: JSON.stringify(cocktail)
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(cocktail)
+        body: formData,
     });
 
     if (response.ok) {
