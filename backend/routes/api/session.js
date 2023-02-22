@@ -5,6 +5,9 @@ const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
+const { singleMulterUpload } = require('../../awsS3');
+const { singlePublicFileUpload } = require('../../awsS3');
+const asyncHandler = require('express-async-handler');
 
 const router = express.Router();
 
@@ -45,7 +48,7 @@ router.post(
 );
 
 // Edit user
-router.put('/:userId', requireAuth, async (req, res, next) => {
+router.put('/:userId', singleMulterUpload("profileImage"), requireAuth, asyncHandler(async (req, res, next) => {
     console.log('within route')
     console.log(req.params.userId)
     const user = await User.findOne({
@@ -55,7 +58,8 @@ router.put('/:userId', requireAuth, async (req, res, next) => {
     });
     console.log(user);
     // const userId = req.user.id;
-    const { id, firstName, lastName, username, email, profileImage } = req.body;
+    const { id, firstName, lastName, username, email } = req.body;
+    const profileImage = await singlePublicFileUpload(req.file);
 
     // if (!user) {
     //     const myError = {
@@ -69,7 +73,7 @@ router.put('/:userId', requireAuth, async (req, res, next) => {
     });
 
     return res.json(user);
-}
+})
 );
 
 // Log out

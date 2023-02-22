@@ -30,6 +30,7 @@ const MyProfileCard = () => {
             alert("No changes have been made!");
             return;
         }
+        // console.log(profileImage)
         dispatch(sessionActions.edit(userObj));
     }
 
@@ -41,6 +42,12 @@ const MyProfileCard = () => {
         setEmail(user.email);
         setProfileImage(user.profileImage);
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setProfileImage(file);
+        // console.log(profileImage)
+    };
 
     return (
         <div class="card" style={{ width: '18rem' }}>
@@ -132,7 +139,7 @@ const MyProfileCard = () => {
                                     <input class="form-control" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
+                                    <input type="file" class="form-control" placeholder='Profile Image' onChange={updateFile}></input>
                                 </div>
                                 <button type='submit' class="btn btn-primary" data-bs-dismiss="modal" disabled={!firstName || !lastName || !userName || !email || !profileImage}>Submit</button>
                             </form>

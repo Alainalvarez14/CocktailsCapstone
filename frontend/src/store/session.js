@@ -82,37 +82,6 @@ export const signup = (user) => async (dispatch) => {
     return response;
 };
 
-
-
-// export const createUser = (user) => async (dispatch) => {
-//     const { images, image, username, email, password } = user;
-//     const formData = new FormData();
-//     formData.append("username", username);
-//     formData.append("email", email);
-//     formData.append("password", password);
-
-//     // for multiple files
-//     if (images && images.length !== 0) {
-//         for (var i = 0; i < images.length; i++) {
-//             formData.append("images", images[i]);
-//         }
-//     }
-
-//     // for single file
-//     if (image) formData.append("image", image);
-
-//     const res = await csrfFetch(`/api/users/`, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "multipart/form-data",
-//         },
-//         body: formData,
-//     });
-
-//     const data = await res.json();
-//     dispatch(setUser(data.user));
-// };
-
 export const logout = () => async (dispatch) => {
     const response = await csrfFetch('/api/session', {
         method: 'DELETE',
@@ -122,18 +91,34 @@ export const logout = () => async (dispatch) => {
 };
 
 export const edit = (user) => async dispatch => {
+    const { username, profileImage, firstName, lastName, email, password } = user;
+    console.log(profileImage);
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+
+    if (profileImage) formData.append("profileImage", profileImage);
+
     const response = await csrfFetch(`/api/session/${user.id}`, {
         method: 'PUT',
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
+        // body: JSON.stringify(user)
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(user)
+        body: formData,
     });
 
-    if (response.ok) {
-        const user = await response.json();
-        dispatch(editUser(user));
-    }
+    // if (response.ok) {
+    const editedUser = await response.json();
+    // console.log(editedUser);
+    dispatch(editUser(editedUser));
+    // }
 }
 
 export const restoreUser = () => async dispatch => {
