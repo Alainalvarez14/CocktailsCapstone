@@ -170,6 +170,12 @@ const SpecificCocktail = () => {
     //     console.log(editedStars)
     // }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+        console.log(image);
+    };
+
     return (
         <div style={{ padding: '40px 40px 140px 40px' }}>
             {specificCocktail && (
@@ -292,7 +298,7 @@ const SpecificCocktail = () => {
                                     <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
+                                    <input type="file" class="form-control" placeholder='Image' onChange={updateFile}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>

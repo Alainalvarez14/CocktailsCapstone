@@ -52,14 +52,15 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 //edit a cocktail
-router.put('/:cocktailId', requireAuth, async (req, res, next) => {
+router.put('/:cocktailId', singleMulterUpload("image"), requireAuth, asyncHandler(async (req, res, next) => {
     const cocktail = await Cocktail.findOne({
         where: {
             id: req.params.cocktailId
         }
     });
     const userId = req.user.id;
-    const { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements } = req.body;
+    const { name, ingredients, isAlcoholic, category, glassType, instructions, measurements } = req.body;
+    const image = await singlePublicFileUpload(req.file);
 
     if (!cocktail) {
         const myError = {
@@ -85,7 +86,7 @@ router.put('/:cocktailId', requireAuth, async (req, res, next) => {
         return res.json(cocktail);
     }
 
-});
+}));
 
 //delete a cocktail
 router.delete('/:cocktailId', requireAuth, async (req, res) => {
