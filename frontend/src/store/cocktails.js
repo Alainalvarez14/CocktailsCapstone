@@ -88,7 +88,7 @@ export const editCocktailThunk = (cocktail) => async dispatch => {
     if (image) formData.append("image", image);
 
     const response = await csrfFetch(`/api/cocktails/${cocktail.id}`, {
-        method: "PUT",
+        method: "PATCH",
         // headers: {
         //     "Content-Type": "application/json"
         // },

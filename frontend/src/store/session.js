@@ -103,7 +103,7 @@ export const edit = (user) => async dispatch => {
     if (profileImage) formData.append("profileImage", profileImage);
 
     const response = await csrfFetch(`/api/session/${user.id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         // headers: {
         //     "Content-Type": "application/json"
         // },
