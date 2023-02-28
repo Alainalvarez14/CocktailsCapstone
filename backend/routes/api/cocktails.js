@@ -3,6 +3,9 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 const { Cocktail, Review } = require('../../db/models');
 const { Op } = require('sequelize');
+const { singleMulterUpload } = require('../../awsS3');
+const { singlePublicFileUpload } = require('../../awsS3');
+const asyncHandler = require('express-async-handler');
 
 // get all cocktails
 router.get('/', async (req, res) => {
@@ -14,8 +17,9 @@ router.get('/', async (req, res) => {
 
 
 // create a cocktail
-router.post('/', requireAuth, async (req, res, next) => {
-    const { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements } = req.body;
+router.post('/', singleMulterUpload("image"), requireAuth, asyncHandler(async (req, res, next) => {
+    const { name, ingredients, isAlcoholic, category, glassType, instructions, measurements } = req.body;
+    const image = await singlePublicFileUpload(req.file);
     try {
         const cocktail = await Cocktail.create({
             creatorId: req.user.id,
@@ -33,7 +37,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         e.status = 400;
         next(e);
     }
-});
+}));
 
 //get all cocktails created by the current user
 router.get('/current', requireAuth, async (req, res) => {
@@ -48,14 +52,20 @@ router.get('/current', requireAuth, async (req, res) => {
 });
 
 //edit a cocktail
-router.put('/:cocktailId', requireAuth, async (req, res, next) => {
+router.patch('/:cocktailId', singleMulterUpload("image"), requireAuth, asyncHandler(async (req, res, next) => {
+    console.log(req.body);
     const cocktail = await Cocktail.findOne({
         where: {
             id: req.params.cocktailId
         }
     });
     const userId = req.user.id;
-    const { name, ingredients, isAlcoholic, category, image, glassType, instructions, measurements } = req.body;
+    const { name, ingredients, isAlcoholic, category, glassType, instructions, measurements } = req.body;
+    let image;
+
+    if (req.file) {
+        image = await singlePublicFileUpload(req.file);
+    }
 
     if (!cocktail) {
         const myError = {
@@ -81,7 +91,7 @@ router.put('/:cocktailId', requireAuth, async (req, res, next) => {
         return res.json(cocktail);
     }
 
-});
+}));
 
 //delete a cocktail
 router.delete('/:cocktailId', requireAuth, async (req, res) => {

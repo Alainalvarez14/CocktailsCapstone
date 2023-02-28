@@ -11,8 +11,6 @@ import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
 import { editCollectionThunk } from "../../store/collections";
 import { getAllCocktailsThunk } from "../../store/cocktails";
-// import { resetStateThunk } from "../../store/cocktailCollectionJoin";
-
 
 const SpecificCollection = () => {
 
@@ -30,7 +28,6 @@ const SpecificCollection = () => {
     const [searchResults, setSearchResults] = useState('');
 
     useEffect(() => {
-        // if (!user) dispatch(resetStateThunk());
         if (user) dispatch(getAllCollectionsByUserThunk(user.id));
     }, [dispatch, user]);
 
@@ -70,15 +67,39 @@ const SpecificCollection = () => {
     const removeDrinkFromList = (e, cocktailItem) => {
         // e.preventDefault();
         e.stopPropagation();
-        // console.log(cocktailItem)
         dispatch(deleteCocktailFromCollectionThunk(cocktailItem))
         dispatch(getAllCocktailsByCollectionThunk(collectionId))
     }
 
     const deleteCollection = (e) => {
-        e.preventDefault();
-        if (currCollection) dispatch(deleteCollectionThunk(currCollection));
-        history.push("/");
+        // e.preventDefault();
+
+        // if (cocktailsInList) {
+        //     Object.values(cocktailsInList)[0].forEach(cocktail => dispatch(deleteCocktailFromCollectionThunk(cocktail)));
+        // }
+
+        // setTimeout(() => {
+        //     if (currCollection) {
+        //         console.log("in here IFFFFFFFFF")
+        //         dispatch(deleteCollectionThunk(currCollection));
+        //         history.push("/");
+        //     }
+        // }, 10);
+
+        let test = new Promise((resolve) => {
+            if (!Object.values(cocktailsInList).length) resolve(cocktailsInList);
+
+            if (Object.values(cocktailsInList).length) {
+                Object.values(cocktailsInList)[0].forEach(cocktail => dispatch(deleteCocktailFromCollectionThunk(cocktail)));
+                resolve(cocktailsInList);
+            }
+        });
+
+        test.then(() => {
+            dispatch(deleteCollectionThunk(currCollection));
+            history.push("/");
+        });
+
     }
 
     const handleSubmitEditCollectionNameForm = (e) => {
@@ -112,12 +133,6 @@ const SpecificCollection = () => {
         setEditCollectionName(currCollection.name);
     }
 
-    // const handleCloseModal = (e) => {
-    //     // e.preventDefault();
-    //     setEditCollectionName('');
-    //     setCollectionName('');
-    // }
-
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             e.preventDefault()
@@ -125,7 +140,7 @@ const SpecificCollection = () => {
     }
 
     return (
-        <div style={{ padding: '10px' }}>
+        <div style={{ padding: '10px', marginBottom: '100px' }}>
             {user && currCollection && (
                 <div>
                     <h1 class="display-4">{currCollection.name}</h1>
@@ -157,7 +172,7 @@ const SpecificCollection = () => {
             }
             <div style={{ marginTop: '2vh' }}>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => handleEditCollectionName(e)} >Edit Collection Name</button>
-                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)}>Delete Collection</button>
+                <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)} >Delete Collection</button>
             </div>
 
             <div class="modal fade" id="AddDrinkModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

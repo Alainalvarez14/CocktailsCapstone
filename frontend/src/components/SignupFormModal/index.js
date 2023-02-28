@@ -32,6 +32,11 @@ function SignupFormModal() {
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setProfileImage(file);
+    };
+
     return (
         <div>
             <h1 style={{
@@ -57,7 +62,7 @@ function SignupFormModal() {
                 </div>
                 <div class="form-group">
                     {/* <label for="exampleInputPassword1">Username</label> */}
-                    <input type="text" class="form-control inputField" id="ProfileImage" placeholder="Profile Image" value={profileImage} onChange={(e) => setProfileImage(e.target.value)} required />
+                    <input type="file" class="form-control inputField" id="ProfileImage" placeholder="Profile Image" onChange={updateFile}   /* onChange={(e) => setProfileImage(e.target.value)} */ required />
                 </div>
                 <div class="form-group">
                     {/* <label for="exampleInputPassword1">First name</label> */}

@@ -38,18 +38,44 @@ export const login = (user) => async (dispatch) => {
     return response;
 };
 
+// export const signup = (user) => async (dispatch) => {
+//     const { username, profileImage, firstName, lastName, email, password } = user;
+//     console.log(user)
+//     const response = await csrfFetch("/api/users", {
+//         method: "POST",
+//         body: JSON.stringify({
+//             username,
+//             profileImage,
+//             firstName,
+//             lastName,
+//             email,
+//             password,
+//         }),
+//     });
+//     const data = await response.json();
+//     dispatch(setUser(data.user));
+//     return response;
+// };
+
 export const signup = (user) => async (dispatch) => {
     const { username, profileImage, firstName, lastName, email, password } = user;
+
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+
+    if (profileImage) formData.append("profileImage", profileImage);
+
+
     const response = await csrfFetch("/api/users", {
         method: "POST",
-        body: JSON.stringify({
-            username,
-            profileImage,
-            firstName,
-            lastName,
-            email,
-            password,
-        }),
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        body: formData,
     });
     const data = await response.json();
     dispatch(setUser(data.user));
@@ -65,18 +91,34 @@ export const logout = () => async (dispatch) => {
 };
 
 export const edit = (user) => async dispatch => {
+    const { username, profileImage, firstName, lastName, email, password } = user;
+    console.log(profileImage);
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+
+    if (profileImage) formData.append("profileImage", profileImage);
+
     const response = await csrfFetch(`/api/session/${user.id}`, {
-        method: 'PUT',
+        method: 'PATCH',
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
+        // body: JSON.stringify(user)
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(user)
+        body: formData,
     });
 
-    if (response.ok) {
-        const user = await response.json();
-        dispatch(editUser(user));
-    }
+    // if (response.ok) {
+    const editedUser = await response.json();
+    // console.log(editedUser);
+    dispatch(editUser(editedUser));
+    // }
 }
 
 export const restoreUser = () => async dispatch => {
@@ -92,9 +134,10 @@ const sessionReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case SET_USER:
-            newState = Object.assign({}, state);
-            newState.user = action.payload;
-            return newState;
+            // newState = Object.assign({}, state);
+            // newState.user = action.payload;
+            // return newState;
+            return { ...state, user: action.payload };
         case REMOVE_USER:
             newState = Object.assign({}, state);
             newState.user = null;

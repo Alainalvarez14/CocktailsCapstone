@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MyProfileCard = () => {
 
@@ -16,6 +16,7 @@ const MyProfileCard = () => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState([]);
 
 
     const logout = (e) => {
@@ -30,7 +31,20 @@ const MyProfileCard = () => {
             alert("No changes have been made!");
             return;
         }
-        dispatch(sessionActions.edit(userObj));
+        // dispatch(sessionActions.edit(userObj))
+
+        setErrors([]);
+        dispatch(sessionActions.edit(userObj))
+            .then(() => {
+                $('#EditUserModal').modal('hide')
+            })
+            .catch(async (res) => {
+                const data = await res.json();
+                console.log(data && data.errors)
+                if (data && data.errors) {
+                    setErrors(data.errors)
+                }
+            })
     }
 
     const handleSetEditUser = (e) => {
@@ -41,6 +55,11 @@ const MyProfileCard = () => {
         setEmail(user.email);
         setProfileImage(user.profileImage);
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setProfileImage(file);
+    };
 
     return (
         <div class="card" style={{ width: '18rem' }}>
@@ -119,6 +138,9 @@ const MyProfileCard = () => {
                         </div>
                         <div class="modal-body">
                             <form onSubmit={editUser}>
+                                <ul style={{ color: 'red' }}>
+                                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                                </ul>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='First name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
                                 </div>
@@ -132,9 +154,9 @@ const MyProfileCard = () => {
                                     <input class="form-control" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder='Profile Image' value={profileImage} onChange={(e) => setProfileImage(e.target.value)}></input>
+                                    <input type="file" class="form-control" placeholder='Profile Image' onChange={updateFile}></input>
                                 </div>
-                                <button type='submit' class="btn btn-primary" data-bs-dismiss="modal" disabled={!firstName || !lastName || !userName || !email || !profileImage}>Submit</button>
+                                <button type='submit' class="btn btn-primary" disabled={!firstName || !lastName || !userName || !email || !profileImage}>Submit</button>
                             </form>
                         </div>
                     </div>
