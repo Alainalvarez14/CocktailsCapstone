@@ -13,6 +13,7 @@ import CollectionsContainer from "./components/Collections/CollectionsContainer"
 import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
 import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
 import Footer from "./components/Footer/Footer";
+import GoogleMaps from "./components/GoogleMaps/GoogleMaps";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <GoogleMaps isLoaded={isLoaded} />
+      {/* <script src="../public/correct.js"></script> */}
       {isLoaded && (
         <Switch>
           {/* <Route path="/login">
