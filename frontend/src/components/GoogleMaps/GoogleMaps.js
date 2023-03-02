@@ -4,31 +4,31 @@ const GoogleMaps = () => {
 
     useExternalScripts("https://maps.googleapis.com/maps/api/js?key=AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE&libraries=places");
 
-    var map;
-    var service;
-    var infowindow;
+    let map;
+    let service;
+    // let infowindow;
 
-    function initialize() {
+    function initMap() {
 
-        var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+        let london = new google.maps.LatLng(51.5072, 0.1276);
 
         map = new google.maps.Map(document.getElementById('map'), {
-            center: pyrmont,
-            zoom: 15
+            center: london,
+            zoom: 12
         })
 
-        var input = document.getElementById('searchTextField');
+        let userInput = document.getElementById('searchField');
 
-        let autocomplete = new google.maps.places.Autocomplete(input)
+        let autocomplete = new google.maps.places.Autocomplete(userInput);
 
-        autocomplete.bindTo('bounds', map)
+        autocomplete.bindTo('bounds', map);
 
-        let marker = new google.maps.Marker({
+        const marker = new google.maps.Marker({
             map: map
         })
 
         google.maps.event.addListener(autocomplete, 'place_changed', () => {
-            let place = autocomplete.getPlace()
+            let place = autocomplete.getPlace();
 
             if (place.geometry.viewport) {
                 map.fitBounds(place.geometry.viewport)
@@ -41,7 +41,7 @@ const GoogleMaps = () => {
 
             let request = {
                 location: place.geometry.location,
-                radius: '50000',
+                radius: '5000',
                 type: ['liquor_store']
             }
 
@@ -54,30 +54,30 @@ const GoogleMaps = () => {
 
     function callback(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                var place = results[i];
+            for (let i = 0; i < results.length; i++) {
                 createMarker(results[i]);
             }
         }
     }
 
-
     function createMarker(place) {
-        var marker = new google.maps.Marker({
-            map: map,
+        const marker = new google.maps.Marker({
+            map,
             position: place.geometry.location
         });
 
-        google.maps.event.addListener(marker, 'click', function () {
+        google.maps.event.addListener(marker, 'click', () => {
             alert(place.name);
+            // infowindow.setContent(place.name || "");
+            // infowindow.open(map);
         });
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize)
+    google.maps.event.addDomListener(window, 'load', initMap)
 
     return (
         <div>
-            <input id="searchTextField" type="text" size="50" />
+            <input id="searchField" type="text" size="100" />
             <div id="map"></div>
         </div>
     );

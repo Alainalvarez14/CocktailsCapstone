@@ -25,7 +25,9 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <GoogleMaps isLoaded={isLoaded} />
+      <div style={{ paddingLeft: '3vw', paddingRight: '3vw' }}>
+        <GoogleMaps isLoaded={isLoaded} />
+      </div>
       {/* <GoogleMaps /> */}
       {/* <Route exact path="/">
         <GoogleMaps isLoaded={isLoaded} />
