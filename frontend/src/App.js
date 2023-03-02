@@ -26,7 +26,11 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       <GoogleMaps isLoaded={isLoaded} />
-      {/* <script src="../public/correct.js"></script> */}
+      {/* <GoogleMaps /> */}
+      {/* <Route exact path="/">
+        <GoogleMaps isLoaded={isLoaded} />
+      </Route> */}
+
       {isLoaded && (
         <Switch>
           {/* <Route path="/login">
@@ -50,6 +54,8 @@ function App() {
           <Route path="/">
             {/* <SingleCocktail />
             <MyProfileCard /> */}
+            {/* <GoogleMaps isLoaded={isLoaded} />
+            <GoogleMaps /> */}
             <div style={{
               display: 'flex',
               paddingBottom: '10rem',
@@ -67,6 +73,9 @@ function App() {
           </Route>
         </Switch>
       )}
+      {/* <div style={{ paddingBottom: '6.8rem' }}>
+        <GoogleMaps isLoaded={isLoaded} />
+      </div> */}
       <Footer />
     </>
   );
