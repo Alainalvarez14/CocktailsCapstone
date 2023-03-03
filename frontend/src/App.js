@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormPage";
-import SignupFormPage from "./components/SignupFormModal";
+// import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailForm";
+// import CreateCocktailForm from "./components/CreateCocktailForm/CreateCocktailForm";
 import SingleCocktail from "./components/SingleCocktail/SingleCocktail";
 import MyCreatedCocktailList from "./components/MyCreatedCocktailList/MyCreatedCocktailList";
 import SpecificCocktail from "./components/SpecificCocktail/SpecificCocktail";
@@ -13,6 +13,7 @@ import CollectionsContainer from "./components/Collections/CollectionsContainer"
 import SpecificCollection from "./components/SpecificCollection/SpecificCollection";
 import MyProfileCard from "./components/MyProfileCard/MyProfileCard";
 import Footer from "./components/Footer/Footer";
+import GoogleMaps from "./components/GoogleMaps/GoogleMaps";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,14 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <div style={{ paddingLeft: '3vw', paddingRight: '3vw' }}>
+        <GoogleMaps isLoaded={isLoaded} />
+      </div>
+      {/* <GoogleMaps /> */}
+      {/* <Route exact path="/">
+        <GoogleMaps isLoaded={isLoaded} />
+      </Route> */}
+
       {isLoaded && (
         <Switch>
           {/* <Route path="/login">
@@ -47,6 +56,8 @@ function App() {
           <Route path="/">
             {/* <SingleCocktail />
             <MyProfileCard /> */}
+            {/* <GoogleMaps isLoaded={isLoaded} />
+            <GoogleMaps /> */}
             <div style={{
               display: 'flex',
               paddingBottom: '10rem',
@@ -64,6 +75,9 @@ function App() {
           </Route>
         </Switch>
       )}
+      {/* <div style={{ paddingBottom: '6.8rem' }}>
+        <GoogleMaps isLoaded={isLoaded} />
+      </div> */}
       <Footer />
     </>
   );
