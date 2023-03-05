@@ -77,7 +77,8 @@ const GoogleMaps = () => {
 
     return (
         <div>
-            <input id="searchField" type="text" size="100" />
+            <h6 style={{ marginTop: '10px', color: '#0D6EFD', fontWeight: '320' }} >Search for liquor stores near you!</h6>
+            <input id="searchField" type="text" style={{ width: '100%' }} />
             <div id="map"></div>
         </div>
     );

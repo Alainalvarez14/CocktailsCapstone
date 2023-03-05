@@ -140,12 +140,19 @@ const SpecificCollection = () => {
     }
 
     return (
-        <div style={{ padding: '10px', marginBottom: '100px' }}>
+        <div style={{ paddingTop: '10px', paddingBottom: '110px', marginLeft: '3vw', marginRight: '3vw', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             {user && currCollection && (
-                <div>
-                    <h1 class="display-4">{currCollection.name}</h1>
-                    <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" /*onClick={() => setShowAddDrinkForm(true)}*/>Add Drink To Collection</button>
+                <div style={{ width: '100%', maxWidth: '1180px' }}>
+                    <h1 class="display-5" style={{ color: '#e00404', fontWeight: '200' }}>{currCollection.name}</h1>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '1200px' }}>
+                        <button type='submit' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDrinkModal" /*onClick={() => setShowAddDrinkForm(true)}*/>Add Drink To Collection</button>
+                        <div>
+                            <button style={{ width: '20vw', maxWidth: '195.81px', marginRight: '2vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => handleEditCollectionName(e)} >Edit Collection Name</button>
+                            <button style={{ width: '20vw', maxWidth: '195.81px' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)} >Delete Collection</button>
+                        </div>
+                    </div>
                 </div>
+
             )}
             {user && currCollection && Object.keys(cocktailsInList).length === 0 && (
                 <div>There are no cocktails in collection!</div>
@@ -155,14 +162,36 @@ const SpecificCollection = () => {
                     {Object.values(cocktailsInList)[0]?.map(cocktailItem => {
                         const cocktail = Object.values(allCocktails).find(cocktail => cocktail.id === cocktailItem.cocktailId)
                         return (
-                            <div>
-                                <div style={{
-                                    border: "2px solid green",
-                                    marginTop: '1vh'
-                                }} onClick={(e) => openSpecificDrink(e, cocktail)}>
-                                    <img src={`${cocktail?.image}`} style={{ height: '20vh', width: '20vw' }}></img>
-                                    <div>{cocktail?.name}</div>
-                                    <button type='button' class="btn btn-outline-dark" onClick={(e) => removeDrinkFromList(e, cocktailItem)}>Remove from List</button>
+                            // <div>
+                            //     <div style={{
+                            //         border: "2px solid gray",
+                            //         marginTop: '1vh',
+                            //         padding: '10px'
+                            //     }} onClick={(e) => openSpecificDrink(e, cocktail)}>
+                            //         <img src={`${cocktail?.image}`} style={{ height: '20vh', width: '20vw' }}></img>
+                            //         <div>{cocktail?.name}</div>
+                            //         <button type='button' class="btn btn-outline-dark" onClick={(e) => removeDrinkFromList(e, cocktailItem)} style={{ marginTop: '7px' }}>Remove from List</button>
+                            //     </div>
+                            // </div>
+                            <div class="card mb-3" style={{ width: '100%', maxWidth: '1200px', maxHeight: '30vh', marginTop: '2vh' }}>
+                                <div class="row g-0">
+                                    <div class="col-md-4" onClick={(e) => openSpecificDrink(e, cocktail)}>
+                                        <img src={`${cocktail?.image}`} class="img-fluid rounded-start" alt="..." style={{ maxHeight: '30vh' }} />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body" style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <h5 class="card-title">{cocktail?.name}</h5>
+                                            <div>Ingredients: {cocktail?.ingredients}</div>
+                                            <br></br>
+                                            {/* <div>Instructions: {cocktail?.instructions}</div>
+                                            <br></br> */}
+                                            <div>Measurements: {cocktail?.measurements}</div>
+                                            <br></br>
+                                            <button type='button' class="btn btn-outline-dark" onClick={(e) => removeDrinkFromList(e, cocktailItem)} style={{ marginTop: '7px', width: '17vw', minWidth: '155px' }}>Remove from List</button>
+                                            {/* <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> */}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -170,10 +199,10 @@ const SpecificCollection = () => {
                 </div>
             )
             }
-            <div style={{ marginTop: '2vh' }}>
+            {/* <div style={{ marginTop: '2vh' }}>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditCollectionModal" onClick={(e) => handleEditCollectionName(e)} >Edit Collection Name</button>
                 <button style={{ width: '20vw' }} type='button' class="btn btn-outline-dark" onClick={(e) => deleteCollection(e)} >Delete Collection</button>
-            </div>
+            </div> */}
 
             <div class="modal fade" id="AddDrinkModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

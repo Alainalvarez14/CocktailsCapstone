@@ -176,6 +176,12 @@ const SpecificCocktail = () => {
         console.log(image);
     };
 
+    const avgRating = () => {
+        let stars = 0
+        Object.values(allReviewsForCocktail).map(review => stars += Number(review.stars));
+        return Object.values(allReviewsForCocktail).length ? (stars / Object.values(allReviewsForCocktail).length).toFixed(1) : "Be the first to leave a review!";
+    }
+
     return (
         <div style={{ padding: '40px 40px 140px 40px' }}>
             {specificCocktail && (
@@ -201,6 +207,15 @@ const SpecificCocktail = () => {
                         {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                         <table class="table table-borderless">
                             <tbody>
+                                <tr>
+                                    <th scope="row">Rating:</th>
+                                    {/* {Object.values(allReviewsForCocktail).length && (<tr> */}
+                                    {<td>{avgRating()}</td>}
+                                </tr>
+                                {/* </tr>)} */}
+                                {/* {Object.values(allReviewsForCocktail).length === null && (<tr>
+                                    <td>Be The first to leave a review!</td>
+                                </tr>)} */}
                                 <tr>
                                     <th scope="row">Drink Type:</th>
                                     <td>{specificCocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic"}</td>
