@@ -14,7 +14,7 @@ const LoginFormModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
+        // setIsLoading(true);
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
             // .then(
