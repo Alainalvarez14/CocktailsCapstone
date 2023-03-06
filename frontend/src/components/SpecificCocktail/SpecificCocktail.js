@@ -191,7 +191,7 @@ const SpecificCocktail = () => {
                             display: 'flex',
                             justifyContent: 'space-between'
                         }}>
-                            <h1 class="display-4">{specificCocktail.name}</h1>
+                            <h1 class="display-4" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{specificCocktail.name}</h1>
                             <div style={{
                                 marginTop: 'auto',
                                 marginBottom: 'auto',
