@@ -368,14 +368,14 @@ const SpecificCocktail = () => {
                     )}
                     {allReviewsForCocktail && Object.values(allReviewsForCocktail).map(review => {
                         return (
-                            <div class="card">
+                            <div class="card" style={{ marginBottom: '1vh' }}>
                                 <div class="card-body">
                                     <div>{review.review}</div>
                                     <div>stars: {review.stars}</div>
                                     <div>Reviewed by: User{review.userId}</div>
                                     {user && user.id === review.userId && (
                                         <div>
-                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>EDIT REVIEW</button>
+                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)} style={{ marginRight: '1vw' }}>EDIT REVIEW</button>
                                             <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
                                         </div>
                                     )}

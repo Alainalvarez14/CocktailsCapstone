@@ -57,7 +57,7 @@ const LoginFormModal = () => {
 
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {errors.map((error, idx) => <li key={idx} style={{ color: 'red', listStyleType: 'none', marginLeft: '-1.2vw' }}>{error}</li>)}
                 </ul>
                 <div class="form-group" style={{
                     paddingBottom: '1vh'

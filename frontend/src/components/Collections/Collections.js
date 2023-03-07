@@ -40,7 +40,7 @@ const Collections = () => {
             {user && Object.values(allCollections).map(collection => {
                 return (
                     <li class="mb-1">
-                        <button onClick={(e) => openSpecificCollection(e, collection)} class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">{collection.name}</button>
+                        <button onClick={(e) => openSpecificCollection(e, collection)} class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{collection.name}</button>
                     </li>
                 )
             })}

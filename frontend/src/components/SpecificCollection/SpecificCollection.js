@@ -155,7 +155,7 @@ const SpecificCollection = () => {
 
             )}
             {user && currCollection && Object.keys(cocktailsInList).length === 0 && (
-                <div>There are no cocktails in collection!</div>
+                <h1 style={{ color: '#e00404', fontWeight: '200', marginTop: '1vh' }}>There are no cocktails in collection!</h1>
             )}
             {cocktailsInList && allCocktails && (
                 <div>
