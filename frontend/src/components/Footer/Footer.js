@@ -15,9 +15,9 @@ const Footer = () => {
                     <div style={{ marginTop: '-1vh', fontWeight: '320' }}>Everyone in a bar should always have a wingman!</div>
                 </a>
                 <div style={{ display: 'flex', marginLeft: 'auto', marginRight: '2%' }}>
-                    <a href="https://angel.co/u/alain-alvarez-1"><img src={`${angelList}`} style={{ height: '3vh', marginBottom: '0.4rem', marginTop: '0.4rem' }}></img></a>
-                    <a href="https://github.com/Alainalvarez14/CocktailsCapstone"><img src={`${githubLogo}`} style={{ height: '3vh', margin: '0.4rem' }}></img></a>
-                    <a href="https://www.linkedin.com/in/alain-alvarez-84400523a/"><img src={`${linkedinLogo}`} style={{ height: '3vh', margin: '0.4rem' }}></img></a>
+                    <a href="https://angel.co/u/alain-alvarez-1" target="_blank"><img src={`${angelList}`} style={{ height: '3vh', marginBottom: '0.4rem', marginTop: '0.4rem' }}></img></a>
+                    <a href="https://github.com/Alainalvarez14" target="_blank"><img src={`${githubLogo}`} style={{ height: '3vh', margin: '0.4rem' }}></img></a>
+                    <a href="https://www.linkedin.com/in/alain-alvarez-84400523a/" target="_blank"><img src={`${linkedinLogo}`} style={{ height: '3vh', margin: '0.4rem' }}></img></a>
                 </div>
             </div>
         </nav>
