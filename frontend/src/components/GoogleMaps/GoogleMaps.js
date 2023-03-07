@@ -65,9 +65,8 @@ const GoogleMaps = () => {
             map,
             position: place.geometry.location
         });
-
         google.maps.event.addListener(marker, 'click', () => {
-            alert(place.name);
+            alert(place.name + "\n" + place.vicinity + "\n" + "Store is " + (place.opening_hours.open_now ? "open" : "closed"));
             // infowindow.setContent(place.name || "");
             // infowindow.open(map);
         });

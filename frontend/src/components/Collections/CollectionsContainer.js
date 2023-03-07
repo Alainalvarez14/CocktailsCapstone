@@ -69,8 +69,8 @@ const CollectionsContainer = () => {
                 </a>
                 <ul class="list-unstyled ps-0">
                     <li class="mb-1">
-                        <img src={`${add}`} style={{ width: '3.5vw', maxWidth: '34px', minWidth: '27px', marginRight: '-0.6vw' }}></img>
-                        <button class="btn align-items-center rounded" data-bs-toggle="modal" data-bs-target="#AddCollectionModal" /*onClick={(e) => handleShowCreateNewCollectionForm(e)}*/>
+                        <img src={`${add}`} data-bs-toggle="modal" data-bs-target="#AddCollectionModal" style={{ width: '3.5vw', maxWidth: '34px', minWidth: '27px', marginRight: '-0.6vw', cursor: 'pointer' }}></img>
+                        <button class="btn align-items-center rounded" data-bs-toggle="modal" data-bs-target="#AddCollectionModal">
                             Add Collection
                         </button>
                     </li>
