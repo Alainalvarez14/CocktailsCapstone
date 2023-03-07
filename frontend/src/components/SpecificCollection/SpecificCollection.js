@@ -213,8 +213,8 @@ const SpecificCollection = () => {
                         </div>
                         <div class="modal-body">
                             <div>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => handleKeyPress(e)} ></input>
+                                <form class="d-flex" role="search" >
+                                    <input class="form-control me-2" type="search" placeholder="Search for drinks!" aria-label="Search" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => handleKeyPress(e)}></input>
                                 </form>
                                 {searchResults && name && (
                                     <ul class="list-group"
@@ -229,12 +229,10 @@ const SpecificCollection = () => {
                                             return (
                                                 <li style={{
                                                     cursor: "pointer",
-                                                    textOverflow: 'ellipsis',
-                                                    overflow: 'hidden'
-                                                }} class="list-group-item list-group-item-action"
-                                                    onClick={(e) => addDrink(e, cocktail.id)} data-bs-dismiss="modal">
+                                                    display: 'flex'
+                                                }} class="list-group-item list-group-item-action" onClick={(e) => addDrink(e, cocktail.id)} data-bs-dismiss="modal">
                                                     <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
-                                                    <span>{cocktail.name}</span>
+                                                    <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cocktail.name}</div>
                                                 </li>
                                             )
                                         })}
