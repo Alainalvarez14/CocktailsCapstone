@@ -38,12 +38,10 @@ const Searchbar = () => {
                         return (
                             <li style={{
                                 cursor: "pointer",
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden'
-                            }} class="list-group-item list-group-item-action"
-                                onClick={(e) => openSpecificCocktail(e, cocktail)}>
+                                display: 'flex'
+                            }} class="list-group-item list-group-item-action" onClick={(e) => openSpecificCocktail(e, cocktail)}>
                                 <i class="fas fa-cocktail" style={{ marginRight: '2rem', color: 'dodgerblue' }}></i>
-                                <span>{cocktail.name}</span>
+                                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cocktail.name}</div>
                             </li>
                         )
                     })}

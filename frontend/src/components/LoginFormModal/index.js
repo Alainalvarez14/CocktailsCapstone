@@ -1,31 +1,38 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
-// import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
-// import "./LoginForm.css"
 
 const LoginFormModal = () => {
 
     const dispatch = useDispatch();
-    // const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
-
-    // if (sessionUser) return (
-    //     <Redirect to="/" />
-    // );
+    // const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // setIsLoading(true);
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
+            // .then(
+            //     setTimeout(() => {
+            //         setIsLoading(false);
+            //         closeModal();
+            //     }, 500)
+            // )
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
+                // if (data) {
+                //     setTimeout(() => {
+                //         setIsLoading(false);
+                //         if (data.errors) setErrors(data.errors);
+                //     }, 500);
+                // }
             });
     }
 
@@ -47,33 +54,10 @@ const LoginFormModal = () => {
                 justifyContent: 'center',
                 marginBottom: '2vh',
             }}>Log In</h1>
-            {/* <form onSubmit={handleSubmit}>
-                <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <label>
-                    Username or Email
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit">Log In</button>
-            </form> */}
+
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {errors.map((error, idx) => <li key={idx} style={{ color: 'red', listStyleType: 'none', marginLeft: '-1.2vw' }}>{error}</li>)}
                 </ul>
                 <div class="form-group" style={{
                     paddingBottom: '1vh'
@@ -106,6 +90,15 @@ const LoginFormModal = () => {
                     Demo Login
                 </button>
             </form>
+            {/* {isLoading && <div class="spinner-border text-primary" role="status" style={{
+                display: 'flex',
+                zIndex: '99',
+                position: 'absolute',
+                marginLeft: '30%',
+                marginTop: '-40%'
+            }}>
+                <span class="visually-hidden">Loading...</span>
+            </div>} */}
         </div>
     );
 }

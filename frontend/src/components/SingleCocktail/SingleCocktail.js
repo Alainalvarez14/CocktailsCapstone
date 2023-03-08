@@ -29,7 +29,7 @@ const SingleCocktail = () => {
                                 <div class="card single-cocktail" onClick={(e) => handleShowSpecificDrinkDetails(e, drink)} style={{ cursor: "pointer" }}>
                                     <img src={`${drink.image}`} class="card-img-top drinkImage" alt="..." />
                                     <div class="card-body" style={{ height: '11vh' }}>
-                                        <h5 class="card-title">{drink.name}</h5>
+                                        <h5 class="card-title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{drink.name}</h5>
                                         <p class="card-text" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{drink.ingredients}</p>
                                     </div>
                                 </div>

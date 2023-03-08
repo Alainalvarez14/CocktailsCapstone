@@ -170,6 +170,18 @@ const SpecificCocktail = () => {
     //     console.log(editedStars)
     // }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+        console.log(image);
+    };
+
+    const avgRating = () => {
+        let stars = 0
+        Object.values(allReviewsForCocktail).map(review => stars += Number(review.stars));
+        return Object.values(allReviewsForCocktail).length ? (stars / Object.values(allReviewsForCocktail).length).toFixed(1) : "Be the first to leave a review!";
+    }
+
     return (
         <div style={{ padding: '40px 40px 140px 40px' }}>
             {specificCocktail && (
@@ -179,7 +191,7 @@ const SpecificCocktail = () => {
                             display: 'flex',
                             justifyContent: 'space-between'
                         }}>
-                            <h1 class="display-4">{specificCocktail.name}</h1>
+                            <h1 class="display-4" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{specificCocktail.name}</h1>
                             <div style={{
                                 marginTop: 'auto',
                                 marginBottom: 'auto',
@@ -195,6 +207,15 @@ const SpecificCocktail = () => {
                         {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                         <table class="table table-borderless">
                             <tbody>
+                                <tr>
+                                    <th scope="row">Rating:</th>
+                                    {/* {Object.values(allReviewsForCocktail).length && (<tr> */}
+                                    {<td>{avgRating()}</td>}
+                                </tr>
+                                {/* </tr>)} */}
+                                {/* {Object.values(allReviewsForCocktail).length === null && (<tr>
+                                    <td>Be The first to leave a review!</td>
+                                </tr>)} */}
                                 <tr>
                                     <th scope="row">Drink Type:</th>
                                     <td>{specificCocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic"}</td>
@@ -292,7 +313,7 @@ const SpecificCocktail = () => {
                                     <input class="form-control" placeholder='Ingredients' value={ingredients} onChange={(e) => setIngredients(e.target.value)}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
-                                    <input class="form-control" placeholder='Image' value={image} onChange={(e) => setImage(e.target.value)}></input>
+                                    <input type="file" class="form-control" placeholder='Image' onChange={updateFile}></input>
                                 </div>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Instructions' value={instructions} onChange={(e) => setInstructions(e.target.value)}></input>
@@ -347,14 +368,14 @@ const SpecificCocktail = () => {
                     )}
                     {allReviewsForCocktail && Object.values(allReviewsForCocktail).map(review => {
                         return (
-                            <div class="card">
+                            <div class="card" style={{ marginBottom: '1vh' }}>
                                 <div class="card-body">
                                     <div>{review.review}</div>
                                     <div>stars: {review.stars}</div>
                                     <div>Reviewed by: User{review.userId}</div>
                                     {user && user.id === review.userId && (
                                         <div>
-                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>EDIT REVIEW</button>
+                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)} style={{ marginRight: '1vw' }}>EDIT REVIEW</button>
                                             <button type="button" class="btn btn-outline-dark" onClick={(e) => handleDeleteReview(e, review)}>DELETE REVIEW</button>
                                         </div>
                                     )}
