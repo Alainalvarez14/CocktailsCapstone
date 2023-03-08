@@ -11,6 +11,7 @@ import { deleteCollectionThunk } from "../../store/collections";
 import { useHistory } from "react-router-dom";
 import { editCollectionThunk } from "../../store/collections";
 import { getAllCocktailsThunk } from "../../store/cocktails";
+import "./SpecificCollection.css";
 
 const SpecificCollection = () => {
 
@@ -176,7 +177,7 @@ const SpecificCollection = () => {
                             <div class="card mb-3" style={{ width: '100%', maxWidth: '1200px', maxHeight: '30vh', marginTop: '2vh' }}>
                                 <div class="row g-0">
                                     <div class="col-md-4" onClick={(e) => openSpecificDrink(e, cocktail)}>
-                                        <img src={`${cocktail?.image}`} class="img-fluid rounded-start" alt="..." style={{ maxHeight: '30vh' }} />
+                                        <img src={`${cocktail?.image}`} class="img-fluid rounded-start drinkImg" alt="..." style={{ maxHeight: '30vh' }} />
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body" style={{ display: 'flex', flexDirection: 'column' }}>
