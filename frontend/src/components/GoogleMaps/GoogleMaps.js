@@ -1,12 +1,16 @@
 import useExternalScripts from "../../hooks/useExternalScripts";
+// require("dotenv").config()
 
 const GoogleMaps = () => {
 
-    useExternalScripts("https://maps.googleapis.com/maps/api/js?key=AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE&libraries=places");
+    useExternalScripts(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`);
 
     let map;
     let service;
     // let infowindow;
+
+    // console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+    // console.log(process.env);
 
     function initMap() {
 
