@@ -6,6 +6,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useEffect, useState } from "react";
+import bartenderProfile from "./bartenderProfile.jpg"
 
 const MyProfileCard = () => {
 
@@ -64,7 +65,7 @@ const MyProfileCard = () => {
     return (
         <div class="card" style={{ width: '18rem' }}>
             {user && <img src={`${user.profileImage}`} class="card-img-top" alt="..." />}
-            {!user && <img src={`https://www.wowktv.com/wp-content/uploads/sites/52/2021/01/bffa689e69f048508c2d333865e136e0.jpg`} class="card-img-top" alt="..." />}
+            {!user && <img src={`${bartenderProfile}`} class="card-img-top" alt="..." />}
 
             <ul class="list-group list-group-flush" >
                 <li class="list-group-item" style={{
@@ -139,7 +140,7 @@ const MyProfileCard = () => {
                         <div class="modal-body">
                             <form onSubmit={editUser}>
                                 <ul style={{ color: 'red' }}>
-                                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                                    {errors.map((error, idx) => <li key={idx} style={{ color: 'red', listStyleType: 'none', marginLeft: '-1.2vw' }}>{error}</li>)}
                                 </ul>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='First name' value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>

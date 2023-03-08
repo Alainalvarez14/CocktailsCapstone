@@ -21,10 +21,11 @@ function Navigation({ isLoaded }) {
                 width: '35%',
                 margin: '0 auto',
                 display: 'flex',
-                padding: '0.5rem 0'
+                padding: '0.5rem 0',
+                cursor: 'pointer'
             }} onClick={() => history.push("/")}></img>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
+                <div class="container-fluid" style={{ marginLeft: '1.8vw', marginRight: '1.8vw' }}>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>

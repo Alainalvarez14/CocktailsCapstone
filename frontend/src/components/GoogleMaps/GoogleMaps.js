@@ -1,12 +1,16 @@
 import useExternalScripts from "../../hooks/useExternalScripts";
+// require("dotenv").config()
 
 const GoogleMaps = () => {
 
-    useExternalScripts("https://maps.googleapis.com/maps/api/js?key=AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE&libraries=places");
+    useExternalScripts(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`);
 
     let map;
     let service;
     // let infowindow;
+
+    // console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+    // console.log(process.env);
 
     function initMap() {
 
@@ -65,9 +69,8 @@ const GoogleMaps = () => {
             map,
             position: place.geometry.location
         });
-
         google.maps.event.addListener(marker, 'click', () => {
-            alert(place.name);
+            alert(place.name + "\n" + place.vicinity + "\n" + "Store is " + (place.opening_hours.open_now ? "open" : "closed"));
             // infowindow.setContent(place.name || "");
             // infowindow.open(map);
         });
@@ -77,7 +80,8 @@ const GoogleMaps = () => {
 
     return (
         <div>
-            <input id="searchField" type="text" size="100" />
+            <h6 style={{ marginTop: '10px', color: '#0D6EFD', fontWeight: '320' }} >Search for liquor stores near you!</h6>
+            <input id="searchField" type="text" style={{ width: '100%' }} />
             <div id="map"></div>
         </div>
     );

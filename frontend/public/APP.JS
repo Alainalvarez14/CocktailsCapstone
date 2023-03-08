@@ -115,7 +115,7 @@ function initMap() {
                 // service.nearbySearch(request2, callback);
                 var config = {
                     method: 'GET',
-                    url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE',
+                    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&keyword=cruise&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
                     headers: {}
                 };
 
@@ -176,7 +176,7 @@ function initMap() {
         };
     });
 
-    const apiKey = 'AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE';
+    const apiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
     let infoWindow = new google.maps.InfoWindow();
 
     // Show the information for a store when its marker is clicked.

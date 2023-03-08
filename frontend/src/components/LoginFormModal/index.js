@@ -10,15 +10,29 @@ const LoginFormModal = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
+    // const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // setIsLoading(true);
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
+            // .then(
+            //     setTimeout(() => {
+            //         setIsLoading(false);
+            //         closeModal();
+            //     }, 500)
+            // )
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
+                // if (data) {
+                //     setTimeout(() => {
+                //         setIsLoading(false);
+                //         if (data.errors) setErrors(data.errors);
+                //     }, 500);
+                // }
             });
     }
 
@@ -43,7 +57,7 @@ const LoginFormModal = () => {
 
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {errors.map((error, idx) => <li key={idx} style={{ color: 'red', listStyleType: 'none', marginLeft: '-1.2vw' }}>{error}</li>)}
                 </ul>
                 <div class="form-group" style={{
                     paddingBottom: '1vh'
@@ -76,6 +90,15 @@ const LoginFormModal = () => {
                     Demo Login
                 </button>
             </form>
+            {/* {isLoading && <div class="spinner-border text-primary" role="status" style={{
+                display: 'flex',
+                zIndex: '99',
+                position: 'absolute',
+                marginLeft: '30%',
+                marginTop: '-40%'
+            }}>
+                <span class="visually-hidden">Loading...</span>
+            </div>} */}
         </div>
     );
 }
