@@ -20,7 +20,7 @@ const MyProfileCard = () => {
     const [profileImage, setProfileImage] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState([]);
-    // const $ = window.$;
+    const $ = window.$;
     window.jQuery = jQuery;
 
     const logout = (e) => {
