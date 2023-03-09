@@ -7,6 +7,8 @@ const GoogleMaps = () => {
 
     let map;
     let service;
+    const google = window.google;
+
     // let infowindow;
 
     // console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);

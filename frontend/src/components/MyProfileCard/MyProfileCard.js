@@ -7,6 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useEffect, useState } from "react";
 import bartenderProfile from "./bartenderProfile.jpg"
+// import $ from 'jquery';
 
 const MyProfileCard = () => {
 
