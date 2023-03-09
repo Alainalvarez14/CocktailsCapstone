@@ -3,7 +3,7 @@ import useExternalScripts from "../../hooks/useExternalScripts";
 
 const GoogleMaps = () => {
 
-    useExternalScripts(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDu4DzSFnpfHDj2o7pQjKb2ZAnjxuloFHE&libraries=places`);
+    useExternalScripts(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`);
 
     let map;
     let service;
