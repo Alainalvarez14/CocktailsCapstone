@@ -7,7 +7,8 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useEffect, useState } from "react";
 import bartenderProfile from "./bartenderProfile.jpg"
-// import { $ } from 'jquery';
+// import $ from 'jquery';
+import jQuery from 'jquery';
 
 const MyProfileCard = () => {
 
@@ -19,7 +20,8 @@ const MyProfileCard = () => {
     const [profileImage, setProfileImage] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState([]);
-    const $ = window.$;
+    // const $ = window.$;
+    window.jQuery = jQuery;
 
     const logout = (e) => {
         e.preventDefault();
